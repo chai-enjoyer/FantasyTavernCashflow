@@ -160,27 +160,58 @@ export class GameEngine {
   selectNextCard(gameState: GameState, availableCards: Card[]): Card | null {
     if (availableCards.length === 0) return null;
 
-    // 1. Check for critical events (debt due, effect ending)
-    const criticalCards = availableCards.filter(c => c.priority === 1);
-    if (criticalCards.length > 0) return criticalCards[0];
+    // Keep track of recently shown cards to avoid repetition
+    const recentCardIds = gameState.flags
+      .filter(f => f.startsWith('recent_card_'))
+      .map(f => f.replace('recent_card_', ''));
 
-    // 2. Roll for risk events based on reputation
-    const riskChance = this.calculateRiskChance(gameState.reputation);
-    if (Math.random() < riskChance) {
-      const riskCards = availableCards.filter(c => c.priority === 2);
-      if (riskCards.length > 0) return randomSelect(riskCards);
+    // Filter out recently shown cards (last 3 cards)
+    const filteredCards = availableCards.filter(c => 
+      !recentCardIds.slice(-3).includes(c.id)
+    );
+
+    // Use filtered cards if available, otherwise use all available cards
+    const cardPool = filteredCards.length > 0 ? filteredCards : availableCards;
+
+    // 1. Check for critical events (debt due, effect ending) - priority 1
+    const criticalCards = cardPool.filter(c => c.priority === 1);
+    if (criticalCards.length > 0) {
+      return randomSelect(criticalCards);
     }
 
-    // 3. Check for story continuations
-    const storyCards = availableCards.filter(c => 
-      c.priority === 3 &&
-      c.requirements?.requiredFlags?.every(flag => gameState.flags.includes(flag))
-    );
-    if (storyCards.length > 0) return storyCards[0];
+    // 2. Roll for risk events based on reputation - priority 2
+    const riskChance = this.calculateRiskChance(gameState.reputation);
+    if (Math.random() < riskChance) {
+      const riskCards = cardPool.filter(c => c.priority === 2);
+      if (riskCards.length > 0) {
+        return randomSelect(riskCards);
+      }
+    }
 
-    // 4. Normal cards
-    const normalCards = availableCards.filter(c => c.priority === 4);
-    return normalCards.length > 0 ? randomSelect(normalCards) : null;
+    // 3. Check for story continuations - priority 3
+    const storyCards = cardPool.filter(c => 
+      c.priority === 3 &&
+      (!c.requirements?.requiredFlags || 
+       c.requirements.requiredFlags.every(flag => gameState.flags.includes(flag)))
+    );
+    if (storyCards.length > 0 && Math.random() < 0.7) { // 70% chance for story cards
+      return randomSelect(storyCards);
+    }
+
+    // 4. Normal cards - priority 4
+    const normalCards = cardPool.filter(c => c.priority === 4);
+    if (normalCards.length > 0) {
+      return randomSelect(normalCards);
+    }
+
+    // 5. Fallback: any priority 3 or 4 card from the pool
+    const fallbackCards = cardPool.filter(c => c.priority >= 3);
+    if (fallbackCards.length > 0) {
+      return randomSelect(fallbackCards);
+    }
+
+    // 6. Final fallback: any card from the original pool
+    return randomSelect(availableCards);
   }
 
   isGameOver(gameState: GameState): boolean {

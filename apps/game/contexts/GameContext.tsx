@@ -95,7 +95,10 @@ export function GameProvider({ children }: GameProviderProps) {
 
       // Get available cards and select one
       const availableCards = await getAvailableCards(user.gameState);
+      console.log('Available cards:', availableCards.length, availableCards.map(c => ({ id: c.id, priority: c.priority })));
+      
       const nextCard = gameEngine.selectNextCard(user.gameState, availableCards);
+      console.log('Selected card:', nextCard?.id, nextCard?.priority);
       
       if (!nextCard) {
         throw new Error('No available cards');
@@ -142,10 +145,16 @@ export function GameProvider({ children }: GameProviderProps) {
       const previousMoney = state.gameState.money;
       const previousReputation = state.gameState.reputation;
       
+      // Add current card to recent cards tracking
+      const updatedGameState = {
+        ...state.gameState,
+        flags: [...state.gameState.flags, `recent_card_${state.currentCard.id}`]
+      };
+      
       const newGameState = gameEngine.processCardChoice(
         state.currentCard,
         choiceIndex,
-        state.gameState
+        updatedGameState
       );
 
       // Track decision
@@ -195,7 +204,10 @@ export function GameProvider({ children }: GameProviderProps) {
       
       // Get next card
       const availableCards = await getAvailableCards(endOfTurnState);
+      console.log('Available cards for next turn:', availableCards.length, availableCards.map(c => ({ id: c.id, priority: c.priority })));
+      
       const nextCard = gameEngine.selectNextCard(endOfTurnState, availableCards);
+      console.log('Selected next card:', nextCard?.id, nextCard?.priority);
       
       if (!nextCard) {
         throw new Error('No available cards');
