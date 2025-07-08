@@ -5,8 +5,11 @@ import { Card, NPC, EMOJI } from '@repo/shared';
 import { motion } from 'framer-motion';
 import ChoiceButton from './ChoiceButton';
 import NPCPortrait from './NPCPortrait';
+import ParameterHint from './ParameterHint';
 import { AudioService } from '@/services/audio';
+import { TelegramService } from '@/services/telegram';
 import { cardVariants, staggerContainer, staggerItem } from '@/utils/animations';
+import { processCardOptions } from '@/utils/cardHelpers';
 
 interface GameCardProps {
   card: Card;
@@ -17,6 +20,11 @@ interface GameCardProps {
 export default function GameCard({ card, npc, onChoice }: GameCardProps) {
   const relationshipLevel = 0; // This would come from game state
   const audio = AudioService.getInstance();
+  const telegram = TelegramService.getInstance();
+  
+  // Process card options to hide parameters
+  const userId = telegram.getUserId();
+  const processedOptions = processCardOptions(card.options, userId);
 
   useEffect(() => {
     // Play card flip sound when new card appears
@@ -66,12 +74,16 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
             </div>
           </motion.div>
           
+          <motion.div variants={staggerItem} className="flex justify-center">
+            <ParameterHint userId={userId} />
+          </motion.div>
+          
           <motion.p variants={staggerItem} className="text-game-text text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
             {card.situation}
           </motion.p>
           
           <motion.div variants={staggerContainer} className="space-y-2 sm:space-y-3">
-            {card.options.map((option, index) => (
+            {processedOptions.map((option, index) => (
               <motion.div key={index} variants={staggerItem}>
                 <ChoiceButton
                   text={option.text}
