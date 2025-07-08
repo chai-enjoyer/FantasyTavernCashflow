@@ -14,29 +14,72 @@ import {
   writeBatch,
 } from 'firebase/firestore';
 import { db } from '../config';
+import { DataCache } from './cache';
 import type { Card, CardRequirements, GameState } from '@repo/shared';
 
 export async function getCard(cardId: string): Promise<Card | null> {
+  const cache = DataCache.getInstance();
+  
+  // Check cache first
+  const cachedCard = cache.getCard(cardId);
+  if (cachedCard) return cachedCard;
+  
+  // If not in cache, fetch from Firestore
   const cardDoc = await getDoc(doc(db, 'cards', cardId));
   if (!cardDoc.exists()) return null;
   
   const data = cardDoc.data();
-  return {
+  const card = {
     id: cardDoc.id,
     ...data,
     createdAt: data.createdAt?.toDate() || new Date(),
     updatedAt: data.updatedAt?.toDate() || new Date(),
   } as Card;
+  
+  // Cache the individual card
+  cache.set(`card_${card.id}`, card, 1000 * 60 * 60 * 24); // 24 hours
+  
+  return card;
 }
 
 export async function getAllCards(): Promise<Card[]> {
-  const cardsSnapshot = await getDocs(collection(db, 'cards'));
-  return cardsSnapshot.docs.map(doc => ({
-    id: doc.id,
-    ...doc.data(),
-    createdAt: doc.data().createdAt?.toDate() || new Date(),
-    updatedAt: doc.data().updatedAt?.toDate() || new Date(),
-  })) as Card[];
+  const cache = DataCache.getInstance();
+  
+  // Check cache first
+  const cachedCards = cache.getCards();
+  if (cachedCards) {
+    console.log('Cards loaded from cache');
+    return cachedCards;
+  }
+  
+  try {
+    // Try paginated query first
+    console.log('Loading cards from Firestore...');
+    const { PaginatedQueries } = await import('./paginatedQueries');
+    
+    // For large datasets, use batch loading
+    const cards: Card[] = [];
+    let batchCount = 0;
+    
+    for await (const batch of PaginatedQueries.loadAllCardsInBatches(200)) {
+      cards.push(...batch);
+      batchCount++;
+      console.log(`Loaded batch ${batchCount}: ${batch.length} cards (total: ${cards.length})`);
+    }
+    
+    // Cache all cards
+    await cache.setCards(cards);
+    
+    return cards;
+  } catch (error: any) {
+    // If query requires index, use fallback
+    if (error?.message?.includes('requires an index')) {
+      console.warn('Index not ready, using fallback query');
+      const { FallbackQueries } = await import('./fallbackQueries');
+      return FallbackQueries.getAllCardsSimple();
+    }
+    throw error;
+  }
 }
 
 export async function getAvailableCards(gameState: GameState): Promise<Card[]> {

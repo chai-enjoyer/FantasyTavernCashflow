@@ -7,7 +7,7 @@ import { useAuth } from '@/contexts/AuthContext';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, user } = useAuth();
   
   // Don't show navigation on login page
   if (pathname === '/login') {
@@ -56,7 +56,14 @@ export default function Navigation() {
             
             <div className="flex items-center gap-2 ml-4 pl-4 border-l border-gray-700">
               <Shield className="w-4 h-4 text-admin-primary" />
-              <span className="text-sm text-gray-400 hidden md:inline">Admin</span>
+              <div className="flex flex-col">
+                <span className="text-sm text-gray-400 hidden md:inline">
+                  {user?.displayName || 'Admin'}
+                </span>
+                <span className="text-xs text-gray-500 hidden md:inline">
+                  {user?.email}
+                </span>
+              </div>
               <button
                 onClick={logout}
                 className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-400 hover:text-admin-text hover:bg-admin-bg transition-colors"

@@ -16,6 +16,11 @@ const nextConfig = {
         crypto: false,
       };
     }
+    // Fix for Firebase Auth with Next.js
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      "undici": false
+    };
     return config;
   },
   experimental: {

@@ -153,6 +153,13 @@ export class GameEngine {
     const effectMultiplier = this.calculateEffectMultiplier(newState.temporaryEffects);
     const netIncome = (totalIncome - GAME_CONSTANTS.BASE_COSTS - totalDebtPayment) * effectMultiplier;
     newState.money += netIncome;
+    
+    // Clean up old recent card flags (keep only last 5)
+    const recentCardFlags = newState.flags.filter(f => f.startsWith('recent_card_'));
+    if (recentCardFlags.length > 5) {
+      const flagsToKeep = new Set(recentCardFlags.slice(-5));
+      newState.flags = newState.flags.filter(f => !f.startsWith('recent_card_') || flagsToKeep.has(f));
+    }
 
     return newState;
   }
@@ -161,14 +168,17 @@ export class GameEngine {
     if (availableCards.length === 0) return null;
 
     // Keep track of recently shown cards to avoid repetition
-    const recentCardIds = gameState.flags
-      .filter(f => f.startsWith('recent_card_'))
-      .map(f => f.replace('recent_card_', ''));
+    const recentCardFlags = gameState.flags.filter(f => f.startsWith('recent_card_'));
+    const recentCardIds = new Set(recentCardFlags.map(f => f.replace('recent_card_', '')));
 
-    // Filter out recently shown cards (last 3 cards)
-    const filteredCards = availableCards.filter(c => 
-      !recentCardIds.slice(-3).includes(c.id)
-    );
+    // Filter out recently shown cards (last 5 cards)
+    let filteredCards = availableCards.filter(c => !recentCardIds.has(c.id));
+    
+    // If too few cards available after filtering, only filter the most recent 2
+    if (filteredCards.length < 3 && recentCardFlags.length > 2) {
+      const veryRecentIds = new Set(recentCardFlags.slice(-2).map(f => f.replace('recent_card_', '')));
+      filteredCards = availableCards.filter(c => !veryRecentIds.has(c.id));
+    }
 
     // Use filtered cards if available, otherwise use all available cards
     const cardPool = filteredCards.length > 0 ? filteredCards : availableCards;

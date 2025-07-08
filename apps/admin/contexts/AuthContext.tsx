@@ -2,99 +2,89 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { User } from 'firebase/auth';
+import authService from '../services/auth';
 
 interface AuthContextType {
+  user: User | null;
   isAuthenticated: boolean;
   isLoading: boolean;
-  login: (apiKey: string) => Promise<boolean>;
-  logout: () => void;
+  login: (email: string, password: string) => Promise<void>;
+  logout: () => Promise<void>;
+  resetPassword: (email: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-// Note: In production, this should validate against a backend API
-// For now, we're using the environment variable
-const VALID_API_KEY = 'bLDL4wCSH77FkU4QHijvUCGvq4SQKZOWZL7XEjlmPHjtTcCaDETmmWZCtWhRuI36h1IcTZ2hy30Ke8oxFPqXMOsmaZ9cKTxEkXXS3fgw961TBzrhkD9pRi3jfUYwb36g';
-const AUTH_STORAGE_KEY = 'admin_auth_token';
-const AUTH_EXPIRY_KEY = 'admin_auth_expiry';
-const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  // Initialize auth state from localStorage to prevent flash of content
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    if (typeof window === 'undefined') return false;
-    try {
-      const token = localStorage.getItem(AUTH_STORAGE_KEY);
-      const expiry = localStorage.getItem(AUTH_EXPIRY_KEY);
-      if (token && expiry) {
-        const expiryTime = parseInt(expiry, 10);
-        return Date.now() < expiryTime;
-      }
-    } catch (error) {
-      console.error('Initial auth check failed:', error);
-    }
-    return false;
-  });
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
   const pathname = usePathname();
 
   useEffect(() => {
-    checkAuth();
+    // Subscribe to auth state changes
+    const unsubscribe = authService.onAuthStateChanged((firebaseUser) => {
+      setUser(firebaseUser);
+      setIsLoading(false);
+      
+      // Log auth state changes
+      if (firebaseUser) {
+        console.log(`User authenticated: ${firebaseUser.email}`);
+      } else {
+        console.log('User signed out');
+      }
+    });
+
+    return () => unsubscribe();
   }, []);
 
   useEffect(() => {
-    if (!isLoading && !isAuthenticated && pathname !== '/login') {
+    // Redirect to login if not authenticated and not already on login page
+    if (!isLoading && !user && pathname !== '/login') {
       router.push('/login');
     }
-  }, [isAuthenticated, isLoading, pathname, router]);
+  }, [user, isLoading, pathname, router]);
 
-  const checkAuth = () => {
+  const login = async (email: string, password: string) => {
     try {
-      const token = localStorage.getItem(AUTH_STORAGE_KEY);
-      const expiry = localStorage.getItem(AUTH_EXPIRY_KEY);
-      
-      if (token && expiry) {
-        const expiryTime = parseInt(expiry, 10);
-        if (Date.now() < expiryTime) {
-          setIsAuthenticated(true);
-        } else {
-          // Token expired
-          localStorage.removeItem(AUTH_STORAGE_KEY);
-          localStorage.removeItem(AUTH_EXPIRY_KEY);
-        }
-      }
+      const firebaseUser = await authService.signIn(email, password);
+      setUser(firebaseUser);
+      router.push('/'); // Redirect to dashboard after login
     } catch (error) {
-      console.error('Auth check failed:', error);
-    } finally {
-      setIsLoading(false);
+      // Re-throw error to be handled by the login form
+      throw error;
     }
   };
 
-  const login = async (apiKey: string): Promise<boolean> => {
-    // In production, this should make an API call to validate the key
-    if (apiKey === VALID_API_KEY) {
-      const token = btoa(apiKey + ':' + Date.now()); // Simple token generation
-      const expiry = Date.now() + SESSION_DURATION;
-      
-      localStorage.setItem(AUTH_STORAGE_KEY, token);
-      localStorage.setItem(AUTH_EXPIRY_KEY, expiry.toString());
-      setIsAuthenticated(true);
-      
-      return true;
+  const logout = async () => {
+    try {
+      await authService.signOut();
+      setUser(null);
+      router.push('/login');
+    } catch (error) {
+      console.error('Logout error:', error);
+      // Even if logout fails, clear local state
+      setUser(null);
+      router.push('/login');
     }
-    return false;
   };
 
-  const logout = () => {
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-    localStorage.removeItem(AUTH_EXPIRY_KEY);
-    setIsAuthenticated(false);
-    router.push('/login');
+  const resetPassword = async (email: string) => {
+    await authService.sendPasswordResetEmail(email);
+  };
+
+  const value: AuthContextType = {
+    user,
+    isAuthenticated: !!user,
+    isLoading,
+    login,
+    logout,
+    resetPassword,
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

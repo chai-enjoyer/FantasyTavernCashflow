@@ -54,10 +54,10 @@ export default function GameScreen() {
     setShowResult(true);
   };
 
-  const handleContinue = async () => {
+  const handleContinue = () => {
     setShowResult(false);
     setLastChoice(null);
-    await continueToNextCard();
+    continueToNextCard(); // Instant, no await
   };
 
   const handleTutorialComplete = () => {
@@ -137,11 +137,11 @@ export default function GameScreen() {
         </div>
       </div>
       
-      {/* Debug Panel for Test Mode */}
+      {/* Debug Panel for Test Mode or Browser */}
       <DebugPanel 
         gameState={gameState} 
         currentCard={currentCard} 
-        isTestMode={telegram.isTestMode()} 
+        isTestMode={telegram.isTestMode() || !telegram.isInTelegram()} 
       />
     </>
   );

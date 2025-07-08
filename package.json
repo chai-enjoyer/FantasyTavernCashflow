@@ -17,9 +17,11 @@
     "deploy": "npm run build && firebase deploy",
     "deploy:game": "npm run build && firebase deploy --only hosting:fantasy-tavern-game",
     "deploy:admin": "npm run build && firebase deploy --only hosting:fantasy-tavern-admin",
-    "emulators": "firebase emulators:start"
+    "emulators": "firebase emulators:start",
+    "admin:create-user": "node scripts/createAdminUser.js"
   },
   "devDependencies": {
+    "dotenv": "^17.1.0",
     "eslint": "^8.48.0",
     "prettier": "^3.0.3",
     "turbo": "latest"

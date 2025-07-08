@@ -1,16 +1,18 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { Shield, AlertCircle, Loader2 } from 'lucide-react';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
+import { Shield, AlertCircle, Loader2, Mail, Lock } from 'lucide-react';
 
 export default function LoginPage() {
-  const [apiKey, setApiKey] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showResetPassword, setShowResetPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
-  const { login } = useAuth();
+  const { login, resetPassword } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,85 +20,192 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
-      const success = await login(apiKey);
-      if (success) {
-        router.push('/');
-      } else {
-        setError('Invalid API key. Please check your credentials.');
-      }
-    } catch (error) {
-      setError('An error occurred. Please try again.');
+      await login(email, password);
+    } catch (err: any) {
+      setError(err.message || 'Invalid email or password');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setIsLoading(true);
+
+    try {
+      await resetPassword(resetEmail);
+      setSuccess('Password reset email sent! Check your inbox.');
+      setResetEmail('');
+      setTimeout(() => {
+        setShowResetPassword(false);
+        setSuccess('');
+      }, 3000);
+    } catch (err: any) {
+      setError(err.message || 'Failed to send reset email');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-admin-dark">
-      <div className="max-w-md w-full mx-4">
-        <div className="admin-card">
-          <div className="flex items-center justify-center mb-8">
-            <div className="p-4 bg-admin-primary/10 rounded-full">
-              <Shield className="w-12 h-12 text-admin-primary" />
-            </div>
+    <div className="min-h-screen flex items-center justify-center bg-admin-dark px-4">
+      <div className="max-w-md w-full space-y-8">
+        <div className="text-center">
+          <div className="mx-auto h-12 w-12 flex items-center justify-center bg-admin-primary/10 rounded-lg">
+            <Shield className="h-8 w-8 text-admin-primary" />
           </div>
-          
-          <h1 className="text-2xl font-bold text-center mb-2">Admin Access</h1>
-          <p className="text-gray-400 text-center mb-8">
-            Enter your API key to access the admin panel
+          <h2 className="mt-6 text-3xl font-bold text-admin-text">
+            Admin Dashboard
+          </h2>
+          <p className="mt-2 text-sm text-gray-400">
+            Sign in to access the admin panel
           </p>
+        </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <label htmlFor="apiKey" className="block text-sm font-medium mb-2">
-                API Key
-              </label>
-              <input
-                id="apiKey"
-                type="password"
-                value={apiKey}
-                onChange={(e) => setApiKey(e.target.value)}
-                className="admin-input"
-                placeholder="Enter your API key"
-                required
-                autoFocus
-              />
+        {!showResetPassword ? (
+          <form className="mt-8 space-y-6 admin-card" onSubmit={handleSubmit}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <input
+                    id="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="admin-input pl-10"
+                    placeholder="admin@example.com"
+                  />
+                  <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    id="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="admin-input pl-10"
+                    placeholder="••••••••"
+                  />
+                  <Lock className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                </div>
+              </div>
             </div>
 
             {error && (
               <div className="flex items-center gap-2 text-admin-danger text-sm">
-                <AlertCircle className="w-4 h-4" />
+                <AlertCircle className="h-4 w-4" />
                 <span>{error}</span>
               </div>
             )}
 
+            <div className="flex items-center justify-between">
+              <button
+                type="button"
+                onClick={() => setShowResetPassword(true)}
+                className="text-sm text-admin-primary hover:text-admin-primary/80"
+              >
+                Forgot password?
+              </button>
+            </div>
+
             <button
               type="submit"
-              disabled={isLoading || !apiKey}
-              className="admin-button w-full flex items-center justify-center gap-2"
+              disabled={isLoading}
+              className="admin-button w-full flex justify-center items-center gap-2"
             >
               {isLoading ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                  Authenticating...
+                  <Loader2 className="animate-spin h-4 w-4" />
+                  Signing in...
                 </>
               ) : (
-                <>
-                  <Shield className="w-4 h-4" />
-                  Login
-                </>
+                'Sign In'
               )}
             </button>
           </form>
+        ) : (
+          <form className="mt-8 space-y-6 admin-card" onSubmit={handleResetPassword}>
+            <div className="space-y-4">
+              <div>
+                <label htmlFor="reset-email" className="block text-sm font-medium text-gray-300 mb-1">
+                  Email Address
+                </label>
+                <div className="relative">
+                  <input
+                    id="reset-email"
+                    type="email"
+                    required
+                    value={resetEmail}
+                    onChange={(e) => setResetEmail(e.target.value)}
+                    className="admin-input pl-10"
+                    placeholder="admin@example.com"
+                  />
+                  <Mail className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                </div>
+              </div>
+            </div>
 
-          <div className="mt-8 pt-6 border-t border-gray-700">
-            <p className="text-sm text-gray-400 text-center">
-              Fantasy Tavern Cashflow Admin Panel
-            </p>
-            <p className="text-xs text-gray-500 text-center mt-2">
-              Secure access for game administrators only
-            </p>
-          </div>
+            {error && (
+              <div className="flex items-center gap-2 text-admin-danger text-sm">
+                <AlertCircle className="h-4 w-4" />
+                <span>{error}</span>
+              </div>
+            )}
+
+            {success && (
+              <div className="flex items-center gap-2 text-green-500 text-sm">
+                <AlertCircle className="h-4 w-4" />
+                <span>{success}</span>
+              </div>
+            )}
+
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowResetPassword(false);
+                  setError('');
+                  setSuccess('');
+                }}
+                className="flex-1 py-2 px-4 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-transparent hover:bg-gray-800 transition-colors"
+              >
+                Back to Login
+              </button>
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="flex-1 admin-button flex justify-center items-center gap-2"
+              >
+                {isLoading ? (
+                  <>
+                    <Loader2 className="animate-spin h-4 w-4" />
+                    Sending...
+                  </>
+                ) : (
+                  'Send Reset Email'
+                )}
+              </button>
+            </div>
+          </form>
+        )}
+
+        <div className="mt-6 text-center text-xs text-gray-500">
+          <p>Protected by Firebase Authentication</p>
         </div>
       </div>
     </div>

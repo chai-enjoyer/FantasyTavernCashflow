@@ -56,6 +56,10 @@ export class TelegramService {
     return this.testMode;
   }
 
+  public isInTelegram(): boolean {
+    return !this.mockMode && this.webApp !== null;
+  }
+
   public getUser(): TelegramUser | null {
     if (this.mockMode) {
       // Return mock user for development

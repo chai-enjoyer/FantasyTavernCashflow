@@ -68,6 +68,7 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
 
     // Initial log
     console.log('🧪 Debug Panel Initialized');
+    console.log('Running in:', window.Telegram?.WebApp ? 'Telegram' : 'Browser');
 
     return () => {
       console.log = originalLog;
@@ -140,7 +141,7 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
             <div className="flex items-center justify-between p-3 border-b border-gray-700">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
                 <Bug className="w-4 h-4" />
-                Debug Panel
+                Debug Panel {typeof window !== 'undefined' && !window.Telegram?.WebApp && '(Browser Mode)'}
               </h3>
               <div className="flex items-center gap-2">
                 <button
