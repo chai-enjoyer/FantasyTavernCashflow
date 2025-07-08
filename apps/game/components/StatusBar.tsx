@@ -3,12 +3,15 @@
 import { useState, useEffect } from 'react';
 import { GameState, formatMoney, formatReputation, calculateRiskPercentage, EMOJI } from '@repo/shared';
 import { motion, AnimatePresence } from 'framer-motion';
+import { User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface StatusBarProps {
   gameState: GameState;
 }
 
 export default function StatusBar({ gameState }: StatusBarProps) {
+  const router = useRouter();
   const riskPercentage = calculateRiskPercentage(gameState.reputation);
   const enemyCount = Object.values(gameState.npcRelationships).filter(rel => rel < -50).length;
   
@@ -119,8 +122,18 @@ export default function StatusBar({ gameState }: StatusBarProps) {
         )}
       </div>
 
-      <div className="mt-1 text-xs text-gray-400 text-center">
-        Turn {gameState.turn}
+      <div className="mt-1 flex items-center justify-between">
+        <div className="text-xs text-gray-400">
+          Turn {gameState.turn}
+        </div>
+        
+        <button
+          onClick={() => router.push('/account')}
+          className="p-1.5 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
+          aria-label="View Account"
+        >
+          <User className="w-4 h-4 text-gray-300" />
+        </button>
       </div>
     </div>
   );
