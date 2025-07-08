@@ -2,14 +2,12 @@ import { CardOption } from '@repo/shared';
 
 // Remove parameter hints from option text for players without boosters
 export function hideOptionParameters(text: string): string {
-  // Remove content in parentheses that contains numbers with 'g' (gold) or mentions costs/gains
+  // Remove content in parentheses that contains monetary values or costs
   const cleanedText = text
-    .replace(/\s*\([^)]*\d+g[^)]*\)/gi, '') // Remove (costs 200g), (gain 100g), etc.
-    .replace(/\s*\([^)]*cost[^)]*\)/gi, '') // Remove (costs X), (no cost), etc.
-    .replace(/\s*\([^)]*gain[^)]*\)/gi, '') // Remove (gain X), etc.
-    .replace(/\s*\([^)]*pay[^)]*\)/gi, '') // Remove (pay X), etc.
-    .replace(/\s*\([^)]*free[^)]*\)/gi, '') // Remove (free), etc.
-    .replace(/\s*\([^)]*per turn[^)]*\)/gi, '') // Remove (X per turn), etc.
+    .replace(/\s*\(costs\s+\d+g\)/gi, '') // Remove (costs 20g), (costs 2000g), etc.
+    .replace(/\s*\(\d+g\s+per\s+turn\)/gi, '') // Remove (100g per turn), etc.
+    .replace(/\s*\([^)]*\d+g[^)]*\)/gi, '') // Remove any other parentheses with gold amounts
+    .replace(/\s*\(free\)/gi, '') // Remove (free)
     .trim();
   
   return cleanedText;

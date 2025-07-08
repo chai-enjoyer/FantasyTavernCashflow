@@ -5,7 +5,6 @@ import { Card, NPC, EMOJI } from '@repo/shared';
 import { motion } from 'framer-motion';
 import ChoiceButton from './ChoiceButton';
 import NPCPortrait from './NPCPortrait';
-import ParameterHint from './ParameterHint';
 import { AudioService } from '@/services/audio';
 import { TelegramService } from '@/services/telegram';
 import { cardVariants, staggerContainer, staggerItem } from '@/utils/animations';
@@ -72,10 +71,6 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
               <span className="text-gray-400">Reliability:</span>
               <span className="text-game-text">{npc.reliability}%</span>
             </div>
-          </motion.div>
-          
-          <motion.div variants={staggerItem} className="flex justify-center">
-            <ParameterHint userId={userId} />
           </motion.div>
           
           <motion.p variants={staggerItem} className="text-game-text text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
