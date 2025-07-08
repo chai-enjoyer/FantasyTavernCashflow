@@ -8,7 +8,7 @@ import NPCPortrait from './NPCPortrait';
 import { AudioService } from '@/services/audio';
 import { TelegramService } from '@/services/telegram';
 import { cardVariants, staggerContainer, staggerItem } from '@/utils/animations';
-import { processCardOptions } from '@/utils/cardHelpers';
+import { hasParameterBooster } from '@/utils/cardHelpers';
 
 interface GameCardProps {
   card: Card;
@@ -21,9 +21,9 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
   const audio = AudioService.getInstance();
   const telegram = TelegramService.getInstance();
   
-  // Process card options to hide parameters
+  // Check if user has booster to see NPC parameters
   const userId = telegram.getUserId();
-  const processedOptions = processCardOptions(card.options, userId);
+  const showNPCParameters = hasParameterBooster(userId);
 
   useEffect(() => {
     // Play card flip sound when new card appears
@@ -57,20 +57,24 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
           </motion.h2>
           
           <motion.div variants={staggerItem} className="flex items-center justify-center gap-3 sm:gap-4 text-xs sm:text-sm mb-4 flex-wrap">
-            <div className="flex items-center gap-1">
-              <span className="text-game-gold">{'⭐'.repeat(npc.wealth)}</span>
-              <span className="text-gray-400">Wealth</span>
-            </div>
+            {showNPCParameters && (
+              <div className="flex items-center gap-1">
+                <span className="text-game-gold">{'⭐'.repeat(npc.wealth)}</span>
+                <span className="text-gray-400">Wealth</span>
+              </div>
+            )}
             
             <div className="flex items-center gap-1">
               <span>{relationshipLevel >= 0 ? EMOJI.FRIEND : EMOJI.ENEMY}</span>
               <span className="text-gray-400">{Math.abs(relationshipLevel)}</span>
             </div>
             
-            <div className="flex items-center gap-1">
-              <span className="text-gray-400">Reliability:</span>
-              <span className="text-game-text">{npc.reliability}%</span>
-            </div>
+            {showNPCParameters && (
+              <div className="flex items-center gap-1">
+                <span className="text-gray-400">Reliability:</span>
+                <span className="text-game-text">{npc.reliability}%</span>
+              </div>
+            )}
           </motion.div>
           
           <motion.p variants={staggerItem} className="text-game-text text-sm sm:text-base mb-4 sm:mb-6 leading-relaxed">
@@ -78,7 +82,7 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
           </motion.p>
           
           <motion.div variants={staggerContainer} className="space-y-2 sm:space-y-3">
-            {processedOptions.map((option, index) => (
+            {card.options.map((option, index) => (
               <motion.div key={index} variants={staggerItem}>
                 <ChoiceButton
                   text={option.text}
