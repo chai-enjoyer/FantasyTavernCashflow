@@ -2,29 +2,22 @@ import { Variants } from 'framer-motion';
 
 export const cardVariants: Variants = {
   enter: {
-    x: 300,
     opacity: 0,
-    rotate: 5,
-    scale: 0.9,
+    scale: 0.95,
   },
   center: {
-    x: 0,
     opacity: 1,
-    rotate: 0,
     scale: 1,
     transition: {
-      type: 'spring',
-      stiffness: 200,
-      damping: 20,
+      duration: 0.1,
+      ease: 'easeOut',
     },
   },
   exit: {
-    x: -300,
     opacity: 0,
-    rotate: -5,
-    scale: 0.9,
+    scale: 0.95,
     transition: {
-      duration: 0.3,
+      duration: 0.1,
     },
   },
 };
@@ -55,7 +48,7 @@ export const staggerContainer: Variants = {
   initial: {},
   animate: {
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.02,
     },
   },
 };
@@ -63,13 +56,11 @@ export const staggerContainer: Variants = {
 export const staggerItem: Variants = {
   initial: {
     opacity: 0,
-    x: -20,
   },
   animate: {
     opacity: 1,
-    x: 0,
     transition: {
-      duration: 0.3,
+      duration: 0.1,
     },
   },
 };

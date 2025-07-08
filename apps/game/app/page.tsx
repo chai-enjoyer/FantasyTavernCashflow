@@ -6,11 +6,13 @@ import GameScreen from '@/components/GameScreen';
 import LoadingScreen from '@/components/LoadingScreen';
 import TestModeInfo from '@/components/TestModeInfo';
 import { useTelegram } from '@/hooks/useTelegram';
+import { GameDataPreloader } from '@/services/preloader';
 
 export default function Home() {
   const { isReady, telegram } = useTelegram();
   const [showTestInfo, setShowTestInfo] = useState(false);
   const [testModeStarted, setTestModeStarted] = useState(false);
+  const [isPreloading, setIsPreloading] = useState(true);
 
   useEffect(() => {
     // Add Telegram WebApp script if not already loaded
@@ -28,6 +30,18 @@ export default function Home() {
         setShowTestInfo(true);
       }
     }
+    
+    // Preload game data
+    const preloader = GameDataPreloader.getInstance();
+    preloader.preloadGameData()
+      .then((result) => {
+        console.log('Game data preloaded:', result);
+        setIsPreloading(false);
+      })
+      .catch((error) => {
+        console.error('Failed to preload game data:', error);
+        setIsPreloading(false); // Continue anyway
+      });
   }, []);
 
   const handleStartTest = () => {
@@ -40,6 +54,10 @@ export default function Home() {
   }
 
   if (!isReady && !testModeStarted) {
+    return <LoadingScreen />;
+  }
+  
+  if (isPreloading) {
     return <LoadingScreen />;
   }
 

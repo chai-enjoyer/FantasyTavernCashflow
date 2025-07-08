@@ -35,17 +35,19 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
   
   return (
     <motion.div
+      key={card.id}
       variants={cardVariants}
       initial="enter"
       animate="center"
       exit="exit"
+      transition={{ duration: 0.05 }}
       className="max-w-md mx-auto"
     >
       <div className="bg-game-card rounded-lg border border-game-border p-4 sm:p-6 shadow-2xl">
         <motion.div
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.2 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.05 }}
           className="max-w-[200px] mx-auto"
         >
           <NPCPortrait npc={npc} emotion="neutral" />
