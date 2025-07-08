@@ -11,11 +11,12 @@ import ErrorScreen from './ErrorScreen';
 import Tutorial from './Tutorial';
 import PortfolioModal from './PortfolioModal';
 import HelpModal from './HelpModal';
+import ProfileModal from './ProfileModal';
 import DebugPanel from './DebugPanel';
 import { GameEngine } from '@repo/game-logic';
 import { StorageService } from '@/services/storage';
 import { TelegramService } from '@/services/telegram';
-import { BarChart3, HelpCircle } from 'lucide-react';
+import { BarChart3, HelpCircle, User } from 'lucide-react';
 
 export default function GameScreen() {
   const {
@@ -28,6 +29,7 @@ export default function GameScreen() {
     selectChoice,
     continueToNextCard,
     resetGame,
+    user,
   } = useGame();
 
   const [showResult, setShowResult] = useState(false);
@@ -35,6 +37,7 @@ export default function GameScreen() {
   const [showTutorial, setShowTutorial] = useState(false);
   const [showPortfolio, setShowPortfolio] = useState(false);
   const [showHelp, setShowHelp] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
   const gameEngine = new GameEngine();
   const storage = StorageService.getInstance();
   const telegram = TelegramService.getInstance();
@@ -93,6 +96,13 @@ export default function GameScreen() {
         isOpen={showHelp} 
         onClose={() => setShowHelp(false)} 
       />
+      {user && (
+        <ProfileModal
+          isOpen={showProfile}
+          onClose={() => setShowProfile(false)}
+          user={user}
+        />
+      )}
       
       <div className="game-container flex flex-col">
         <StatusBar gameState={gameState} />
@@ -118,20 +128,27 @@ export default function GameScreen() {
           </div>
           
           {/* Bottom Action Buttons */}
-          <div className="flex gap-3 p-4 bg-game-card border-t border-game-border">
+          <div className="flex gap-2 p-3 bg-game-card border-t border-game-border">
             <button
               onClick={() => setShowPortfolio(true)}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
             >
-              <BarChart3 className="w-5 h-5" />
-              <span className="font-semibold">Portfolio</span>
+              <BarChart3 className="w-4 h-4" />
+              <span className="font-semibold text-sm">Portfolio</span>
+            </button>
+            <button
+              onClick={() => setShowProfile(true)}
+              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
+            >
+              <User className="w-4 h-4" />
+              <span className="font-semibold text-sm">Profile</span>
             </button>
             <button
               onClick={() => setShowHelp(true)}
-              className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
+              className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
             >
-              <HelpCircle className="w-5 h-5" />
-              <span className="font-semibold">Help</span>
+              <HelpCircle className="w-4 h-4" />
+              <span className="font-semibold text-sm">Help</span>
             </button>
           </div>
         </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useReducer, useEffect, useState } from 'react';
-import { GameState, Card, NPC, GameConfig } from '@repo/shared';
+import { GameState, Card, NPC, GameConfig, User } from '@repo/shared';
 import { GameEngine } from '@repo/game-logic';
 import {
   getUser,
@@ -22,6 +22,7 @@ interface GameContextState {
   nextCard: Card | null; // Pre-loaded next card
   nextNPC: NPC | null; // Pre-loaded next NPC
   gameConfig: GameConfig | null;
+  user: User | null;
   isLoading: boolean;
   error: string | null;
 }
@@ -57,6 +58,7 @@ export function GameProvider({ children }: GameProviderProps) {
     nextCard: null,
     nextNPC: null,
     gameConfig: null,
+    user: null,
     isLoading: true,
     error: null,
   });
@@ -172,6 +174,7 @@ export function GameProvider({ children }: GameProviderProps) {
         nextCard: null,
         nextNPC: null,
         gameConfig: config,
+        user: user,
         isLoading: false,
         error: null,
       });
@@ -276,6 +279,22 @@ export function GameProvider({ children }: GameProviderProps) {
         totalDecisions: 1,
         maxMoney: Math.max(state.gameState.money, endOfTurnState.money),
         maxTurns: endOfTurnState.turn,
+      }).then(() => {
+        // Update local user state
+        if (state.user) {
+          setState(prev => ({
+            ...prev,
+            user: {
+              ...prev.user!,
+              statistics: {
+                ...prev.user!.statistics,
+                totalDecisions: prev.user!.statistics.totalDecisions + 1,
+                maxMoney: Math.max(prev.user!.statistics.maxMoney, endOfTurnState.money),
+                maxTurns: Math.max(prev.user!.statistics.maxTurns, endOfTurnState.turn),
+              }
+            }
+          }));
+        }
       });
       
       // Start preloading next card (synchronous)
