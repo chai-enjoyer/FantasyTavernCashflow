@@ -1,0 +1,38 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // TEMPORARY: Allow all reads and writes for initial setup
+    // TODO: Implement proper authentication before production
+    
+    // Users collection - anyone can read/write their own data (telegram ID based)
+    match /users/{userId} {
+      allow read: if true; // Users need to read their own data
+      allow create: if true; // Allow creating new users
+      allow update: if true; // Allow updating user data
+      allow delete: if false; // Prevent deletion
+    }
+    
+    // Cards collection - public read, temporary write access
+    match /cards/{cardId} {
+      allow read: if true;
+      allow write: if true; // TEMPORARY: Remove in production
+    }
+    
+    // NPCs collection - public read, temporary write access
+    match /npcs/{npcId} {
+      allow read: if true;
+      allow write: if true; // TEMPORARY: Remove in production
+    }
+    
+    // Game config - public read, temporary write access
+    match /gameConfig/{configId} {
+      allow read: if true;
+      allow write: if true; // TEMPORARY: Remove in production
+    }
+    
+    // Admin users collection - temporary access
+    match /adminUsers/{adminId} {
+      allow read, write: if true; // TEMPORARY: Remove in production
+    }
+  }
+}

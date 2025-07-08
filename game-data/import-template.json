@@ -1,0 +1,117 @@
+{
+  "gameConfig": {
+    "startingMoney": 10000,
+    "startingReputation": 0,
+    "baseIncome": 100,
+    "baseCosts": 50,
+    "scalingFormulas": {
+      "moneyScaling": "turn * 1.05",
+      "reputationImpact": "reputation * 0.01",
+      "riskCalculation": "max(0, min(100, 50 - reputation))"
+    },
+    "version": "1.0.0"
+  },
+  "npcs": [
+    {
+      "id": "unique_npc_id",
+      "name": "NPC Name",
+      "class": "commoner|adventurer|criminal|noble|cleric|mage|royal|crime_boss|dragon",
+      "wealth": 1,
+      "reliability": 80,
+      "portraits": {
+        "neutral": "/images/npcs/class_neutral.png",
+        "positive": "/images/npcs/class_positive.png",
+        "negative": "/images/npcs/class_negative.png"
+      },
+      "description": "A brief description of the NPC"
+    }
+  ],
+  "cards": [
+    {
+      "id": "unique_card_id",
+      "type": "immediate|passive_income|debt|modifier|delayed|social|chain",
+      "category": "service|business|event|threat|moral|magical|royal|underworld|legendary",
+      "npcId": "reference_to_npc_id",
+      "title": "Card Title",
+      "description": "Brief card description",
+      "situation": "The full scenario text that sets up the player's choice",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Option 1 text",
+          "consequences": {
+            "money": 0,
+            "reputation": 0,
+            "passiveIncome": {
+              "id": "income_id",
+              "amount": 50,
+              "description": "Income description",
+              "remainingTurns": 10
+            },
+            "debt": {
+              "id": "debt_id",
+              "principal": 1000,
+              "totalAmount": 1200,
+              "turnsRemaining": 10,
+              "paymentPerTurn": 120,
+              "creditorId": "npc_id",
+              "collateral": "What's at stake"
+            },
+            "temporaryEffect": {
+              "id": "effect_id",
+              "type": "money_multiplier|reputation_boost|cost_reduction|risk_modifier",
+              "value": 1.5,
+              "turnsRemaining": 10,
+              "description": "Effect description"
+            },
+            "flags": ["flag_name"],
+            "delayedEvent": {
+              "cardId": "future_card_id",
+              "turnsUntil": 5
+            },
+            "npcRelationship": {
+              "npcId": "npc_id",
+              "change": 50
+            }
+          },
+          "resultText": "The outcome narrative after choosing this option",
+          "npcEmotion": "positive|neutral|negative"
+        },
+        {
+          "text": "Option 2 text",
+          "consequences": {
+            "money": 0,
+            "reputation": 0
+          },
+          "resultText": "Option 2 outcome",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Option 3 text",
+          "consequences": {
+            "money": 0,
+            "reputation": 0
+          },
+          "resultText": "Option 3 outcome",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Option 4 text",
+          "consequences": {
+            "money": 0,
+            "reputation": 0
+          },
+          "resultText": "Option 4 outcome",
+          "npcEmotion": "neutral"
+        }
+      ],
+      "requirements": {
+        "minMoney": 0,
+        "minReputation": 0,
+        "maxReputation": 100,
+        "flags": ["required_flag"],
+        "missingFlags": ["must_not_have_flag"]
+      }
+    }
+  ]
+}

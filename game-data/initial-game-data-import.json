@@ -1,0 +1,729 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2025-01-07T00:00:00.000Z",
+  "config": {
+    "startingMoney": 10000,
+    "startingReputation": 0,
+    "baseIncome": 100,
+    "baseCosts": 50,
+    "scalingFormulas": {
+      "moneyScaling": "turn * 1.05",
+      "reputationImpact": "reputation * 0.01",
+      "riskCalculation": "max(0, min(100, 50 - reputation))"
+    },
+    "version": "1.0.0",
+    "updatedAt": "2025-01-07T00:00:00.000Z"
+  },
+  "npcs": [
+    {
+      "id": "commoner_tom",
+      "name": "Tom the Farmer",
+      "class": "commoner",
+      "wealth": 1,
+      "reliability": 90,
+      "portraits": {
+        "neutral": "/images/npcs/commoner_neutral.png",
+        "positive": "/images/npcs/commoner_positive.png",
+        "negative": "/images/npcs/commoner_negative.png"
+      },
+      "description": "A humble farmer looking for simple ale and a warm meal",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "adventurer_lyra",
+      "name": "Lyra the Ranger",
+      "class": "adventurer",
+      "wealth": 2,
+      "reliability": 70,
+      "portraits": {
+        "neutral": "/images/npcs/adventurer_neutral.png",
+        "positive": "/images/npcs/adventurer_positive.png",
+        "negative": "/images/npcs/adventurer_negative.png"
+      },
+      "description": "A seasoned adventurer with tales to tell and coin to spend",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "criminal_vex",
+      "name": "Vex the Shadow",
+      "class": "criminal",
+      "wealth": 3,
+      "reliability": 40,
+      "portraits": {
+        "neutral": "/images/npcs/criminal_neutral.png",
+        "positive": "/images/npcs/criminal_positive.png",
+        "negative": "/images/npcs/criminal_negative.png"
+      },
+      "description": "A mysterious figure who deals in secrets and stolen goods",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "noble_aldric",
+      "name": "Lord Aldric",
+      "class": "noble",
+      "wealth": 4,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "/images/npcs/noble_neutral.png",
+        "positive": "/images/npcs/noble_positive.png",
+        "negative": "/images/npcs/noble_negative.png"
+      },
+      "description": "A wealthy noble with expensive tastes and high expectations",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "cleric_elena",
+      "name": "Sister Elena",
+      "class": "cleric",
+      "wealth": 2,
+      "reliability": 95,
+      "portraits": {
+        "neutral": "/images/npcs/cleric_neutral.png",
+        "positive": "/images/npcs/cleric_positive.png",
+        "negative": "/images/npcs/cleric_negative.png"
+      },
+      "description": "A devoted cleric who values charity and honest dealings",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "mage_zephyr",
+      "name": "Zephyr the Wise",
+      "class": "mage",
+      "wealth": 3,
+      "reliability": 75,
+      "portraits": {
+        "neutral": "/images/npcs/mage_neutral.png",
+        "positive": "/images/npcs/mage_positive.png",
+        "negative": "/images/npcs/mage_negative.png"
+      },
+      "description": "An eccentric wizard with unusual requests and magical payments",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "royal_princess",
+      "name": "Princess Aria",
+      "class": "royal",
+      "wealth": 5,
+      "reliability": 80,
+      "portraits": {
+        "neutral": "/images/npcs/royal_neutral.png",
+        "positive": "/images/npcs/royal_positive.png",
+        "negative": "/images/npcs/royal_negative.png"
+      },
+      "description": "The kingdom's princess, traveling incognito",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "crime_boss_grimm",
+      "name": "Grimm the Enforcer",
+      "class": "crime_boss",
+      "wealth": 4,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "/images/npcs/crime_boss_neutral.png",
+        "positive": "/images/npcs/crime_boss_positive.png",
+        "negative": "/images/npcs/crime_boss_negative.png"
+      },
+      "description": "The local crime lord who controls the underground",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "dragon_smaug",
+      "name": "Smaug the Golden",
+      "class": "dragon",
+      "wealth": 5,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "/images/npcs/dragon_neutral.png",
+        "positive": "/images/npcs/dragon_positive.png",
+        "negative": "/images/npcs/dragon_negative.png"
+      },
+      "description": "An ancient dragon with a hoard of gold and a terrible temper",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    }
+  ],
+  "cards": [
+    {
+      "id": "farmer_thirsty",
+      "type": "immediate",
+      "category": "service",
+      "npcId": "commoner_tom",
+      "title": "Thirsty Farmer",
+      "description": "A simple request for refreshment",
+      "situation": "Tom enters your tavern, exhausted from a long day in the fields. His clothes are dusty and he looks parched. He approaches the bar with a weary smile.",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Serve fresh ale (costs 20g)",
+          "consequences": {
+            "money": 50,
+            "reputation": 1
+          },
+          "resultText": "Tom's face lights up as he tastes the cold ale. 'Just what I needed!' he exclaims, telling other farmers about your hospitality.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Serve watered-down ale to save costs",
+          "consequences": {
+            "money": 40,
+            "reputation": -2
+          },
+          "resultText": "Tom frowns after the first sip. 'This tastes like dishwater,' he mutters, leaving quickly.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Offer premium imported ale for more gold",
+          "consequences": {
+            "money": 80,
+            "reputation": 2
+          },
+          "resultText": "Tom is surprised but pleased. 'Fancy stuff! Worth every copper!' He'll definitely be back.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Apologize and say you're out of ale",
+          "consequences": {
+            "money": 0,
+            "reputation": -1
+          },
+          "resultText": "Tom sighs deeply. 'What kind of tavern runs out of ale?' He leaves disappointed.",
+          "npcEmotion": "neutral"
+        }
+      ],
+      "requirements": {
+        "minMoney": 20
+      },
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "adventurer_proposal",
+      "type": "passive_income",
+      "category": "business",
+      "npcId": "adventurer_lyra",
+      "title": "Adventurer's Proposal",
+      "description": "A business opportunity from a traveling adventurer",
+      "situation": "Lyra leans against your bar, her weathered map spread before her. 'I travel to many towns,' she says. 'I could spread word of your tavern in exchange for free meals when I'm here. What say you?'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Accept her offer gladly",
+          "consequences": {
+            "passiveIncome": {
+              "id": "adventurer_referrals",
+              "amount": 50,
+              "description": "Adventurer referrals",
+              "remainingTurns": 20
+            }
+          },
+          "resultText": "Lyra grins and shakes your hand. 'You won't regret this! I'll send every adventurer I meet your way.'",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Counter with half-price meals instead",
+          "consequences": {
+            "money": 100,
+            "passiveIncome": {
+              "id": "adventurer_referrals_reduced",
+              "amount": 30,
+              "description": "Adventurer referrals (reduced)",
+              "remainingTurns": 15
+            }
+          },
+          "resultText": "Lyra considers, then nods. 'Fair enough. Half price it is, and I'll still mention your place.'",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Decline politely",
+          "consequences": {
+            "money": 0
+          },
+          "resultText": "Lyra shrugs. 'Your loss, innkeeper.' She orders a regular meal and pays full price.",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Offer to pay her for referrals instead",
+          "consequences": {
+            "money": -200,
+            "reputation": 5
+          },
+          "resultText": "Lyra's eyes widen. 'Now that's business sense! I'll make sure everyone knows about your generosity.'",
+          "npcEmotion": "positive"
+        }
+      ],
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "noble_banquet",
+      "type": "immediate",
+      "category": "event",
+      "npcId": "noble_aldric",
+      "title": "Noble's Banquet Request",
+      "description": "A high-stakes catering opportunity",
+      "situation": "Lord Aldric sweeps into your tavern with his entourage. 'I require your establishment for a banquet tomorrow evening. Twenty nobles will attend. This could make your reputation... or destroy it.'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Accept and prepare a lavish feast (costs 2000g)",
+          "consequences": {
+            "money": 5000,
+            "reputation": 20
+          },
+          "resultText": "The banquet is a triumph! Nobles toast your name, and word of your excellence spreads throughout the kingdom.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Accept but cut corners to save money",
+          "consequences": {
+            "money": 3000,
+            "reputation": -30
+          },
+          "resultText": "Disaster! The nobles are appalled by the subpar food. Lord Aldric storms out, vowing to ruin your reputation.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Politely decline due to short notice",
+          "consequences": {
+            "money": 0,
+            "reputation": -5
+          },
+          "resultText": "Lord Aldric frowns. 'How disappointing. I had heard good things about this place.' He leaves quietly.",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Recommend a competitor's establishment",
+          "consequences": {
+            "money": 200,
+            "reputation": 10
+          },
+          "resultText": "Lord Aldric is surprised by your honesty. 'Integrity! How refreshing. Here's something for your trouble.'",
+          "npcEmotion": "positive"
+        }
+      ],
+      "requirements": {
+        "minMoney": 2000,
+        "minReputation": 10
+      },
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "criminal_protection",
+      "type": "debt",
+      "category": "threat",
+      "npcId": "criminal_vex",
+      "title": "Protection Offer",
+      "description": "An offer you might not be able to refuse",
+      "situation": "Vex slides into a shadowy corner booth. 'Nice place you have here. Would be a shame if something... happened to it. My associates offer protection, for a reasonable fee.'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Accept the protection (100g per turn)",
+          "consequences": {
+            "debt": {
+              "id": "protection_money",
+              "principal": 0,
+              "totalAmount": 1000,
+              "turnsRemaining": 10,
+              "paymentPerTurn": 100,
+              "creditorId": "criminal_vex",
+              "collateral": "Your tavern's safety"
+            }
+          },
+          "resultText": "Vex smiles coldly. 'Smart choice. You won't have any... accidents. Payment due weekly.'",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Refuse and stand your ground",
+          "consequences": {
+            "money": -500,
+            "reputation": 10,
+            "flags": ["refused_protection"]
+          },
+          "resultText": "That night, your windows are smashed. But the townspeople admire your courage against the criminals.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Report to the town guard immediately",
+          "consequences": {
+            "reputation": 15,
+            "flags": ["reported_criminals"],
+            "npcRelationship": {
+              "npcId": "criminal_vex",
+              "change": -50
+            }
+          },
+          "resultText": "The guards thank you for the tip. Vex glares at you as they're arrested. You've made a powerful enemy.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Negotiate for a lower rate",
+          "consequences": {
+            "debt": {
+              "id": "protection_money_reduced",
+              "principal": 0,
+              "totalAmount": 500,
+              "turnsRemaining": 10,
+              "paymentPerTurn": 50,
+              "creditorId": "criminal_vex"
+            }
+          },
+          "resultText": "Vex considers. 'You've got guts. Fine, half rate. But don't push your luck.'",
+          "npcEmotion": "positive"
+        }
+      ],
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "cleric_charity",
+      "type": "immediate",
+      "category": "moral",
+      "npcId": "cleric_elena",
+      "title": "Plea for Charity",
+      "description": "A test of your generosity",
+      "situation": "Sister Elena enters with a group of orphans. 'The children haven't eaten in two days. I know times are hard, but could you spare some food? The gods remember kindness.'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Feed them a full meal for free",
+          "consequences": {
+            "money": -100,
+            "reputation": 15,
+            "temporaryEffect": {
+              "id": "blessed",
+              "type": "reputation_boost",
+              "value": 1.2,
+              "turnsRemaining": 10,
+              "description": "Blessed by the gods"
+            }
+          },
+          "resultText": "Sister Elena's eyes fill with tears. 'Bless you!' The children eat happily. You feel a divine warmth.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Offer leftover bread and water",
+          "consequences": {
+            "money": -20,
+            "reputation": 5
+          },
+          "resultText": "Sister Elena nods gratefully. 'Every bit helps. Thank you for your kindness.'",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Charge half price for simple fare",
+          "consequences": {
+            "money": 50,
+            "reputation": -5
+          },
+          "resultText": "Sister Elena sighs and counts her few coins. 'I suppose business is business...'",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Refuse - you can't afford charity",
+          "consequences": {
+            "reputation": -15,
+            "temporaryEffect": {
+              "id": "cursed",
+              "type": "reputation_boost",
+              "value": 0.8,
+              "turnsRemaining": 5,
+              "description": "Cursed for greed"
+            }
+          },
+          "resultText": "Sister Elena's face hardens. 'May you never know hunger.' She leaves, and you feel a chill.",
+          "npcEmotion": "negative"
+        }
+      ],
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "mage_experiment",
+      "type": "modifier",
+      "category": "magical",
+      "npcId": "mage_zephyr",
+      "title": "Magical Experiment",
+      "description": "An unusual magical proposition",
+      "situation": "Zephyr bursts in excitedly, robes singed. 'I need your strongest spirits for an experiment! In exchange, I'll enchant your tavern. What could go wrong?'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Provide your finest spirits for science!",
+          "consequences": {
+            "money": -200,
+            "temporaryEffect": {
+              "id": "magical_attraction",
+              "type": "money_multiplier",
+              "value": 1.5,
+              "turnsRemaining": 15,
+              "description": "Magical aura attracts customers"
+            }
+          },
+          "resultText": "The experiment succeeds! Your tavern now glows softly, attracting curious customers from afar.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Offer regular spirits and hope for the best",
+          "consequences": {
+            "money": -50,
+            "reputation": -10,
+            "temporaryEffect": {
+              "id": "wild_magic",
+              "type": "risk_modifier",
+              "value": 2,
+              "turnsRemaining": 10,
+              "description": "Unpredictable magical effects"
+            }
+          },
+          "resultText": "The experiment backfires! Random magical effects now plague your tavern. Oops.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Insist on payment upfront",
+          "consequences": {
+            "money": 300,
+            "reputation": 5
+          },
+          "resultText": "Zephyr grumbles but pays. 'No sense of adventure these days...' The experiment fizzles out harmlessly.",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Refuse - too dangerous!",
+          "consequences": {
+            "reputation": 3,
+            "npcRelationship": {
+              "npcId": "mage_zephyr",
+              "change": -10
+            }
+          },
+          "resultText": "Zephyr huffs. 'Coward! I'll find someone with vision!' He storms out in a puff of smoke.",
+          "npcEmotion": "negative"
+        }
+      ],
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "princess_incognito",
+      "type": "chain",
+      "category": "royal",
+      "npcId": "royal_princess",
+      "title": "Mysterious Noble Guest",
+      "description": "A secretive visitor with royal bearing",
+      "situation": "A cloaked figure enters and sits in the corner. As she lowers her hood, you recognize Princess Aria! She puts a finger to her lips. 'Please, I just want a normal evening.'",
+      "priority": 4,
+      "options": [
+        {
+          "text": "Treat her like any other customer",
+          "consequences": {
+            "money": 100,
+            "reputation": 30,
+            "flags": ["princess_friend"],
+            "delayedEvent": {
+              "cardId": "princess_reward",
+              "turnsUntil": 5
+            }
+          },
+          "resultText": "The princess relaxes and enjoys a simple meal. 'Thank you for your discretion. I won't forget this.'",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Give her special treatment discretely",
+          "consequences": {
+            "money": -50,
+            "reputation": 20,
+            "npcRelationship": {
+              "npcId": "royal_princess",
+              "change": 30
+            }
+          },
+          "resultText": "The princess notices your efforts. 'You're kind, but I came here to escape special treatment.'",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Alert the royal guard for a reward",
+          "consequences": {
+            "money": 500,
+            "reputation": -50,
+            "flags": ["betrayed_princess"],
+            "npcRelationship": {
+              "npcId": "royal_princess",
+              "change": -100
+            }
+          },
+          "resultText": "Guards rush in. The princess glares at you with betrayal. 'I'll remember this treachery.'",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Offer her a private room for safety",
+          "consequences": {
+            "money": 200,
+            "reputation": 10
+          },
+          "resultText": "The princess smiles. 'Thoughtful, but I'd rather sit among the people. Still, I appreciate the concern.'",
+          "npcEmotion": "positive"
+        }
+      ],
+      "requirements": {
+        "minReputation": 20
+      },
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "crime_boss_deal",
+      "type": "immediate",
+      "category": "underworld",
+      "npcId": "crime_boss_grimm",
+      "title": "An Offer from the Underworld",
+      "description": "The crime boss wants to use your tavern",
+      "situation": "Grimm enters with two bodyguards. The tavern goes quiet. 'I need to use your back room for a... meeting tonight. You'll be well compensated. Or you can refuse, and we'll remember that.'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Accept the deal and don't ask questions",
+          "consequences": {
+            "money": 1000,
+            "reputation": -20,
+            "flags": ["criminal_associate"],
+            "npcRelationship": {
+              "npcId": "crime_boss_grimm",
+              "change": 50
+            }
+          },
+          "resultText": "Grimm nods approvingly. 'Smart. Here's your gold. You saw nothing tonight.'",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Refuse - you run an honest business",
+          "consequences": {
+            "reputation": 25,
+            "temporaryEffect": {
+              "id": "criminal_threat",
+              "type": "risk_modifier",
+              "value": 1.5,
+              "turnsRemaining": 20,
+              "description": "Under criminal threat"
+            }
+          },
+          "resultText": "Grimm's eyes narrow. 'Honest? In this town? You've made a dangerous choice, tavernkeeper.'",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Agree but secretly inform the guards",
+          "consequences": {
+            "money": 500,
+            "reputation": 40,
+            "flags": ["police_informant"],
+            "npcRelationship": {
+              "npcId": "crime_boss_grimm",
+              "change": -100
+            }
+          },
+          "resultText": "The guards raid the meeting! Grimm is arrested but swears vengeance as he's dragged away.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Negotiate for a bigger cut",
+          "consequences": {
+            "money": 1500,
+            "reputation": -10,
+            "npcRelationship": {
+              "npcId": "crime_boss_grimm",
+              "change": 20
+            }
+          },
+          "resultText": "Grimm chuckles. 'You've got spine. Fine, but this makes you a partner. No backing out now.'",
+          "npcEmotion": "neutral"
+        }
+      ],
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "dragon_visit",
+      "type": "immediate",
+      "category": "legendary",
+      "npcId": "dragon_smaug",
+      "title": "Dragon's Thirst",
+      "description": "The ultimate test of your tavern",
+      "situation": "The ground shakes. Smaug the Golden lands outside, his massive head peering through your door. 'TAVERNKEEPER! I require your finest drink, or I shall reduce this place to ASH!'",
+      "priority": 4,
+      "options": [
+        {
+          "text": "Serve your legendary reserve (costs 5000g)",
+          "consequences": {
+            "money": 15000,
+            "reputation": 50,
+            "npcRelationship": {
+              "npcId": "dragon_smaug",
+              "change": 50
+            },
+            "flags": ["dragon_approved"]
+          },
+          "resultText": "Smaug tastes the ancient wine and rumbles approval. 'EXCELLENT! Your tavern is under my protection!' He pays with ancient gold.",
+          "npcEmotion": "positive"
+        },
+        {
+          "text": "Try to pass off regular wine as legendary",
+          "consequences": {
+            "money": -10000,
+            "reputation": -50,
+            "temporaryEffect": {
+              "id": "dragon_fire_damage",
+              "type": "cost_reduction",
+              "value": 0.5,
+              "turnsRemaining": 10,
+              "description": "Rebuilding from dragon fire"
+            }
+          },
+          "resultText": "Smaug roars in fury! 'YOU DARE DECEIVE ME?!' He torches half your tavern before flying away.",
+          "npcEmotion": "negative"
+        },
+        {
+          "text": "Honestly admit you have nothing worthy",
+          "consequences": {
+            "reputation": 20,
+            "npcRelationship": {
+              "npcId": "dragon_smaug",
+              "change": 10
+            }
+          },
+          "resultText": "Smaug considers. 'At least you're honest, worm. I shall spare you... this time.'",
+          "npcEmotion": "neutral"
+        },
+        {
+          "text": "Challenge him to a drinking contest!",
+          "consequences": {
+            "money": 20000,
+            "reputation": 100,
+            "flags": ["dragon_drinking_buddy"],
+            "npcRelationship": {
+              "npcId": "dragon_smaug",
+              "change": 100
+            }
+          },
+          "resultText": "Smaug laughs, a sound like thunder. 'BOLD!' Hours later, you've somehow won! 'You've earned my respect, tiny friend!'",
+          "npcEmotion": "positive"
+        }
+      ],
+      "requirements": {
+        "minMoney": 5000,
+        "minReputation": 30
+      },
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    }
+  ]
+}

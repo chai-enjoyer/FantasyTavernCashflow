@@ -1,0 +1,49 @@
+import {
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp,
+} from 'firebase/firestore';
+import { db } from '../config';
+import type { GameConfig } from '@repo/shared';
+
+const GAME_CONFIG_ID = 'main';
+
+export async function getGameConfig(): Promise<GameConfig | null> {
+  const configDoc = await getDoc(doc(db, 'gameConfig', GAME_CONFIG_ID));
+  if (!configDoc.exists()) return null;
+  
+  const data = configDoc.data();
+  return {
+    ...data,
+    updatedAt: data.updatedAt?.toDate() || new Date(),
+  } as GameConfig;
+}
+
+export async function updateGameConfig(config: Partial<GameConfig>): Promise<void> {
+  const { updatedAt, ...updateData } = config;
+  await setDoc(doc(db, 'gameConfig', GAME_CONFIG_ID), {
+    ...updateData,
+    updatedAt: serverTimestamp(),
+  }, { merge: true });
+}
+
+export async function initializeGameConfig(): Promise<void> {
+  const defaultConfig: Omit<GameConfig, 'updatedAt'> = {
+    startingMoney: 10000,
+    startingReputation: 0,
+    baseIncome: 1000,
+    baseCosts: 800,
+    scalingFormulas: {
+      moneyScaling: 'baseMoney * Math.pow(currentBalance / 10000, 0.8) * (0.5 + Math.random() * 1.5)',
+      reputationImpact: 'See game design document for full formula',
+      riskCalculation: 'See game design document for full formula',
+    },
+    version: '1.0.0',
+  };
+  
+  await setDoc(doc(db, 'gameConfig', GAME_CONFIG_ID), {
+    ...defaultConfig,
+    updatedAt: serverTimestamp(),
+  });
+}
