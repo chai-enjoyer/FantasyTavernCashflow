@@ -158,24 +158,14 @@ export default function AccountPage() {
             </div>
             
             <div className="bg-gray-800 rounded-lg p-4">
-              <p className="text-gray-400 text-sm mb-1">Perfect Decisions</p>
-              <p className="text-2xl font-bold text-green-400">{user.statistics.perfectDecisions}</p>
-            </div>
-            
-            <div className="bg-gray-800 rounded-lg p-4">
               <p className="text-gray-400 text-sm mb-1">Bankruptcies</p>
               <p className="text-2xl font-bold text-red-400">{user.statistics.bankruptcies}</p>
             </div>
             
             <div className="bg-gray-800 rounded-lg p-4">
-              <p className="text-gray-400 text-sm mb-1">Fortunes Built</p>
-              <p className="text-2xl font-bold text-purple-400">{user.statistics.fortunesBuilt}</p>
-            </div>
-            
-            <div className="bg-gray-800 rounded-lg p-4">
               <p className="text-gray-400 text-sm mb-1">Total Play Time</p>
               <p className="text-2xl font-bold text-white">
-                {Math.floor(user.statistics.totalPlayTime / 60)}h {user.statistics.totalPlayTime % 60}m
+                {Math.floor(user.gameState.totalPlayTime / 60)}h {user.gameState.totalPlayTime % 60}m
               </p>
             </div>
           </div>
