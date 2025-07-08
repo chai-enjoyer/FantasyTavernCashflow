@@ -67,7 +67,7 @@ export function GameProvider({ children }: GameProviderProps) {
     
     // Get Telegram user
     const telegramUser = telegram.getUser();
-    if (!telegramUser) {
+    if (!telegramUser && !telegram.isTestMode()) {
       setState(prev => ({
         ...prev,
         isLoading: false,

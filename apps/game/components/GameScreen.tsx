@@ -11,8 +11,10 @@ import ErrorScreen from './ErrorScreen';
 import Tutorial from './Tutorial';
 import PortfolioModal from './PortfolioModal';
 import HelpModal from './HelpModal';
+import DebugPanel from './DebugPanel';
 import { GameEngine } from '@repo/game-logic';
 import { StorageService } from '@/services/storage';
+import { TelegramService } from '@/services/telegram';
 import { BarChart3, HelpCircle } from 'lucide-react';
 
 export default function GameScreen() {
@@ -35,6 +37,7 @@ export default function GameScreen() {
   const [showHelp, setShowHelp] = useState(false);
   const gameEngine = new GameEngine();
   const storage = StorageService.getInstance();
+  const telegram = TelegramService.getInstance();
 
   useEffect(() => {
     // Check if tutorial has been completed
@@ -133,6 +136,13 @@ export default function GameScreen() {
           </div>
         </div>
       </div>
+      
+      {/* Debug Panel for Test Mode */}
+      <DebugPanel 
+        gameState={gameState} 
+        currentCard={currentCard} 
+        isTestMode={telegram.isTestMode()} 
+      />
     </>
   );
 }

@@ -12,6 +12,7 @@ export class TelegramService {
   private static instance: TelegramService;
   private webApp: TelegramWebApp | null = null;
   private mockMode: boolean = false;
+  private testMode: boolean = false;
 
   private constructor() {
     this.initialize();
@@ -25,31 +26,48 @@ export class TelegramService {
   }
 
   private initialize(): void {
-    if (typeof window !== 'undefined' && window.Telegram?.WebApp) {
-      this.webApp = window.Telegram.WebApp;
-      this.webApp.ready();
-      this.webApp.expand();
+    if (typeof window !== 'undefined') {
+      // Check for test mode
+      const urlParams = new URLSearchParams(window.location.search);
+      this.testMode = urlParams.get('testMode') === 'true';
       
-      // Set theme
-      this.webApp.setHeaderColor('#1a1a1a');
-      this.webApp.setBackgroundColor('#0a0a0a');
-      
-      // Enable closing confirmation
-      this.webApp.enableClosingConfirmation();
-    } else {
-      console.warn('Telegram WebApp not available, running in mock mode');
-      this.mockMode = true;
+      if (this.testMode) {
+        console.log('🧪 Test Mode Enabled - Running without Telegram');
+        this.mockMode = true;
+      } else if (window.Telegram?.WebApp) {
+        this.webApp = window.Telegram.WebApp;
+        this.webApp.ready();
+        this.webApp.expand();
+        
+        // Set theme
+        this.webApp.setHeaderColor('#1a1a1a');
+        this.webApp.setBackgroundColor('#0a0a0a');
+        
+        // Enable closing confirmation
+        this.webApp.enableClosingConfirmation();
+      } else {
+        console.warn('Telegram WebApp not available, running in mock mode');
+        this.mockMode = true;
+      }
     }
+  }
+
+  public isTestMode(): boolean {
+    return this.testMode;
   }
 
   public getUser(): TelegramUser | null {
     if (this.mockMode) {
       // Return mock user for development
+      const mockUserId = this.testMode ? 
+        `test_${Date.now()}_${Math.random().toString(36).substring(7)}` : 
+        '123456789';
+      
       return {
-        id: 123456789,
+        id: mockUserId as any,
         first_name: 'Test',
         last_name: 'User',
-        username: 'testuser',
+        username: this.testMode ? 'browser_tester' : 'testuser',
         language_code: 'en',
         is_premium: false,
       };
