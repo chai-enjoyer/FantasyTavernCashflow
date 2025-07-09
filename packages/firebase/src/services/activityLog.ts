@@ -1,0 +1,191 @@
+import { 
+  collection, 
+  addDoc, 
+  query, 
+  orderBy, 
+  limit, 
+  getDocs, 
+  where, 
+  Timestamp,
+  startAfter,
+  DocumentSnapshot
+} from 'firebase/firestore';
+import { db } from '../config';
+import { getAuth } from 'firebase/auth';
+
+export interface ActivityLog {
+  id?: string;
+  userId: string;
+  userEmail: string;
+  action: 'create' | 'update' | 'delete' | 'import' | 'export' | 'login' | 'logout';
+  entityType: 'npc' | 'card' | 'config' | 'bulk' | 'auth';
+  entityId?: string;
+  entityName?: string;
+  details?: Record<string, any>;
+  changes?: {
+    field: string;
+    oldValue: any;
+    newValue: any;
+  }[];
+  timestamp: Timestamp;
+  ip?: string;
+}
+
+const LOGS_COLLECTION = 'activityLogs';
+const LOGS_PER_PAGE = 50;
+
+export async function logActivity(
+  action: ActivityLog['action'],
+  entityType: ActivityLog['entityType'],
+  entityId?: string,
+  entityName?: string,
+  details?: Record<string, any>,
+  changes?: ActivityLog['changes']
+): Promise<void> {
+  try {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    
+    if (!user) {
+      console.warn('No authenticated user for activity logging');
+      return;
+    }
+
+    const log: Omit<ActivityLog, 'id'> = {
+      userId: user.uid,
+      userEmail: user.email || 'unknown',
+      action,
+      entityType,
+      entityId,
+      entityName,
+      details,
+      changes,
+      timestamp: Timestamp.now()
+    };
+
+    await addDoc(collection(db, LOGS_COLLECTION), log);
+  } catch (error) {
+    console.error('Error logging activity:', error);
+    // Don't throw - logging failures shouldn't break the app
+  }
+}
+
+export async function getActivityLogs(
+  filters?: {
+    userId?: string;
+    action?: ActivityLog['action'];
+    entityType?: ActivityLog['entityType'];
+    startDate?: Date;
+    endDate?: Date;
+  },
+  lastDoc?: DocumentSnapshot
+): Promise<{ logs: ActivityLog[], lastDoc: DocumentSnapshot | null }> {
+  try {
+    let q = query(
+      collection(db, LOGS_COLLECTION),
+      orderBy('timestamp', 'desc'),
+      limit(LOGS_PER_PAGE)
+    );
+
+    // Apply filters
+    if (filters) {
+      const constraints = [];
+      
+      if (filters.userId) {
+        constraints.push(where('userId', '==', filters.userId));
+      }
+      if (filters.action) {
+        constraints.push(where('action', '==', filters.action));
+      }
+      if (filters.entityType) {
+        constraints.push(where('entityType', '==', filters.entityType));
+      }
+      if (filters.startDate) {
+        constraints.push(where('timestamp', '>=', Timestamp.fromDate(filters.startDate)));
+      }
+      if (filters.endDate) {
+        constraints.push(where('timestamp', '<=', Timestamp.fromDate(filters.endDate)));
+      }
+
+      q = query(
+        collection(db, LOGS_COLLECTION),
+        ...constraints,
+        orderBy('timestamp', 'desc'),
+        limit(LOGS_PER_PAGE)
+      );
+    }
+
+    // Pagination
+    if (lastDoc) {
+      q = query(q, startAfter(lastDoc));
+    }
+
+    const snapshot = await getDocs(q);
+    const logs: ActivityLog[] = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as ActivityLog));
+
+    const newLastDoc = snapshot.docs[snapshot.docs.length - 1] || null;
+
+    return { logs, lastDoc: newLastDoc };
+  } catch (error) {
+    console.error('Error fetching activity logs:', error);
+    return { logs: [], lastDoc: null };
+  }
+}
+
+export async function getRecentActivity(limit: number = 10): Promise<ActivityLog[]> {
+  try {
+    const q = query(
+      collection(db, LOGS_COLLECTION),
+      orderBy('timestamp', 'desc'),
+      limit(limit)
+    );
+
+    const snapshot = await getDocs(q);
+    return snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    } as ActivityLog));
+  } catch (error) {
+    console.error('Error fetching recent activity:', error);
+    return [];
+  }
+}
+
+// Helper function to log NPC changes
+export function logNPCChange(
+  action: 'create' | 'update' | 'delete',
+  npcId: string,
+  npcName: string,
+  changes?: ActivityLog['changes']
+): Promise<void> {
+  return logActivity(action, 'npc', npcId, npcName, undefined, changes);
+}
+
+// Helper function to log Card changes
+export function logCardChange(
+  action: 'create' | 'update' | 'delete',
+  cardId: string,
+  cardTitle: string,
+  changes?: ActivityLog['changes']
+): Promise<void> {
+  return logActivity(action, 'card', cardId, cardTitle, undefined, changes);
+}
+
+// Helper function to log bulk operations
+export function logBulkOperation(
+  operation: string,
+  details: Record<string, any>
+): Promise<void> {
+  return logActivity('import', 'bulk', undefined, operation, details);
+}
+
+// Helper function to log auth events
+export function logAuthEvent(
+  action: 'login' | 'logout',
+  details?: Record<string, any>
+): Promise<void> {
+  return logActivity(action, 'auth', undefined, undefined, details);
+}

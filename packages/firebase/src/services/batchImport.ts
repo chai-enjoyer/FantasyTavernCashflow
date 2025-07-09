@@ -2,6 +2,7 @@ import { writeBatch, doc, collection } from 'firebase/firestore';
 import { db } from '../config';
 import { Card, NPC, GameConfig } from '@repo/shared';
 import { updateGameConfig } from './gameConfig';
+import { logBulkOperation } from './activityLog';
 
 interface BatchImportData {
   cards?: Card[];
@@ -48,6 +49,14 @@ export async function batchImportGameData(data: BatchImportData): Promise<BatchI
       await updateGameConfig(data.config);
       details.configUpdated = true;
     }
+    
+    // Log the bulk import operation
+    await logBulkOperation('Batch Import', {
+      cardsImported: details.cardsImported,
+      npcsImported: details.npcsImported,
+      configUpdated: details.configUpdated,
+      timestamp: new Date().toISOString()
+    });
 
     return {
       success: true,

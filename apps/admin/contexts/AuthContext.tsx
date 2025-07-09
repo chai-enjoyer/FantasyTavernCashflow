@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { useRouter, usePathname } from 'next/navigation';
 import { User } from 'firebase/auth';
 import authService from '../services/auth';
+import { logAuthEvent } from '@repo/firebase';
 
 interface AuthContextType {
   user: User | null;
@@ -50,6 +51,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const firebaseUser = await authService.signIn(email, password);
       setUser(firebaseUser);
+      
+      // Log successful login
+      await logAuthEvent('login', {
+        email: firebaseUser.email,
+        timestamp: new Date().toISOString()
+      });
+      
       router.push('/'); // Redirect to dashboard after login
     } catch (error) {
       // Re-throw error to be handled by the login form
@@ -59,6 +67,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
+      // Log logout before signing out
+      if (user) {
+        await logAuthEvent('logout', {
+          email: user.email,
+          timestamp: new Date().toISOString()
+        });
+      }
+      
       await authService.signOut();
       setUser(null);
       router.push('/login');

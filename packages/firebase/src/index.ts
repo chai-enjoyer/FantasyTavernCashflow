@@ -15,3 +15,4 @@ export * from './services/paginatedQueries';
 export * from './services/fallbackQueries';
 export * from './services/imageUpload';
 export * from './services/imageCaching';
+export * from './services/activityLog';

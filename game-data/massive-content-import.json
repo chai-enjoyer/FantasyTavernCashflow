@@ -1,0 +1,205 @@
+{
+  "npcs": [
+    {
+      "id": "merchant_gareth",
+      "name": "Gareth the Trader",
+      "class": "merchant",
+      "wealth": 3,
+      "reliability": 85,
+      "description": "A traveling merchant with connections across the realm"
+    },
+    {
+      "id": "bard_melody",
+      "name": "Melody the Bard",
+      "class": "bard",
+      "wealth": 2,
+      "reliability": 60,
+      "description": "A charismatic performer who can draw crowds or drive them away"
+    },
+    {
+      "id": "guard_captain_erik",
+      "name": "Captain Erik",
+      "class": "guard",
+      "wealth": 3,
+      "reliability": 90,
+      "description": "The stern but fair captain of the city watch"
+    },
+    {
+      "id": "alchemist_nova",
+      "name": "Nova the Alchemist",
+      "class": "alchemist",
+      "wealth": 3,
+      "reliability": 70,
+      "description": "An eccentric potion maker with explosive experiments"
+    },
+    {
+      "id": "dwarf_thorin",
+      "name": "Thorin Ironbeard",
+      "class": "dwarf",
+      "wealth": 4,
+      "reliability": 95,
+      "description": "A wealthy dwarf merchant who appreciates fine drinks"
+    },
+    {
+      "id": "elf_silviana",
+      "name": "Lady Silviana",
+      "class": "elf",
+      "wealth": 4,
+      "reliability": 80,
+      "description": "An elven noble with refined tastes and ancient wisdom"
+    },
+    {
+      "id": "halfling_pip",
+      "name": "Pip Goodbarrel",
+      "class": "halfling",
+      "wealth": 2,
+      "reliability": 85,
+      "description": "A cheerful halfling with an enormous appetite"
+    },
+    {
+      "id": "orc_gruk",
+      "name": "Gruk the Civilized",
+      "class": "orc",
+      "wealth": 2,
+      "reliability": 65,
+      "description": "An orc trying to fit into civilized society"
+    },
+    {
+      "id": "vampire_vladimir",
+      "name": "Count Vladimir",
+      "class": "vampire",
+      "wealth": 5,
+      "reliability": 60,
+      "description": "A mysterious noble with unusual dietary requirements"
+    },
+    {
+      "id": "pirate_scarlett",
+      "name": "Captain Scarlett",
+      "class": "pirate",
+      "wealth": 3,
+      "reliability": 50,
+      "description": "A notorious pirate captain with a crew of rowdy sailors"
+    },
+    {
+      "id": "monk_chen",
+      "name": "Master Chen",
+      "class": "monk",
+      "wealth": 1,
+      "reliability": 100,
+      "description": "A wise monk seeking simple sustenance and peace"
+    },
+    {
+      "id": "witch_morgana",
+      "name": "Morgana the Hedge Witch",
+      "class": "witch",
+      "wealth": 2,
+      "reliability": 70,
+      "description": "A mysterious witch who deals in herbs and curses"
+    },
+    {
+      "id": "knight_galahad",
+      "name": "Sir Galahad",
+      "class": "knight",
+      "wealth": 3,
+      "reliability": 95,
+      "description": "A noble knight sworn to protect the innocent"
+    },
+    {
+      "id": "necromancer_mortis",
+      "name": "Mortis the Pale",
+      "class": "necromancer",
+      "wealth": 3,
+      "reliability": 40,
+      "description": "A dark mage who speaks with the dead"
+    },
+    {
+      "id": "barbarian_kora",
+      "name": "Kora the Wild",
+      "class": "barbarian",
+      "wealth": 2,
+      "reliability": 55,
+      "description": "A fierce warrior from the northern wastes"
+    },
+    {
+      "id": "baker_marie",
+      "name": "Marie the Baker",
+      "class": "artisan",
+      "wealth": 2,
+      "reliability": 90,
+      "description": "A cheerful baker who supplies bread to half the town"
+    },
+    {
+      "id": "scholar_edwin",
+      "name": "Edwin the Scholar",
+      "class": "scholar",
+      "wealth": 2,
+      "reliability": 85,
+      "description": "A learned man who spends his evenings reading ancient texts"
+    },
+    {
+      "id": "blacksmith_grunt",
+      "name": "Grunt the Smith",
+      "class": "blacksmith",
+      "wealth": 3,
+      "reliability": 95,
+      "description": "A burly blacksmith with arms like tree trunks"
+    },
+    {
+      "id": "hunter_diana",
+      "name": "Diana the Huntress",
+      "class": "hunter",
+      "wealth": 2,
+      "reliability": 75,
+      "description": "A skilled tracker who brings fresh game to market"
+    },
+    {
+      "id": "sailor_jonas",
+      "name": "Jonas the Sailor",
+      "class": "sailor",
+      "wealth": 2,
+      "reliability": 60,
+      "description": "A weathered sailor with tales from distant shores"
+    },
+    {
+      "id": "healer_sarah",
+      "name": "Sarah the Healer",
+      "class": "healer",
+      "wealth": 2,
+      "reliability": 95,
+      "description": "A kind woman who tends to the sick and injured"
+    },
+    {
+      "id": "beggar_finn",
+      "name": "Finn the Beggar",
+      "class": "beggar",
+      "wealth": 0,
+      "reliability": 50,
+      "description": "A mysterious beggar who knows all the town's secrets"
+    },
+    {
+      "id": "artist_raphael",
+      "name": "Raphael the Artist",
+      "class": "artist",
+      "wealth": 1,
+      "reliability": 40,
+      "description": "A temperamental artist always seeking inspiration"
+    },
+    {
+      "id": "tax_collector_boris",
+      "name": "Boris the Tax Collector",
+      "class": "official",
+      "wealth": 3,
+      "reliability": 100,
+      "description": "The most unpopular man in town, but he has a job to do"
+    },
+    {
+      "id": "fortune_teller_zelda",
+      "name": "Madame Zelda",
+      "class": "mystic",
+      "wealth": 2,
+      "reliability": 60,
+      "description": "A mysterious woman who claims to see the future"
+    }
+  ],
+  "cards": []
+}

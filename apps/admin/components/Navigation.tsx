@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, CreditCard, UserCircle, Settings, BarChart3, FileJson, LogOut, Shield } from 'lucide-react';
+import { Home, CreditCard, UserCircle, Settings, BarChart3, FileJson, LogOut, Shield, History } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 export default function Navigation() {
@@ -26,6 +26,7 @@ export default function Navigation() {
     { href: '/config', label: 'Настройки', icon: Settings },
     { href: '/analytics', label: 'Аналитика', icon: BarChart3 },
     { href: '/import-export', label: 'Импорт/Экспорт', icon: FileJson },
+    { href: '/logs', label: 'Журнал', icon: History },
   ];
 
   return (

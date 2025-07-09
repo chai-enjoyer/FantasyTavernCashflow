@@ -1,0 +1,253 @@
+{
+  "version": "1.0.0",
+  "timestamp": "2025-01-09T00:00:00.000Z",
+  "npcs": [
+    {
+      "id": "commoner_tom",
+      "name": "Tom the Farmer",
+      "class": "commoner",
+      "wealth": 1,
+      "reliability": 90,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fnegative.jpg?alt=media"
+      },
+      "description": "A humble farmer looking for simple ale and a warm meal"
+    },
+    {
+      "id": "adventurer_lyra",
+      "name": "Lyra the Ranger",
+      "class": "adventurer",
+      "wealth": 2,
+      "reliability": 70,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fadventurer_lyra%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fadventurer_lyra%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fadventurer_lyra%2Fnegative.jpg?alt=media"
+      },
+      "description": "A seasoned adventurer with tales to tell and coin to spend"
+    },
+    {
+      "id": "criminal_vex",
+      "name": "Vex the Shadow",
+      "class": "criminal",
+      "wealth": 3,
+      "reliability": 40,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcriminal_vex%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcriminal_vex%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcriminal_vex%2Fnegative.jpg?alt=media"
+      },
+      "description": "A mysterious figure who deals in secrets and stolen goods"
+    },
+    {
+      "id": "noble_aldric",
+      "name": "Lord Aldric",
+      "class": "noble",
+      "wealth": 4,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fnoble_aldric%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fnoble_aldric%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fnoble_aldric%2Fnegative.jpg?alt=media"
+      },
+      "description": "A wealthy noble with expensive tastes and high expectations"
+    },
+    {
+      "id": "cleric_elena",
+      "name": "Sister Elena",
+      "class": "cleric",
+      "wealth": 2,
+      "reliability": 95,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcleric_elena%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcleric_elena%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcleric_elena%2Fnegative.jpg?alt=media"
+      },
+      "description": "A devoted cleric who values charity and honest dealings"
+    },
+    {
+      "id": "mage_zephyr",
+      "name": "Zephyr the Wise",
+      "class": "mage",
+      "wealth": 3,
+      "reliability": 75,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmage_zephyr%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmage_zephyr%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmage_zephyr%2Fnegative.jpg?alt=media"
+      },
+      "description": "An eccentric wizard with unusual requests and magical payments"
+    },
+    {
+      "id": "royal_princess",
+      "name": "Princess Aria",
+      "class": "royal",
+      "wealth": 5,
+      "reliability": 80,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Froyal_princess%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Froyal_princess%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Froyal_princess%2Fnegative.jpg?alt=media"
+      },
+      "description": "The kingdom's princess, traveling incognito"
+    },
+    {
+      "id": "crime_boss_grimm",
+      "name": "Grimm the Enforcer",
+      "class": "crime_boss",
+      "wealth": 4,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcrime_boss_grimm%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcrime_boss_grimm%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcrime_boss_grimm%2Fnegative.jpg?alt=media"
+      },
+      "description": "The local crime lord who controls the underground"
+    },
+    {
+      "id": "dragon_smaug",
+      "name": "Smaug the Golden",
+      "class": "dragon",
+      "wealth": 5,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdragon_smaug%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdragon_smaug%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdragon_smaug%2Fnegative.jpg?alt=media"
+      },
+      "description": "An ancient dragon with a hoard of gold and a terrible temper"
+    },
+    {
+      "id": "merchant_gareth",
+      "name": "Gareth the Trader",
+      "class": "merchant",
+      "wealth": 3,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_gareth%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_gareth%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_gareth%2Fnegative.jpg?alt=media"
+      },
+      "description": "A traveling merchant with connections across the realm"
+    },
+    {
+      "id": "bard_melody",
+      "name": "Melody the Bard",
+      "class": "bard",
+      "wealth": 2,
+      "reliability": 60,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fbard_melody%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fbard_melody%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fbard_melody%2Fnegative.jpg?alt=media"
+      },
+      "description": "A charismatic performer who can draw crowds or drive them away"
+    },
+    {
+      "id": "guard_captain_erik",
+      "name": "Captain Erik",
+      "class": "guard",
+      "wealth": 3,
+      "reliability": 90,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fguard_captain_erik%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fguard_captain_erik%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fguard_captain_erik%2Fnegative.jpg?alt=media"
+      },
+      "description": "The stern but fair captain of the city watch"
+    },
+    {
+      "id": "alchemist_nova",
+      "name": "Nova the Alchemist",
+      "class": "alchemist",
+      "wealth": 3,
+      "reliability": 70,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Falchemist_nova%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Falchemist_nova%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Falchemist_nova%2Fnegative.jpg?alt=media"
+      },
+      "description": "An eccentric potion maker with explosive experiments"
+    },
+    {
+      "id": "dwarf_thorin",
+      "name": "Thorin Ironbeard",
+      "class": "dwarf",
+      "wealth": 4,
+      "reliability": 95,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdwarf_thorin%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdwarf_thorin%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fdwarf_thorin%2Fnegative.jpg?alt=media"
+      },
+      "description": "A wealthy dwarf merchant who appreciates fine drinks"
+    },
+    {
+      "id": "elf_silviana",
+      "name": "Lady Silviana",
+      "class": "elf",
+      "wealth": 4,
+      "reliability": 80,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Felf_silviana%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Felf_silviana%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Felf_silviana%2Fnegative.jpg?alt=media"
+      },
+      "description": "An elven noble with refined tastes and ancient wisdom"
+    },
+    {
+      "id": "halfling_pip",
+      "name": "Pip Goodbarrel",
+      "class": "halfling",
+      "wealth": 2,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fhalfling_pip%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fhalfling_pip%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fhalfling_pip%2Fnegative.jpg?alt=media"
+      },
+      "description": "A cheerful halfling with an enormous appetite"
+    },
+    {
+      "id": "orc_gruk",
+      "name": "Gruk the Civilized",
+      "class": "orc",
+      "wealth": 2,
+      "reliability": 65,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Forc_gruk%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Forc_gruk%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Forc_gruk%2Fnegative.jpg?alt=media"
+      },
+      "description": "An orc trying to fit into civilized society"
+    },
+    {
+      "id": "vampire_vladimir",
+      "name": "Count Vladimir",
+      "class": "vampire",
+      "wealth": 5,
+      "reliability": 60,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fvampire_vladimir%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fvampire_vladimir%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fvampire_vladimir%2Fnegative.jpg?alt=media"
+      },
+      "description": "A mysterious noble with unusual dietary requirements"
+    },
+    {
+      "id": "pirate_scarlett",
+      "name": "Captain Scarlett",
+      "class": "pirate",
+      "wealth": 3,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fpirate_scarlett%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fpirate_scarlett%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fpirate_scarlett%2Fnegative.jpg?alt=media"
+      },
+      "description": "A notorious pirate captain with a crew of rowdy sailors"
+    }
+  ]
+}

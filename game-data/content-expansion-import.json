@@ -1,0 +1,540 @@
+{
+  "npcs": [
+    {
+      "id": "merchant_gareth",
+      "name": "Gareth the Trader",
+      "class": "merchant",
+      "wealth": 3,
+      "reliability": 85,
+      "description": "A traveling merchant with connections across the realm"
+    },
+    {
+      "id": "bard_melody",
+      "name": "Melody the Bard",
+      "class": "bard",
+      "wealth": 2,
+      "reliability": 60,
+      "description": "A charismatic performer who can draw crowds or drive them away"
+    },
+    {
+      "id": "guard_captain_erik",
+      "name": "Captain Erik",
+      "class": "guard",
+      "wealth": 3,
+      "reliability": 90,
+      "description": "The stern but fair captain of the city watch"
+    },
+    {
+      "id": "alchemist_nova",
+      "name": "Nova the Alchemist",
+      "class": "alchemist",
+      "wealth": 3,
+      "reliability": 70,
+      "description": "An eccentric potion maker with explosive experiments"
+    },
+    {
+      "id": "dwarf_thorin",
+      "name": "Thorin Ironbeard",
+      "class": "dwarf",
+      "wealth": 4,
+      "reliability": 95,
+      "description": "A wealthy dwarf merchant who appreciates fine drinks"
+    },
+    {
+      "id": "elf_silviana",
+      "name": "Lady Silviana",
+      "class": "elf",
+      "wealth": 4,
+      "reliability": 80,
+      "description": "An elven noble with refined tastes and ancient wisdom"
+    },
+    {
+      "id": "halfling_pip",
+      "name": "Pip Goodbarrel",
+      "class": "halfling",
+      "wealth": 2,
+      "reliability": 85,
+      "description": "A cheerful halfling with an enormous appetite"
+    },
+    {
+      "id": "orc_gruk",
+      "name": "Gruk the Civilized",
+      "class": "orc",
+      "wealth": 2,
+      "reliability": 65,
+      "description": "An orc trying to fit into civilized society"
+    },
+    {
+      "id": "vampire_vladimir",
+      "name": "Count Vladimir",
+      "class": "vampire",
+      "wealth": 5,
+      "reliability": 60,
+      "description": "A mysterious noble with unusual dietary requirements"
+    },
+    {
+      "id": "pirate_scarlett",
+      "name": "Captain Scarlett",
+      "class": "pirate",
+      "wealth": 3,
+      "reliability": 50,
+      "description": "A notorious pirate captain with a crew of rowdy sailors"
+    }
+  ],
+  "cards": [
+    {
+      "id": "merchant_bulk_order",
+      "type": "immediate",
+      "category": "business",
+      "npcId": "merchant_gareth",
+      "title": "Bulk Order Opportunity",
+      "description": "A merchant wants to stock your ale for his caravan",
+      "situation": "Gareth enters with a proposition: 'I need 50 barrels of ale for my trade route. I can pay upfront, but I need quality stuff that won't spoil on the road.'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Accept the order with premium preservation",
+          "consequences": {
+            "money": 500,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Accept but use cheaper preservatives",
+          "consequences": {
+            "money": 600,
+            "reputation": -3
+          }
+        },
+        {
+          "text": "Negotiate for a smaller order you can handle",
+          "consequences": {
+            "money": 250,
+            "reputation": 2
+          }
+        },
+        {
+          "text": "Decline - too risky for your current capacity",
+          "consequences": {
+            "money": 0,
+            "reputation": 0
+          }
+        }
+      ],
+      "requirements": {
+        "minMoney": 200
+      }
+    },
+    {
+      "id": "bard_performance_night",
+      "type": "passive_income",
+      "category": "entertainment",
+      "npcId": "bard_melody",
+      "title": "Weekly Performance Deal",
+      "description": "A bard offers to perform regularly at your tavern",
+      "situation": "Melody strums her lute and proposes: 'Let me perform here every week. I'll draw crowds with my songs and tales. We can split the extra earnings.'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Agree to weekly performances",
+          "consequences": {
+            "passiveIncome": {
+              "id": "bard_shows",
+              "amount": 75,
+              "description": "Bard performances",
+              "remainingTurns": 15
+            }
+          }
+        },
+        {
+          "text": "Offer a one-time performance first",
+          "consequences": {
+            "money": 150,
+            "reputation": 2
+          }
+        },
+        {
+          "text": "Suggest a profit-sharing arrangement",
+          "consequences": {
+            "passiveIncome": {
+              "id": "bard_profit_share",
+              "amount": 50,
+              "description": "Bard profit sharing",
+              "remainingTurns": 20
+            }
+          }
+        },
+        {
+          "text": "Decline - too noisy for regular customers",
+          "consequences": {
+            "reputation": -1
+          }
+        }
+      ]
+    },
+    {
+      "id": "guard_inspection",
+      "type": "immediate",
+      "category": "legal",
+      "npcId": "guard_captain_erik",
+      "title": "Surprise Inspection",
+      "description": "The guard captain arrives for a routine inspection",
+      "situation": "Captain Erik enters with two guards. 'Routine inspection,' he announces. 'We've had reports of watered drinks and short measures. I hope we won't find any violations here.'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Welcome the inspection confidently",
+          "consequences": {
+            "money": -50,
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Offer a 'donation' to the guard fund",
+          "consequences": {
+            "money": -200,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Stall while staff fixes any issues",
+          "consequences": {
+            "money": -100,
+            "reputation": 0
+          }
+        },
+        {
+          "text": "Admit to minor violations and pay fines",
+          "consequences": {
+            "money": -150,
+            "reputation": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "alchemist_explosion",
+      "type": "immediate",
+      "category": "incident",
+      "npcId": "alchemist_nova",
+      "title": "Alchemical Accident",
+      "description": "An alchemist's experiment goes wrong in your tavern",
+      "situation": "Nova was mixing potions at a corner table when BOOM! Purple smoke fills the tavern. 'Oops!' she says sheepishly. 'I'll pay for damages... or I could enhance your ale with a special formula instead?'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Demand immediate payment for damages",
+          "consequences": {
+            "money": 300,
+            "reputation": -2
+          }
+        },
+        {
+          "text": "Accept the enhancement formula",
+          "consequences": {
+            "passiveIncome": {
+              "id": "enhanced_ale",
+              "amount": 40,
+              "description": "Alchemically enhanced drinks",
+              "remainingTurns": 10
+            }
+          }
+        },
+        {
+          "text": "Ban alchemical experiments but forgive damages",
+          "consequences": {
+            "money": -100,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Make her clean up and work off the debt",
+          "consequences": {
+            "money": 50,
+            "reputation": 0
+          }
+        }
+      ]
+    },
+    {
+      "id": "dwarf_mining_deal",
+      "type": "passive_income",
+      "category": "business",
+      "npcId": "dwarf_thorin",
+      "title": "Mining Camp Contract",
+      "description": "A dwarf offers a lucrative supply contract",
+      "situation": "Thorin slams a heavy purse on the bar. 'My mining camp needs a steady supply of ale. Good stuff, mind you - none of that human swill. We pay in gold, monthly.'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Accept the contract with premium dwarf ale",
+          "consequences": {
+            "passiveIncome": {
+              "id": "dwarf_contract",
+              "amount": 100,
+              "description": "Dwarf mining camp supply",
+              "remainingTurns": 25
+            }
+          }
+        },
+        {
+          "text": "Negotiate for a better price",
+          "consequences": {
+            "passiveIncome": {
+              "id": "dwarf_contract_premium",
+              "amount": 120,
+              "description": "Premium dwarf supply deal",
+              "remainingTurns": 20
+            }
+          }
+        },
+        {
+          "text": "Offer regular ale at lower price",
+          "consequences": {
+            "money": 200,
+            "reputation": -10,
+            "npcRelationship": {
+              "dwarf_thorin": -50
+            }
+          }
+        },
+        {
+          "text": "Decline - can't meet dwarf standards",
+          "consequences": {
+            "reputation": 2
+          }
+        }
+      ],
+      "requirements": {
+        "minMoney": 300
+      }
+    },
+    {
+      "id": "elf_wine_tasting",
+      "type": "immediate",
+      "category": "service",
+      "npcId": "elf_silviana",
+      "title": "Elven Wine Connoisseur",
+      "description": "An elf noble wants to sample your finest wines",
+      "situation": "Lady Silviana glides in, her entourage in tow. 'I heard you serve wine worthy of elven palates. I shall be the judge of that.' Her approval could bring wealthy clientele.",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Serve your finest vintage wine",
+          "consequences": {
+            "money": 200,
+            "reputation": 8
+          }
+        },
+        {
+          "text": "Admit you only have common wine",
+          "consequences": {
+            "money": 50,
+            "reputation": 2
+          }
+        },
+        {
+          "text": "Quickly buy expensive wine from a merchant",
+          "consequences": {
+            "money": -100,
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Try to pass off regular wine as elven vintage",
+          "consequences": {
+            "money": 100,
+            "reputation": -15,
+            "npcRelationship": {
+              "elf_silviana": -70
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "halfling_eating_contest",
+      "type": "immediate",
+      "category": "entertainment",
+      "npcId": "halfling_pip",
+      "title": "Halfling Eating Contest",
+      "description": "A halfling proposes an eating contest",
+      "situation": "Pip hops onto a stool, grinning. 'I bet I can eat more than any three humans! Care to make it interesting? Winner takes all entry fees!'",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Organize the contest with entry fees",
+          "consequences": {
+            "money": 400,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Decline but offer an all-you-can-eat special",
+          "consequences": {
+            "money": 150,
+            "reputation": 2
+          }
+        },
+        {
+          "text": "Challenge him yourself for publicity",
+          "consequences": {
+            "money": 250,
+            "reputation": 8
+          }
+        },
+        {
+          "text": "Refuse - too messy and wasteful",
+          "consequences": {
+            "reputation": -3
+          }
+        }
+      ]
+    },
+    {
+      "id": "orc_integration",
+      "type": "social",
+      "category": "social",
+      "npcId": "orc_gruk",
+      "title": "Orc Seeks Acceptance",
+      "description": "An orc trying to fit in faces discrimination",
+      "situation": "Gruk sits alone as other patrons move away. 'Me just want drink like everyone else,' he says sadly. How you handle this will affect your tavern's reputation.",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Serve him publicly and welcome him warmly",
+          "consequences": {
+            "money": 50,
+            "reputation": 10,
+            "npcRelationship": {
+              "orc_gruk": 50
+            }
+          }
+        },
+        {
+          "text": "Serve him quietly in a corner",
+          "consequences": {
+            "money": 100,
+            "reputation": 0
+          }
+        },
+        {
+          "text": "Ask him to use the back entrance",
+          "consequences": {
+            "money": 150,
+            "reputation": -5,
+            "npcRelationship": {
+              "orc_gruk": -30
+            }
+          }
+        },
+        {
+          "text": "Refuse service to avoid trouble",
+          "consequences": {
+            "money": 200,
+            "reputation": -15,
+            "npcRelationship": {
+              "orc_gruk": -80
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "vampire_special_request",
+      "type": "immediate",
+      "category": "unusual",
+      "npcId": "vampire_vladimir",
+      "title": "Unusual Beverage Request",
+      "description": "A vampire noble has special dietary needs",
+      "situation": "Count Vladimir adjusts his cape. 'I require... a special vintage. The red kind. I'll pay handsomely for discretion and quality. No questions asked.'",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Provide what he wants discreetly",
+          "consequences": {
+            "money": 500,
+            "reputation": -10
+          }
+        },
+        {
+          "text": "Offer tomato juice as substitute",
+          "consequences": {
+            "money": 100,
+            "reputation": 5,
+            "npcRelationship": {
+              "vampire_vladimir": -20
+            }
+          }
+        },
+        {
+          "text": "Refuse and report to authorities",
+          "consequences": {
+            "money": 0,
+            "reputation": 15,
+            "npcRelationship": {
+              "vampire_vladimir": -100
+            }
+          }
+        },
+        {
+          "text": "Negotiate for regular patronage",
+          "consequences": {
+            "passiveIncome": {
+              "id": "vampire_arrangement",
+              "amount": 150,
+              "description": "Vampire's special arrangement",
+              "remainingTurns": 10
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pirate_crew_party",
+      "type": "immediate",
+      "category": "event",
+      "npcId": "pirate_scarlett",
+      "title": "Pirate Crew Celebration",
+      "description": "Pirates want to celebrate their latest haul",
+      "situation": "Captain Scarlett kicks open your door, her crew behind her. 'We've just had a very profitable venture! Drinks for everyone! You can handle thirty thirsty pirates, right?'",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Welcome them with open arms",
+          "consequences": {
+            "money": 800,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Serve them but water down the drinks",
+          "consequences": {
+            "money": 1000,
+            "reputation": -10,
+            "npcRelationship": {
+              "pirate_scarlett": -40
+            }
+          }
+        },
+        {
+          "text": "Set a two-drink maximum per pirate",
+          "consequences": {
+            "money": 400,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Refuse - too rowdy for your establishment",
+          "consequences": {
+            "money": 0,
+            "reputation": 10,
+            "npcRelationship": {
+              "pirate_scarlett": -60
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

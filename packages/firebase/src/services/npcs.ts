@@ -12,6 +12,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config';
 import { DataCache } from './cache';
+import { logNPCChange } from './activityLog';
 import type { NPC } from '@repo/shared';
 
 export async function getNPC(npcId: string): Promise<NPC | null> {
@@ -79,19 +80,16 @@ export async function getAllNPCs(): Promise<NPC[]> {
 }
 
 export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>, customId?: string): Promise<string> {
+  let npcId: string;
+  
   if (customId) {
     // Create with specific ID
+    npcId = customId;
     await setDoc(doc(db, 'npcs', customId), {
       ...npc,
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     });
-    
-    // Clear cache to ensure fresh data
-    const cache = DataCache.getInstance();
-    cache.delete('all_npcs');
-    
-    return customId;
   } else {
     // Create with auto-generated ID
     const docRef = await addDoc(collection(db, 'npcs'), {
@@ -99,16 +97,23 @@ export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>
       createdAt: serverTimestamp(),
       updatedAt: serverTimestamp(),
     });
-    
-    // Clear cache to ensure fresh data
-    const cache = DataCache.getInstance();
-    cache.delete('all_npcs');
-    
-    return docRef.id;
+    npcId = docRef.id;
   }
+  
+  // Clear cache to ensure fresh data
+  const cache = DataCache.getInstance();
+  cache.delete('all_npcs');
+  
+  // Log the activity
+  await logNPCChange('create', npcId, npc.name);
+  
+  return npcId;
 }
 
 export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<void> {
+  // Get current NPC for logging
+  const currentNPC = await getNPC(npcId);
+  
   const { id, createdAt, ...updateData } = updates;
   await updateDoc(doc(db, 'npcs', npcId), {
     ...updateData,
@@ -119,10 +124,36 @@ export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<v
   const cache = DataCache.getInstance();
   cache.delete('all_npcs');
   cache.delete(`npc_${npcId}`);
+  
+  // Log the changes
+  if (currentNPC) {
+    const changes = Object.entries(updateData)
+      .filter(([key, value]) => currentNPC[key as keyof NPC] !== value)
+      .map(([field, newValue]) => ({
+        field,
+        oldValue: currentNPC[field as keyof NPC],
+        newValue
+      }));
+    
+    await logNPCChange('update', npcId, currentNPC.name, changes);
+  }
 }
 
 export async function deleteNPC(npcId: string): Promise<void> {
+  // Get NPC info for logging
+  const npc = await getNPC(npcId);
+  
   await deleteDoc(doc(db, 'npcs', npcId));
+  
+  // Clear cache
+  const cache = DataCache.getInstance();
+  cache.delete('all_npcs');
+  cache.delete(`npc_${npcId}`);
+  
+  // Log the deletion
+  if (npc) {
+    await logNPCChange('delete', npcId, npc.name);
+  }
 }
 
 // Batch operations for importing multiple NPCs

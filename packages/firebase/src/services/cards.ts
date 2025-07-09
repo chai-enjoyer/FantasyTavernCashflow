@@ -15,6 +15,7 @@ import {
 } from 'firebase/firestore';
 import { db } from '../config';
 import { DataCache } from './cache';
+import { logCardChange } from './activityLog';
 import type { Card, CardRequirements, GameState } from '@repo/shared';
 
 export async function getCard(cardId: string): Promise<Card | null> {
@@ -139,19 +140,60 @@ export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedA
     updatedAt: serverTimestamp(),
   });
   
+  // Clear cache
+  const cache = DataCache.getInstance();
+  cache.delete('all_cards');
+  
+  // Log the activity
+  await logCardChange('create', docRef.id, card.title);
+  
   return docRef.id;
 }
 
 export async function updateCard(cardId: string, updates: Partial<Card>): Promise<void> {
+  // Get current card for logging
+  const currentCard = await getCard(cardId);
+  
   const { id, createdAt, ...updateData } = updates;
   await updateDoc(doc(db, 'cards', cardId), {
     ...updateData,
     updatedAt: serverTimestamp(),
   });
+  
+  // Clear cache
+  const cache = DataCache.getInstance();
+  cache.delete('all_cards');
+  cache.delete(`card_${cardId}`);
+  
+  // Log the changes
+  if (currentCard) {
+    const changes = Object.entries(updateData)
+      .filter(([key, value]) => currentCard[key as keyof Card] !== value)
+      .map(([field, newValue]) => ({
+        field,
+        oldValue: currentCard[field as keyof Card],
+        newValue
+      }));
+    
+    await logCardChange('update', cardId, currentCard.title, changes);
+  }
 }
 
 export async function deleteCard(cardId: string): Promise<void> {
+  // Get card info for logging
+  const card = await getCard(cardId);
+  
   await deleteDoc(doc(db, 'cards', cardId));
+  
+  // Clear cache
+  const cache = DataCache.getInstance();
+  cache.delete('all_cards');
+  cache.delete(`card_${cardId}`);
+  
+  // Log the deletion
+  if (card) {
+    await logCardChange('delete', cardId, card.title);
+  }
 }
 
 // Batch operations for importing multiple cards
