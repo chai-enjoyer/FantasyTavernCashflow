@@ -1,14 +1,26 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2 } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
-import { NPC } from '@repo/shared';
+import { NPC, NPCClass } from '@repo/shared';
 import { getAllNPCs, deleteNPC } from '@repo/firebase';
 
 export default function NPCsPage() {
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedClass, setSelectedClass] = useState<NPCClass | 'all'>('all');
+  const [wealthFilter, setWealthFilter] = useState<number | 'all'>('all');
+  const [reliabilityFilter, setReliabilityFilter] = useState<'all' | 'low' | 'medium' | 'high'>('all');
+  const [showFilters, setShowFilters] = useState(false);
+  
+  const npcClasses: NPCClass[] = [
+    'commoner', 'merchant', 'noble', 'adventurer', 'criminal', 'guard', 'cleric', 'mage', 'royal', 'crime_boss', 'dragon',
+    'bard', 'alchemist', 'dwarf', 'elf', 'halfling', 'orc', 'vampire', 'pirate', 'monk', 'witch', 'knight',
+    'necromancer', 'barbarian', 'artisan', 'scholar', 'blacksmith', 'hunter', 'sailor', 'healer', 'beggar',
+    'artist', 'official', 'mystic'
+  ];
 
   useEffect(() => {
     loadNPCs();
@@ -84,6 +96,29 @@ export default function NPCsPage() {
     );
   }
 
+  // Filter NPCs based on search and filters
+  const filteredNPCs = npcs.filter(npc => {
+    // Search filter
+    const matchesSearch = searchTerm === '' || 
+      npc.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      npc.description?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      npc.id.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Class filter
+    const matchesClass = selectedClass === 'all' || npc.class === selectedClass;
+    
+    // Wealth filter
+    const matchesWealth = wealthFilter === 'all' || npc.wealth === wealthFilter;
+    
+    // Reliability filter
+    const matchesReliability = reliabilityFilter === 'all' ||
+      (reliabilityFilter === 'low' && npc.reliability < 40) ||
+      (reliabilityFilter === 'medium' && npc.reliability >= 40 && npc.reliability < 70) ||
+      (reliabilityFilter === 'high' && npc.reliability >= 70);
+    
+    return matchesSearch && matchesClass && matchesWealth && matchesReliability;
+  });
+
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
@@ -94,8 +129,135 @@ export default function NPCsPage() {
         </Link>
       </div>
 
+      {/* Statistics Summary */}
+      {npcs.length > 0 && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div className="admin-card p-4 text-center">
+            <div className="text-2xl font-bold text-admin-primary">{npcs.length}</div>
+            <div className="text-sm text-gray-400">Всего НПС</div>
+          </div>
+          <div className="admin-card p-4 text-center">
+            <div className="text-2xl font-bold text-green-500">
+              {Math.round(npcs.reduce((sum, npc) => sum + npc.reliability, 0) / npcs.length)}%
+            </div>
+            <div className="text-sm text-gray-400">Средняя надёжность</div>
+          </div>
+          <div className="admin-card p-4 text-center">
+            <div className="text-2xl font-bold text-yellow-500">
+              {(npcs.reduce((sum, npc) => sum + npc.wealth, 0) / npcs.length).toFixed(1)}
+            </div>
+            <div className="text-sm text-gray-400">Среднее богатство</div>
+          </div>
+          <div className="admin-card p-4 text-center">
+            <div className="text-2xl font-bold text-blue-500">
+              {[...new Set(npcs.map(npc => npc.class))].length}
+            </div>
+            <div className="text-sm text-gray-400">Уникальных классов</div>
+          </div>
+        </div>
+      )}
+
+      {/* Search and Filters */}
+      <div className="mb-6 space-y-4">
+        <div className="flex gap-2">
+          <div className="relative flex-1">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <input
+              type="text"
+              placeholder="Поиск по имени, описанию или ID..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="admin-input pl-10 w-full"
+            />
+          </div>
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className={`admin-button ${showFilters ? 'bg-admin-primary' : ''} flex items-center gap-2`}
+          >
+            <Filter className="w-4 h-4" />
+            Фильтры
+          </button>
+        </div>
+        
+        {showFilters && (
+          <div className="admin-card p-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Класс НПС
+              </label>
+              <select
+                value={selectedClass}
+                onChange={(e) => setSelectedClass(e.target.value as NPCClass | 'all')}
+                className="admin-input w-full"
+              >
+                <option value="all">Все классы</option>
+                {npcClasses.map(cls => (
+                  <option key={cls} value={cls}>
+                    {cls.charAt(0).toUpperCase() + cls.slice(1).replace('_', ' ')}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Богатство
+              </label>
+              <select
+                value={wealthFilter}
+                onChange={(e) => setWealthFilter(e.target.value === 'all' ? 'all' : parseInt(e.target.value))}
+                className="admin-input w-full"
+              >
+                <option value="all">Любое богатство</option>
+                <option value="0">⭐ Нищий (0)</option>
+                <option value="1">⭐ Бедный (1)</option>
+                <option value="2">⭐⭐ Скромный (2)</option>
+                <option value="3">⭐⭐⭐ Зажиточный (3)</option>
+                <option value="4">⭐⭐⭐⭐ Богатый (4)</option>
+                <option value="5">⭐⭐⭐⭐⭐ Очень богатый (5)</option>
+              </select>
+            </div>
+            
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Надёжность
+              </label>
+              <select
+                value={reliabilityFilter}
+                onChange={(e) => setReliabilityFilter(e.target.value as 'all' | 'low' | 'medium' | 'high')}
+                className="admin-input w-full"
+              >
+                <option value="all">Любая надёжность</option>
+                <option value="low">Низкая (0-39%)</option>
+                <option value="medium">Средняя (40-69%)</option>
+                <option value="high">Высокая (70-100%)</option>
+              </select>
+            </div>
+          </div>
+        )}
+        
+        <div className="flex items-center justify-between text-sm">
+          <span className="text-gray-400">
+            Найдено: {filteredNPCs.length} из {npcs.length} НПС
+          </span>
+          {(searchTerm || selectedClass !== 'all' || wealthFilter !== 'all' || reliabilityFilter !== 'all') && (
+            <button
+              onClick={() => {
+                setSearchTerm('');
+                setSelectedClass('all');
+                setWealthFilter('all');
+                setReliabilityFilter('all');
+              }}
+              className="text-admin-primary hover:underline"
+            >
+              Сбросить фильтры
+            </button>
+          )}
+        </div>
+      </div>
+
       <div className="grid gap-4">
-        {npcs.map((npc) => (
+        {filteredNPCs.map((npc) => (
           <div key={npc.id} className="admin-card">
             <div className="flex justify-between items-start">
               <div className="flex-1">
@@ -156,9 +318,9 @@ export default function NPCsPage() {
         ))}
       </div>
 
-      {npcs.length === 0 && (
+      {filteredNPCs.length === 0 && (
         <div className="text-center py-12 text-gray-400">
-          НПС ещё не созданы.
+          {npcs.length === 0 ? 'НПС ещё не созданы.' : 'Не найдено НПС, соответствующих фильтрам.'}
         </div>
       )}
     </div>
