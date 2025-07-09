@@ -150,7 +150,7 @@ export default function NPCsPage() {
           </div>
           <div className="admin-card p-4 text-center">
             <div className="text-2xl font-bold text-blue-500">
-              {[...new Set(npcs.map(npc => npc.class))].length}
+              {Array.from(new Set(npcs.map(npc => npc.class))).length}
             </div>
             <div className="text-sm text-gray-400">Уникальных классов</div>
           </div>

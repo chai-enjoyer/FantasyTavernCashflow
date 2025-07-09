@@ -14,6 +14,7 @@ import {
 } from '@repo/firebase';
 import { TelegramService } from '../services/telegram';
 import { AnalyticsService } from '../services/analytics';
+import { ImagePreloader } from '../services/imagePreloader';
 
 interface GameContextState {
   gameState: GameState | null;
@@ -69,6 +70,7 @@ export function GameProvider({ children }: GameProviderProps) {
   const analytics = AnalyticsService.getInstance();
   const cardIndex = CardIndex.getInstance();
   const prefetcher = CardPrefetcher.getInstance();
+  const imagePreloader = ImagePreloader.getInstance();
 
   // Pre-load next card whenever game state changes (synchronous for instant loading)
   const preloadNextCard = (gameState: GameState, currentCardId?: string) => {
@@ -105,6 +107,10 @@ export function GameProvider({ children }: GameProviderProps) {
             nextCard: cardWithNPC.card,
             nextNPC: cardWithNPC.npc,
           }));
+          
+          // Preload next NPC's images
+          const imageUrls = Object.values(cardWithNPC.npc.portraits).filter(Boolean);
+          imagePreloader.queueForPreload(imageUrls);
         }
       }
     } catch (error) {
@@ -181,6 +187,10 @@ export function GameProvider({ children }: GameProviderProps) {
 
       // Track game start
       analytics.trackGameStart(user.gameState);
+      
+      // Preload current NPC's images
+      const currentNPCImages = Object.values(cardWithNPC.npc.portraits).filter(Boolean);
+      imagePreloader.preloadImages(currentNPCImages);
       
       // Start preloading next card (synchronous)
       preloadNextCard(user.gameState, nextCard.id);

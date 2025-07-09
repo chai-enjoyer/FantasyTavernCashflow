@@ -103,7 +103,7 @@ export interface CardRequirements {
   npcRelationship?: { npcId: string; minValue: number };
 }
 
-export type NPCClass = 'commoner' | 'adventurer' | 'criminal' | 'noble' | 'royal' | 'cleric' | 'mage' | 'crime_boss' | 'dragon';
+export type NPCClass = 'commoner' | 'merchant' | 'noble' | 'adventurer' | 'criminal' | 'guard' | 'cleric' | 'mage' | 'royal' | 'crime_boss' | 'dragon' | 'bard' | 'alchemist' | 'dwarf' | 'elf' | 'halfling' | 'orc' | 'vampire' | 'pirate' | 'monk' | 'witch' | 'knight' | 'necromancer' | 'barbarian' | 'artisan' | 'scholar' | 'blacksmith' | 'hunter' | 'sailor' | 'healer' | 'beggar' | 'artist' | 'official' | 'mystic';
 
 export interface NPC {
   id: string;

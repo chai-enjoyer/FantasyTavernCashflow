@@ -16,31 +16,46 @@
   },
   "npcs": [
     {
-      "id": "unique_npc_id",
-      "name": "NPC Name",
+      "id": "merchant_bob",
+      "name": "Bob the Merchant",
+      "class": "merchant",
+      "wealth": 3,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_bob%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_bob%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fmerchant_bob%2Fnegative.jpg?alt=media"
+      },
+      "description": "A traveling merchant with exotic goods and business opportunities",
+      "createdAt": "2025-01-07T00:00:00.000Z",
+      "updatedAt": "2025-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "commoner_tom",
+      "name": "Tom the Farmer",
       "class": "commoner",
       "wealth": 1,
-      "reliability": 80,
+      "reliability": 90,
       "portraits": {
-        "neutral": "/images/npcs/class_neutral.png",
-        "positive": "/images/npcs/class_positive.png",
-        "negative": "/images/npcs/class_negative.png"
+        "neutral": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fneutral.jpg?alt=media",
+        "positive": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fpositive.jpg?alt=media",
+        "negative": "https://firebasestorage.googleapis.com/v0/b/fantasy-tavern-cashflow.appspot.com/o/npcs%2Fcommoner_tom%2Fnegative.jpg?alt=media"
       },
-      "description": "A brief description of the NPC",
+      "description": "A humble farmer looking for simple ale and a warm meal",
       "createdAt": "2025-01-07T00:00:00.000Z",
       "updatedAt": "2025-01-07T00:00:00.000Z"
     }
   ],
   "cards": [
     {
-      "id": "unique_card_id",
+      "id": "merchant_deal",
       "type": "immediate",
-      "category": "service",
-      "npcId": "reference_to_npc_id",
-      "title": "Card Title",
-      "description": "Brief card description",
-      "situation": "The full scenario text that sets up the player's choice",
-      "priority": 1,
+      "category": "business",
+      "npcId": "merchant_bob",
+      "title": "Merchant's Offer",
+      "description": "A merchant has a special business proposition",
+      "situation": "Bob enters with a confident smile. 'I have a deal that could benefit us both! I need a reliable supplier for my caravan routes.'",
+      "priority": 2,
       "options": [
         {
           "text": "Option 1 text",
@@ -75,8 +90,7 @@
               "turnsUntil": 5
             },
             "npcRelationship": {
-              "npcId": "npc_id",
-              "change": 50
+              "merchant_bob": 50
             }
           },
           "resultText": "The outcome narrative after choosing this option",

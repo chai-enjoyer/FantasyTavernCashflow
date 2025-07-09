@@ -144,19 +144,19 @@ export default function CardsPage() {
           </div>
           <div className="admin-card p-4 text-center">
             <div className="text-2xl font-bold text-purple-500">
-              {[...new Set(cards.map(card => card.type))].length}
+              {Array.from(new Set(cards.map(card => card.type))).length}
             </div>
             <div className="text-sm text-gray-400">Типов карт</div>
           </div>
           <div className="admin-card p-4 text-center">
             <div className="text-2xl font-bold text-orange-500">
-              {[...new Set(cards.map(card => card.category))].length}
+              {Array.from(new Set(cards.map(card => card.category))).length}
             </div>
             <div className="text-sm text-gray-400">Категорий</div>
           </div>
           <div className="admin-card p-4 text-center">
             <div className="text-2xl font-bold text-cyan-500">
-              {[...new Set(cards.map(card => card.npcId))].length}
+              {Array.from(new Set(cards.map(card => card.npcId))).length}
             </div>
             <div className="text-sm text-gray-400">Связанных НПС</div>
           </div>

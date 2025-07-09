@@ -1,5 +1,6 @@
-import { getAllCards, getAllNPCs, getGameConfig, DataCache, ProgressiveDataLoader, CardIndex } from '@repo/firebase';
+import { getAllCards, getAllNPCs, getGameConfig, DataCache, ProgressiveDataLoader, CardIndex, ImageCachingService } from '@repo/firebase';
 import { Card, NPC, GameConfig } from '@repo/shared';
+import { ImagePreloader } from './imagePreloader';
 
 interface PreloadResult {
   cards: Card[];
@@ -15,6 +16,8 @@ export class GameDataPreloader {
   private preloadPromise: Promise<PreloadResult> | null = null;
   private progressiveLoader = ProgressiveDataLoader.getInstance();
   private cardIndex = CardIndex.getInstance();
+  private imagePreloader = ImagePreloader.getInstance();
+  private imageCaching = ImageCachingService.getInstance();
 
   private constructor() {}
 
@@ -76,6 +79,9 @@ export class GameDataPreloader {
       if (cards.length > 0 && npcs.length > 0) {
         this.cardIndex.buildIndex(cards, npcs);
         console.log('🏗️ Card index built for instant lookups');
+        
+        // Start preloading top NPC portraits
+        this.preloadTopNPCImages(cards, npcs);
       }
 
       const loadTime = performance.now() - startTime;
@@ -162,5 +168,46 @@ export class GameDataPreloader {
         await this.preloadGameData();
         break;
     }
+  }
+
+  /**
+   * Preload top NPC images based on usage
+   */
+  private preloadTopNPCImages(cards: Card[], npcs: NPC[]): void {
+    // Count NPC usage in cards
+    const npcUsage = new Map<string, number>();
+    cards.forEach(card => {
+      const count = npcUsage.get(card.npcId) || 0;
+      npcUsage.set(card.npcId, count + 1);
+    });
+
+    // Sort NPCs by usage
+    const sortedNPCs = [...npcs].sort((a, b) => {
+      const aUsage = npcUsage.get(a.id) || 0;
+      const bUsage = npcUsage.get(b.id) || 0;
+      return bUsage - aUsage;
+    });
+
+    // Preload neutral portraits for top 5 NPCs immediately
+    const topNPCs = sortedNPCs.slice(0, 5);
+    const neutralPortraits = topNPCs
+      .map(npc => npc.portraits.neutral)
+      .filter(Boolean)
+      .map(url => this.imageCaching.optimizeImageUrl(url));
+
+    console.log(`🖼️ Preloading ${neutralPortraits.length} top NPC portraits...`);
+    
+    // Use both methods for maximum effectiveness
+    this.imagePreloader.preloadImages(neutralPortraits);
+    this.imageCaching.batchPreloadImages(neutralPortraits);
+
+    // Queue other NPCs for background loading
+    const otherNPCs = sortedNPCs.slice(5, 15);
+    const otherPortraits = otherNPCs
+      .map(npc => npc.portraits.neutral)
+      .filter(Boolean)
+      .map(url => this.imageCaching.optimizeImageUrl(url));
+    
+    this.imagePreloader.queueForPreload(otherPortraits);
   }
 }

@@ -18,13 +18,13 @@ interface ProcessedImportData {
 export function processImportFile(data: ImportFileData): ProcessedImportData {
   const result: ProcessedImportData = {};
 
-  // Process NPCs - remove IDs and timestamps, they'll be regenerated
+  // Process NPCs - keep IDs, remove only timestamps
   if (data.npcs && Array.isArray(data.npcs)) {
     result.npcs = data.npcs.map(npc => {
-      const { id, createdAt, updatedAt, ...npcData } = npc;
+      const { createdAt, updatedAt, ...npcData } = npc;
       return {
         ...npcData,
-        id: npc.id, // Keep original ID for card references
+        id: npc.id, // Preserve the ID
         class: npc.class as NPCClass,
         wealth: Number(npc.wealth) as 1 | 2 | 3 | 4 | 5,
         reliability: Number(npc.reliability),
@@ -32,12 +32,13 @@ export function processImportFile(data: ImportFileData): ProcessedImportData {
     });
   }
 
-  // Process cards - remove IDs and timestamps
+  // Process cards - keep IDs if they're readable format, remove timestamps
   if (data.cards && Array.isArray(data.cards)) {
     result.cards = data.cards.map(card => {
-      const { id, createdAt, updatedAt, ...cardData } = card;
+      const { createdAt, updatedAt, ...cardData } = card;
       return {
         ...cardData,
+        id: card.id, // Preserve the ID
         type: card.type as CardType,
         priority: Number(card.priority) as 1 | 2 | 3 | 4,
         options: card.options.slice(0, 4), // Ensure exactly 4 options
@@ -65,8 +66,10 @@ export function updateCardNpcReferences(cards: Card[], npcIdMap: Map<string, str
 // Validate NPC class
 export function isValidNpcClass(value: string): value is NPCClass {
   const validClasses: NPCClass[] = [
-    'commoner', 'adventurer', 'criminal', 'noble', 
-    'royal', 'cleric', 'mage', 'crime_boss', 'dragon'
+    'commoner', 'merchant', 'noble', 'adventurer', 'criminal', 'guard', 'cleric', 'mage', 'royal', 'crime_boss', 'dragon',
+    'bard', 'alchemist', 'dwarf', 'elf', 'halfling', 'orc', 'vampire', 'pirate', 'monk', 'witch', 'knight',
+    'necromancer', 'barbarian', 'artisan', 'scholar', 'blacksmith', 'hunter', 'sailor', 'healer', 'beggar',
+    'artist', 'official', 'mystic'
   ];
   return validClasses.includes(value as NPCClass);
 }

@@ -74,7 +74,13 @@ async function batchImportCards(cards: Card[], npcIdMap: Map<string, string>): P
     const batchCards = cards.slice(start, end);
 
     for (const card of batchCards) {
-      const cardRef = doc(collection(db, 'cards'));
+      const cardId = card.id;
+      // Use the provided ID if it's a readable format, otherwise generate a new one
+      const isReadableId = /^[a-z]+_[a-z0-9_]+$/.test(cardId);
+      const cardRef = isReadableId && cardId
+        ? doc(db, 'cards', cardId) // Use custom ID
+        : doc(collection(db, 'cards')); // Generate new ID
+        
       const cardData = {
         ...card,
         id: cardRef.id,
@@ -100,8 +106,13 @@ async function batchImportNPCs(npcs: NPC[]): Promise<Map<string, string>> {
     const batchNPCs = npcs.slice(start, end);
 
     for (const npc of batchNPCs) {
-      const npcRef = doc(collection(db, 'npcs'));
       const oldId = npc.id;
+      // Use the provided ID if it's a readable format, otherwise generate a new one
+      const isReadableId = /^[a-z]+_[a-z0-9_]+$/.test(oldId);
+      const npcRef = isReadableId 
+        ? doc(db, 'npcs', oldId) // Use custom ID
+        : doc(collection(db, 'npcs')); // Generate new ID
+      
       const npcData = {
         ...npc,
         id: npcRef.id,

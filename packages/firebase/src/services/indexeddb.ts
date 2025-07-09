@@ -65,31 +65,51 @@ export class IndexedDBService {
   public async saveGameData(data: Partial<GameDataStore>): Promise<void> {
     await this.ensureInitialized();
 
-    const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
-    const store = transaction.objectStore(this.STORE_NAME);
-
-    // Get existing data
-    const existingData = await this.getGameData();
-    
-    // Merge with new data
-    const updatedData: GameDataStore = {
-      cards: data.cards || existingData?.cards || [],
-      npcs: data.npcs || existingData?.npcs || [],
-      config: data.config || existingData?.config || null,
-      timestamp: Date.now(),
-    };
-
     return new Promise((resolve, reject) => {
-      const request = store.put(updatedData, 'gameData');
+      const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
+      const store = transaction.objectStore(this.STORE_NAME);
+
+      // Handle transaction errors
+      transaction.onerror = () => {
+        console.error('IndexedDB transaction error:', transaction.error);
+        reject(new Error(`IndexedDB transaction failed: ${transaction.error?.message || 'Unknown error'}`));
+      };
+
+      transaction.onabort = () => {
+        console.error('IndexedDB transaction aborted');
+        reject(new Error('IndexedDB transaction was aborted'));
+      };
+
+      // Get existing data first
+      const getRequest = store.get('gameData');
       
-      request.onsuccess = () => {
-        console.log('Game data saved to IndexedDB');
-        resolve();
+      getRequest.onsuccess = () => {
+        const existingData = getRequest.result as GameDataStore | undefined;
+        
+        // Merge with new data
+        const updatedData: GameDataStore = {
+          cards: data.cards || existingData?.cards || [],
+          npcs: data.npcs || existingData?.npcs || [],
+          config: data.config || existingData?.config || null,
+          timestamp: Date.now(),
+        };
+
+        const putRequest = store.put(updatedData, 'gameData');
+        
+        putRequest.onsuccess = () => {
+          console.log('Game data saved to IndexedDB');
+          resolve();
+        };
+        
+        putRequest.onerror = () => {
+          console.error('Failed to save game data:', putRequest.error);
+          reject(new Error(`Failed to save game data: ${putRequest.error?.message || 'Unknown error'}`));
+        };
       };
       
-      request.onerror = () => {
-        console.error('Failed to save game data:', request.error);
-        reject(request.error);
+      getRequest.onerror = () => {
+        console.error('Failed to get existing game data:', getRequest.error);
+        reject(new Error(`Failed to get existing game data: ${getRequest.error?.message || 'Unknown error'}`));
       };
     });
   }
@@ -100,10 +120,21 @@ export class IndexedDBService {
   public async getGameData(): Promise<GameDataStore | null> {
     await this.ensureInitialized();
 
-    const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
-    const store = transaction.objectStore(this.STORE_NAME);
-
     return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction([this.STORE_NAME], 'readonly');
+      const store = transaction.objectStore(this.STORE_NAME);
+
+      // Handle transaction errors
+      transaction.onerror = () => {
+        console.error('IndexedDB transaction error:', transaction.error);
+        reject(new Error(`IndexedDB transaction failed: ${transaction.error?.message || 'Unknown error'}`));
+      };
+
+      transaction.onabort = () => {
+        console.error('IndexedDB transaction aborted');
+        reject(new Error('IndexedDB transaction was aborted'));
+      };
+
       const request = store.get('gameData');
       
       request.onsuccess = () => {
@@ -114,13 +145,16 @@ export class IndexedDBService {
           console.log('Game data loaded from IndexedDB');
           resolve(data);
         } else {
+          if (data) {
+            console.log('Game data expired, removing from IndexedDB');
+          }
           resolve(null);
         }
       };
       
       request.onerror = () => {
         console.error('Failed to get game data:', request.error);
-        reject(request.error);
+        reject(new Error(`Failed to get game data: ${request.error?.message || 'Unknown error'}`));
       };
     });
   }
@@ -131,10 +165,21 @@ export class IndexedDBService {
   public async clear(): Promise<void> {
     await this.ensureInitialized();
 
-    const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
-    const store = transaction.objectStore(this.STORE_NAME);
-
     return new Promise((resolve, reject) => {
+      const transaction = this.db!.transaction([this.STORE_NAME], 'readwrite');
+      const store = transaction.objectStore(this.STORE_NAME);
+
+      // Handle transaction errors
+      transaction.onerror = () => {
+        console.error('IndexedDB transaction error:', transaction.error);
+        reject(new Error(`IndexedDB transaction failed: ${transaction.error?.message || 'Unknown error'}`));
+      };
+
+      transaction.onabort = () => {
+        console.error('IndexedDB transaction aborted');
+        reject(new Error('IndexedDB transaction was aborted'));
+      };
+
       const request = store.clear();
       
       request.onsuccess = () => {
@@ -144,7 +189,7 @@ export class IndexedDBService {
       
       request.onerror = () => {
         console.error('Failed to clear IndexedDB:', request.error);
-        reject(request.error);
+        reject(new Error(`Failed to clear IndexedDB: ${request.error?.message || 'Unknown error'}`));
       };
     });
   }

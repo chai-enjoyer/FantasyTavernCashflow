@@ -13,3 +13,5 @@ export * from './services/cardPrefetcher';
 export * from './services/cardIndex';
 export * from './services/paginatedQueries';
 export * from './services/fallbackQueries';
+export * from './services/imageUpload';
+export * from './services/imageCaching';

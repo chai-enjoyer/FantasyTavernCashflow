@@ -4,6 +4,7 @@ import {
   getDoc,
   getDocs,
   addDoc,
+  setDoc,
   updateDoc,
   deleteDoc,
   serverTimestamp,
@@ -77,14 +78,34 @@ export async function getAllNPCs(): Promise<NPC[]> {
   }
 }
 
-export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
-  const docRef = await addDoc(collection(db, 'npcs'), {
-    ...npc,
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-  
-  return docRef.id;
+export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>, customId?: string): Promise<string> {
+  if (customId) {
+    // Create with specific ID
+    await setDoc(doc(db, 'npcs', customId), {
+      ...npc,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+    
+    // Clear cache to ensure fresh data
+    const cache = DataCache.getInstance();
+    cache.delete('all_npcs');
+    
+    return customId;
+  } else {
+    // Create with auto-generated ID
+    const docRef = await addDoc(collection(db, 'npcs'), {
+      ...npc,
+      createdAt: serverTimestamp(),
+      updatedAt: serverTimestamp(),
+    });
+    
+    // Clear cache to ensure fresh data
+    const cache = DataCache.getInstance();
+    cache.delete('all_npcs');
+    
+    return docRef.id;
+  }
 }
 
 export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<void> {
@@ -93,6 +114,11 @@ export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<v
     ...updateData,
     updatedAt: serverTimestamp(),
   });
+  
+  // Clear cache to ensure fresh data
+  const cache = DataCache.getInstance();
+  cache.delete('all_npcs');
+  cache.delete(`npc_${npcId}`);
 }
 
 export async function deleteNPC(npcId: string): Promise<void> {

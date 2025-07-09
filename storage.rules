@@ -4,10 +4,16 @@ service firebase.storage {
     // Allow read access to all files
     match /{allPaths=**} {
       allow read: if true;
-      allow write: if false; // Only admin can write
     }
     
-    // Allow uploads to portraits folder
+    // Allow uploads to npcs folder for authenticated users
+    match /npcs/{npcId}/{portrait} {
+      allow write: if request.auth != null 
+        && request.resource.size < 5 * 1024 * 1024 // 5MB limit
+        && request.resource.contentType.matches('image/.*'); // Only images
+    }
+    
+    // Allow uploads to portraits folder (legacy)
     match /portraits/{allPaths=**} {
       allow write: if request.auth != null && request.resource.size < 5 * 1024 * 1024; // 5MB limit
     }
