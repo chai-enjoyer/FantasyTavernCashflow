@@ -135,12 +135,12 @@ export async function getActivityLogs(
   }
 }
 
-export async function getRecentActivity(limit: number = 10): Promise<ActivityLog[]> {
+export async function getRecentActivity(maxResults: number = 10): Promise<ActivityLog[]> {
   try {
     const q = query(
       collection(db, LOGS_COLLECTION),
       orderBy('timestamp', 'desc'),
-      limit(limit)
+      limit(maxResults)
     );
 
     const snapshot = await getDocs(q);
