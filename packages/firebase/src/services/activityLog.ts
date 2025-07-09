@@ -28,6 +28,7 @@ export interface ActivityLog {
   }[];
   timestamp: Timestamp;
   ip?: string;
+  [key: string]: any; // Allow indexing for dynamic property assignment
 }
 
 const LOGS_COLLECTION = 'activityLogs';
@@ -39,35 +40,56 @@ export async function logActivity(
   entityId?: string,
   entityName?: string,
   details?: Record<string, any>,
-  changes?: ActivityLog['changes']
+  changes?: ActivityLog['changes'],
+  userInfo?: { userId: string; userEmail: string }
 ): Promise<void> {
+  console.log('=== logActivity called ===', {
+    action,
+    entityType,
+    entityId,
+    entityName,
+    userInfo,
+    authCurrentUser: auth.currentUser
+  });
+  
   try {
-    // Wait a bit to ensure auth is ready
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Try to get user from passed info or auth
+    let userId: string;
+    let userEmail: string;
     
-    const user = auth.currentUser;
-    
-    if (!user) {
-      console.warn('No authenticated user for activity logging', {
-        action,
-        entityType,
-        entityId,
-        entityName
-      });
-      return;
+    if (userInfo) {
+      console.log('Using passed userInfo:', userInfo);
+      userId = userInfo.userId;
+      userEmail = userInfo.userEmail;
+    } else {
+      const user = auth.currentUser;
+      console.log('Checking auth.currentUser:', user);
+      if (!user) {
+        console.warn('No authenticated user for activity logging', {
+          action,
+          entityType,
+          entityId,
+          entityName
+        });
+        return;
+      }
+      userId = user.uid;
+      userEmail = user.email || 'unknown';
     }
 
     const log: Omit<ActivityLog, 'id'> = {
-      userId: user.uid,
-      userEmail: user.email || 'unknown',
+      userId,
+      userEmail,
       action,
       entityType,
-      entityId,
-      entityName,
-      details,
-      changes,
       timestamp: Timestamp.now()
     };
+
+    // Only add optional fields if they have values
+    if (entityId !== undefined) log.entityId = entityId;
+    if (entityName !== undefined) log.entityName = entityName;
+    if (details !== undefined) log.details = details;
+    if (changes !== undefined) log.changes = changes;
 
     console.log('Logging activity:', log);
     const docRef = await addDoc(collection(db, LOGS_COLLECTION), log);
@@ -167,9 +189,17 @@ export function logNPCChange(
   action: 'create' | 'update' | 'delete',
   npcId: string,
   npcName: string,
-  changes?: ActivityLog['changes']
+  changes?: ActivityLog['changes'],
+  userInfo?: { userId: string; userEmail: string }
 ): Promise<void> {
-  return logActivity(action, 'npc', npcId, npcName, undefined, changes);
+  console.log('=== logNPCChange called ===', {
+    action,
+    npcId,
+    npcName,
+    changes,
+    userInfo
+  });
+  return logActivity(action, 'npc', npcId, npcName, undefined, changes, userInfo);
 }
 
 // Helper function to log Card changes
@@ -177,23 +207,28 @@ export function logCardChange(
   action: 'create' | 'update' | 'delete',
   cardId: string,
   cardTitle: string,
-  changes?: ActivityLog['changes']
+  changes?: ActivityLog['changes'],
+  userInfo?: { userId: string; userEmail: string }
 ): Promise<void> {
-  return logActivity(action, 'card', cardId, cardTitle, undefined, changes);
+  return logActivity(action, 'card', cardId, cardTitle, undefined, changes, userInfo);
 }
 
 // Helper function to log bulk operations
 export function logBulkOperation(
   operation: string,
-  details: Record<string, any>
+  details: Record<string, any>,
+  userInfo?: { userId: string; userEmail: string }
 ): Promise<void> {
-  return logActivity('import', 'bulk', undefined, operation, details);
+  // Determine action based on operation
+  const action = operation.toLowerCase().includes('export') ? 'export' : 'import';
+  return logActivity(action, 'bulk', undefined, operation, details, undefined, userInfo);
 }
 
 // Helper function to log auth events
 export function logAuthEvent(
   action: 'login' | 'logout',
-  details?: Record<string, any>
+  details?: Record<string, any>,
+  userInfo?: { userId: string; userEmail: string }
 ): Promise<void> {
-  return logActivity(action, 'auth', undefined, undefined, details);
+  return logActivity(action, 'auth', undefined, undefined, details, undefined, userInfo);
 }

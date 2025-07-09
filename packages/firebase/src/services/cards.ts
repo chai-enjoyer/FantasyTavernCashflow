@@ -133,7 +133,7 @@ export async function getCardsByPriority(priority: 1 | 2 | 3 | 4): Promise<Card[
   })) as Card[];
 }
 
-export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedAt'>): Promise<string> {
+export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedAt'>, userInfo?: { userId: string; userEmail: string }): Promise<string> {
   const docRef = await addDoc(collection(db, 'cards'), {
     ...card,
     createdAt: serverTimestamp(),
@@ -146,7 +146,7 @@ export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedA
   
   // Log the activity
   try {
-    await logCardChange('create', docRef.id, card.title);
+    await logCardChange('create', docRef.id, card.title, undefined, userInfo);
   } catch (error) {
     console.error('Failed to log card creation:', error);
   }
@@ -154,7 +154,7 @@ export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedA
   return docRef.id;
 }
 
-export async function updateCard(cardId: string, updates: Partial<Card>): Promise<void> {
+export async function updateCard(cardId: string, updates: Partial<Card>, userInfo?: { userId: string; userEmail: string }): Promise<void> {
   // Get current card for logging
   const currentCard = await getCard(cardId);
   
@@ -180,14 +180,14 @@ export async function updateCard(cardId: string, updates: Partial<Card>): Promis
       }));
     
     try {
-      await logCardChange('update', cardId, currentCard.title, changes);
+      await logCardChange('update', cardId, currentCard.title, changes, userInfo);
     } catch (error) {
       console.error('Failed to log card update:', error);
     }
   }
 }
 
-export async function deleteCard(cardId: string): Promise<void> {
+export async function deleteCard(cardId: string, userInfo?: { userId: string; userEmail: string }): Promise<void> {
   // Get card info for logging
   const card = await getCard(cardId);
   
@@ -201,7 +201,7 @@ export async function deleteCard(cardId: string): Promise<void> {
   // Log the deletion
   if (card) {
     try {
-      await logCardChange('delete', cardId, card.title);
+      await logCardChange('delete', cardId, card.title, undefined, userInfo);
     } catch (error) {
       console.error('Failed to log card deletion:', error);
     }

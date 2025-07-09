@@ -5,8 +5,10 @@ import { Plus, Edit2, Trash2, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { Card, NPC, CardType } from '@repo/shared';
 import { getAllCards, deleteCard, getAllNPCs } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function CardsPage() {
+  const { user } = useAuth();
   const [cards, setCards] = useState<Card[]>([]);
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -60,7 +62,8 @@ export default function CardsPage() {
     if (!confirm('Вы уверены, что хотите удалить эту карту?')) return;
     
     try {
-      await deleteCard(cardId);
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+      await deleteCard(cardId, userInfo);
       setCards(cards.filter(c => c.id !== cardId));
     } catch (error) {
       console.error('Error deleting card:', error);

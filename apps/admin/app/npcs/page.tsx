@@ -5,8 +5,10 @@ import { Plus, Edit2, Trash2, Search, Filter } from 'lucide-react';
 import Link from 'next/link';
 import { NPC, NPCClass } from '@repo/shared';
 import { getAllNPCs, deleteNPC } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function NPCsPage() {
+  const { user } = useAuth();
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -40,9 +42,14 @@ export default function NPCsPage() {
   const handleDelete = async (npcId: string) => {
     if (!confirm('Вы уверены, что хотите удалить этого НПС?')) return;
     
+    console.log('=== handleDelete called ===', { npcId, user });
+    
     try {
-      await deleteNPC(npcId);
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+      console.log('=== Calling deleteNPC with userInfo ===', { npcId, userInfo });
+      await deleteNPC(npcId, userInfo);
       setNpcs(npcs.filter(n => n.id !== npcId));
+      console.log('=== NPC deleted from UI ===');
     } catch (error) {
       console.error('Error deleting NPC:', error);
     }

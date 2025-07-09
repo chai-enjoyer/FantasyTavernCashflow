@@ -7,6 +7,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
 import { NPC } from '@repo/shared';
 import { getNPC, updateNPC } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 type FormData = {
   name: string;
@@ -25,6 +26,7 @@ export default function EditNPCPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const npcId = searchParams.get('id');
+  const { user } = useAuth();
   
   const [loading, setLoading] = useState(false);
   const [loadingNPC, setLoadingNPC] = useState(true);
@@ -72,11 +74,12 @@ export default function EditNPCPage() {
     
     setLoading(true);
     try {
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
       await updateNPC(npcId, {
         ...data,
         wealth: Number(data.wealth) as 1 | 2 | 3 | 4 | 5,
         reliability: Number(data.reliability),
-      });
+      }, userInfo);
       router.push('/npcs');
     } catch (error) {
       console.error('Error updating NPC:', error);

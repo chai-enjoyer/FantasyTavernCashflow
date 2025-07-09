@@ -56,6 +56,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await logAuthEvent('login', {
         email: firebaseUser.email,
         timestamp: new Date().toISOString()
+      }, {
+        userId: firebaseUser.uid,
+        userEmail: firebaseUser.email || 'unknown'
       });
       
       router.push('/'); // Redirect to dashboard after login
@@ -72,6 +75,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         await logAuthEvent('logout', {
           email: user.email,
           timestamp: new Date().toISOString()
+        }, {
+          userId: user.uid,
+          userEmail: user.email || 'unknown'
         });
       }
       

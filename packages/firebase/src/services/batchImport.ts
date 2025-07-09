@@ -22,7 +22,7 @@ interface BatchImportResult {
 
 const MAX_BATCH_SIZE = 500; // Firestore limit
 
-export async function batchImportGameData(data: BatchImportData): Promise<BatchImportResult> {
+export async function batchImportGameData(data: BatchImportData, userInfo?: { userId: string; userEmail: string }): Promise<BatchImportResult> {
   const errors: string[] = [];
   const details = {
     cardsImported: 0,
@@ -56,7 +56,7 @@ export async function batchImportGameData(data: BatchImportData): Promise<BatchI
       npcsImported: details.npcsImported,
       configUpdated: details.configUpdated,
       timestamp: new Date().toISOString()
-    });
+    }, userInfo);
 
     return {
       success: true,

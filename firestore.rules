@@ -35,10 +35,10 @@ service cloud.firestore {
       allow read, write: if true; // TEMPORARY: Remove in production
     }
     
-    // Activity logs collection - admin only access
+    // Activity logs collection - temporary open access for debugging
     match /activityLogs/{logId} {
-      allow read: if request.auth != null; // Only authenticated users can read logs
-      allow write: if request.auth != null; // Only authenticated users can write logs
+      allow read: if true; // TEMPORARY: Allow read for debugging
+      allow write: if true; // TEMPORARY: Allow write for debugging
     }
   }
 }

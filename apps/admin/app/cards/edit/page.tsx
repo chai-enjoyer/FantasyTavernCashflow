@@ -7,6 +7,7 @@ import { ArrowLeft, Save } from 'lucide-react';
 import Link from 'next/link';
 import { Card, NPC, CardOption } from '@repo/shared';
 import { getCard, updateCard, getAllNPCs } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 type FormData = {
   type: Card['type'];
@@ -23,6 +24,7 @@ export default function EditCardPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const cardId = searchParams.get('id');
+  const { user } = useAuth();
   
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [loading, setLoading] = useState(false);
@@ -76,11 +78,12 @@ export default function EditCardPage() {
     
     setLoading(true);
     try {
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
       await updateCard(cardId, {
         ...data,
         priority: Number(data.priority) as 1 | 2 | 3 | 4,
         options: data.options as [CardOption, CardOption, CardOption, CardOption],
-      });
+      }, userInfo);
       router.push('/cards');
     } catch (error) {
       console.error('Error updating card:', error);

@@ -26,6 +26,7 @@ export default function LogsPage() {
   }, [actionFilter, entityTypeFilter, startDate, endDate]);
 
   const loadLogs = async (append = false) => {
+    console.log('=== Loading logs ===', { actionFilter, entityTypeFilter, startDate, endDate, append });
     try {
       setLoading(true);
       
@@ -36,10 +37,12 @@ export default function LogsPage() {
         endDate: endDate ? new Date(endDate + 'T23:59:59') : undefined,
       };
       
+      console.log('=== Calling getActivityLogs with filters ===', filters);
       const result = await getActivityLogs(
         filters,
         append && lastDoc ? lastDoc : undefined
       );
+      console.log('=== Logs result ===', result);
       
       if (append) {
         setLogs(prev => [...prev, ...result.logs]);

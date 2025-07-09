@@ -1,4 +1,4 @@
-# Game Data Import Guide
+# Game Data
 
 This directory contains game data files for Fantasy Tavern Cashflow.
 
@@ -119,8 +119,9 @@ The import files use JSON format with these required fields:
 4. Navigate to Import/Export
 5. Upload your JSON file
 6. The system will validate and show a preview
+7. Click Import to add the data to your game
 
-**Note**: The import functionality is currently showing validation only. Actual database import is pending implementation.
+For detailed import/export documentation, see [Import/Export Guide](../docs/features/IMPORT_EXPORT.md)
 
 ## Tips
 

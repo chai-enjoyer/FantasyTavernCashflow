@@ -7,11 +7,13 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { NPC } from '@repo/shared';
 import { createNPC } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 type FormData = Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>;
 
 export default function NewNPCPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [loading, setLoading] = useState(false);
   
   const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
@@ -27,9 +29,13 @@ export default function NewNPCPage() {
   });
 
   const onSubmit = async (data: FormData) => {
+    console.log('=== onSubmit called ===', { data, user });
     setLoading(true);
     try {
-      await createNPC(data);
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+      console.log('=== Calling createNPC with userInfo ===', { data, userInfo });
+      await createNPC(data, undefined, userInfo);
+      console.log('=== NPC created successfully ===');
       router.push('/npcs');
     } catch (error) {
       console.error('Error creating NPC:', error);

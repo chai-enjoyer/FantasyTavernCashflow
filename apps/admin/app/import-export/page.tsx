@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Download, Upload, FileJson, ChevronDown, ChevronUp, Users, Layers, Settings, BookOpen, Lightbulb, Code, Image, X, Plus, Check, Search, CheckCircle, AlertCircle } from 'lucide-react';
-import { getAllCards, getAllNPCs, getGameConfig, batchImportGameData, processImportFile, validateImportData, generateImportSummary, uploadNPCImages, validateImageFile, NPCImageUrls, createNPC, updateNPC, getNPC } from '@repo/firebase';
+import { getAllCards, getAllNPCs, getGameConfig, batchImportGameData, processImportFile, validateImportData, generateImportSummary, uploadNPCImages, validateImageFile, NPCImageUrls, createNPC, updateNPC, getNPC, logBulkOperation } from '@repo/firebase';
 import { Card, NPC, GameConfig, NPCClass } from '@repo/shared';
+import { useAuth } from '@/contexts/AuthContext';
 
 interface GameContentExport {
   version: string;
@@ -35,6 +36,7 @@ interface ImageUploadState {
 
 export default function ImportExportPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [exporting, setExporting] = useState<ExportType | null>(null);
   const [importing, setImporting] = useState(false);
   const [importPreview, setImportPreview] = useState<string | null>(null);
@@ -80,6 +82,16 @@ export default function ImportExportPage() {
       a.download = `fantasy-tavern-${type}-${Date.now()}.json`;
       a.click();
       URL.revokeObjectURL(url);
+      
+      // Log the export operation
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+      await logBulkOperation(`Export: ${type}`, {
+        type: type,
+        cardsExported: exportData.cards?.length || 0,
+        npcsExported: exportData.npcs?.length || 0,
+        configExported: exportData.config ? true : false,
+        timestamp: new Date().toISOString()
+      }, userInfo);
     } catch (error) {
       console.error('Error exporting data:', error);
       alert('Не удалось экспортировать данные');
@@ -123,7 +135,8 @@ export default function ImportExportPage() {
 
     setImporting(true);
     try {
-      const result = await batchImportGameData(importData);
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+      const result = await batchImportGameData(importData, userInfo);
       
       if (result.success) {
         alert(`Импорт успешно завершён!\n\nИмпортировано:\n- ${result.details.cardsImported} карт\n- ${result.details.npcsImported} НПС\n- Конфигурация: ${result.details.configUpdated ? 'Обновлена' : 'Не изменена'}`);
@@ -330,7 +343,8 @@ export default function ImportExportPage() {
         };
 
         // Use the generated readable ID
-        const newNpcId = await createNPC(newNPC, imageUpload.npcId);
+        const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
+        const newNpcId = await createNPC(newNPC, imageUpload.npcId, userInfo);
         
         // The ID should remain the same as the generated one
         console.log('Created NPC with ID:', newNpcId);
@@ -362,9 +376,10 @@ export default function ImportExportPage() {
             negative: urls.negative || existingNPC.portraits.negative
           };
 
+          const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
           await updateNPC(npcIdToUpdate, {
             portraits: updatedPortraits
-          });
+          }, userInfo);
 
           // Refresh the NPC list
           const updatedNPCs = await getAllNPCs();

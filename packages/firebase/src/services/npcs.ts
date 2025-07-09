@@ -79,7 +79,7 @@ export async function getAllNPCs(): Promise<NPC[]> {
   }
 }
 
-export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>, customId?: string): Promise<string> {
+export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>, customId?: string, userInfo?: { userId: string; userEmail: string }): Promise<string> {
   let npcId: string;
   
   if (customId) {
@@ -105,8 +105,14 @@ export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>
   cache.delete('all_npcs');
   
   // Log the activity
+  console.log('=== Attempting to log NPC creation ===', {
+    npcId,
+    npcName: npc.name,
+    userInfo
+  });
   try {
-    await logNPCChange('create', npcId, npc.name);
+    await logNPCChange('create', npcId, npc.name, undefined, userInfo);
+    console.log('=== NPC creation logged successfully ===');
   } catch (error) {
     console.error('Failed to log NPC creation:', error);
   }
@@ -114,7 +120,7 @@ export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>
   return npcId;
 }
 
-export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<void> {
+export async function updateNPC(npcId: string, updates: Partial<NPC>, userInfo?: { userId: string; userEmail: string }): Promise<void> {
   // Get current NPC for logging
   const currentNPC = await getNPC(npcId);
   
@@ -140,14 +146,14 @@ export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<v
       }));
     
     try {
-      await logNPCChange('update', npcId, currentNPC.name, changes);
+      await logNPCChange('update', npcId, currentNPC.name, changes, userInfo);
     } catch (error) {
       console.error('Failed to log NPC update:', error);
     }
   }
 }
 
-export async function deleteNPC(npcId: string): Promise<void> {
+export async function deleteNPC(npcId: string, userInfo?: { userId: string; userEmail: string }): Promise<void> {
   // Get NPC info for logging
   const npc = await getNPC(npcId);
   
@@ -159,12 +165,20 @@ export async function deleteNPC(npcId: string): Promise<void> {
   cache.delete(`npc_${npcId}`);
   
   // Log the deletion
+  console.log('=== Attempting to log NPC deletion ===', {
+    npcId,
+    npcName: npc?.name,
+    userInfo
+  });
   if (npc) {
     try {
-      await logNPCChange('delete', npcId, npc.name);
+      await logNPCChange('delete', npcId, npc.name, undefined, userInfo);
+      console.log('=== NPC deletion logged successfully ===');
     } catch (error) {
       console.error('Failed to log NPC deletion:', error);
     }
+  } else {
+    console.warn('=== NPC not found for deletion logging ===');
   }
 }
 

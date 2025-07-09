@@ -7,6 +7,7 @@ import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Card, NPC, CardOption } from '@repo/shared';
 import { createCard, getAllNPCs } from '@repo/firebase';
+import { useAuth } from '@/contexts/AuthContext';
 
 type FormData = {
   type: Card['type'];
@@ -21,6 +22,7 @@ type FormData = {
 
 export default function NewCardPage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [npcs, setNpcs] = useState<NPC[]>([]);
   const [loading, setLoading] = useState(false);
   
@@ -53,11 +55,12 @@ export default function NewCardPage() {
   const onSubmit = async (data: FormData) => {
     setLoading(true);
     try {
+      const userInfo = user ? { userId: user.uid, userEmail: user.email || 'unknown' } : undefined;
       await createCard({
         ...data,
         priority: Number(data.priority) as 1 | 2 | 3 | 4,
         options: data.options as [CardOption, CardOption, CardOption, CardOption],
-      });
+      }, userInfo);
       router.push('/cards');
     } catch (error) {
       console.error('Error creating card:', error);

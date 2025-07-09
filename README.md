@@ -1,92 +1,110 @@
-# Fantasy Tavern Cashflow
+# Fantasy Tavern Cashflow 🍺🏰
 
-A Telegram Mini App game where players manage a fantasy tavern through strategic decision-making.
+A fantasy-themed business simulation game where players manage a tavern, serve colorful NPCs, and navigate through various events to build their reputation and wealth.
 
-## Project Structure
+## 🎮 Play the Game
 
-This is a monorepo containing:
-- `apps/game` - The main Telegram Mini App (Next.js)
-- `apps/admin` - Admin panel for content management (Next.js)
-- `packages/shared` - Shared types, constants, and utilities
-- `packages/firebase` - Firebase configuration and services
-- `packages/game-logic` - Core game mechanics and engine
+- **Game**: [https://fantasy-tavern-game.web.app](https://fantasy-tavern-game.web.app)
+- **Admin Panel**: [https://fantasy-tavern-admin.web.app](https://fantasy-tavern-admin.web.app)
 
-## Setup
+## 📖 Documentation
 
-1. Install dependencies:
+Comprehensive documentation is available in the [docs](./docs) folder:
+
+- [Getting Started](./docs/getting-started/QUICKSTART.md)
+- [Project Overview](./docs/getting-started/PROJECT_OVERVIEW.md)
+- [Admin Panel Guide](./docs/features/ADMIN_PANEL.md)
+- [Activity Logging](./docs/features/ACTIVITY_LOGGING.md)
+
+## 🚀 Quick Start
+
 ```bash
+# Clone the repository
+git clone https://github.com/yourusername/fantasy-tavern-cashflow.git
+cd fantasy-tavern-cashflow
+
+# Install dependencies
 npm install
-```
 
-2. Set up environment variables:
-   - Copy `.env.local` to `apps/game/.env.local`
-   - Copy `.env.local` to `apps/admin/.env.local`
-   - Update Firebase configuration values
+# Set up environment variables
+cp .env.example .env.local
+# Edit .env.local with your Firebase credentials
 
-3. Initialize Firebase:
-```bash
-firebase init
-```
-
-## Development
-
-Run both apps in development mode:
-```bash
+# Run development servers
 npm run dev
-```
 
-Run specific app:
-```bash
-# Game app
-npm run dev --workspace=game
-
-# Admin app  
-npm run dev --workspace=admin
-```
-
-## Building
-
-Build all apps:
-```bash
+# Build for production
 npm run build
+
+# Deploy to Firebase
+npm run deploy
 ```
 
-## Deployment
+## 🏗️ Project Structure
 
-1. Build the apps:
-```bash
-npm run build
+This is a monorepo project using Turborepo:
+
+```
+fantasy-tavern-cashflow/
+├── apps/
+│   ├── game/          # Main game application
+│   └── admin/         # Admin dashboard
+├── packages/
+│   ├── shared/        # Shared types and constants
+│   ├── firebase/      # Firebase service layer
+│   └── game-logic/    # Core game mechanics
+├── docs/              # Documentation
+└── game-data/         # Game content files
 ```
 
-2. Deploy to Firebase:
-```bash
-firebase deploy
-```
+## ✨ Features
 
-## Game Features
+### For Players
+- 🎭 **35+ Unique NPCs**: Each with distinct personalities and stories
+- 🎴 **Dynamic Card System**: Make choices that affect your tavern's future
+- 💰 **Resource Management**: Balance money and reputation
+- 🌍 **Russian Localization**: Fully translated interface
+- 📱 **Mobile Friendly**: Responsive design for all devices
+- 🎵 **Sound Effects**: Immersive audio feedback
+- 🖼️ **Dynamic Portraits**: NPCs react to your decisions
 
-- Economic strategy gameplay
-- NPC relationship system
-- Reputation-based pricing
-- Passive income and debt mechanics
-- Risk/reward decision making
-- Multiple card types and priorities
-- Mobile-optimized UI
+### For Administrators
+- 📊 **Comprehensive Dashboard**: Manage all game content
+- 📝 **Content Editor**: Create and modify NPCs and cards
+- 📤 **Import/Export**: Bulk data management
+- 📸 **Image Management**: Upload and manage NPC portraits
+- 📈 **Analytics**: Track game statistics
+- 🔍 **Activity Logging**: Complete audit trail
+- 🎨 **Modern UI**: Sidebar navigation like Claude
 
-## Admin Features
+## 🛠️ Tech Stack
 
-- Card creation and management
-- NPC management with portraits
-- Game configuration
-- Analytics dashboard
-- Import/export functionality
+- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
+- **Backend**: Firebase (Firestore, Auth, Storage, Hosting)
+- **Monorepo**: Turborepo
+- **State Management**: React Context API
+- **Forms**: React Hook Form
+- **Animation**: Framer Motion
+- **Charts**: Recharts
 
-## Technologies
+## 🤝 Contributing
 
-- TypeScript
-- Next.js 14 (App Router)
-- Firebase (Firestore, Storage, Hosting)
-- Tailwind CSS
-- Framer Motion
-- React Hook Form
-- Turbo (monorepo)
+We welcome contributions! Please see our [Contributing Guide](./docs/development/CONTRIBUTING.md) for details.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Game concept inspired by classic business simulation games
+- NPC artwork generated with AI assistance
+- Community feedback and contributions
+
+## 📞 Contact
+
+For questions or support, please open an issue on GitHub or contact the maintainers.
+
+---
+
+Made with ❤️ by the Fantasy Tavern team
