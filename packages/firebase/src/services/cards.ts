@@ -145,7 +145,11 @@ export async function createCard(card: Omit<Card, 'id' | 'createdAt' | 'updatedA
   cache.delete('all_cards');
   
   // Log the activity
-  await logCardChange('create', docRef.id, card.title);
+  try {
+    await logCardChange('create', docRef.id, card.title);
+  } catch (error) {
+    console.error('Failed to log card creation:', error);
+  }
   
   return docRef.id;
 }
@@ -175,7 +179,11 @@ export async function updateCard(cardId: string, updates: Partial<Card>): Promis
         newValue
       }));
     
-    await logCardChange('update', cardId, currentCard.title, changes);
+    try {
+      await logCardChange('update', cardId, currentCard.title, changes);
+    } catch (error) {
+      console.error('Failed to log card update:', error);
+    }
   }
 }
 
@@ -192,7 +200,11 @@ export async function deleteCard(cardId: string): Promise<void> {
   
   // Log the deletion
   if (card) {
-    await logCardChange('delete', cardId, card.title);
+    try {
+      await logCardChange('delete', cardId, card.title);
+    } catch (error) {
+      console.error('Failed to log card deletion:', error);
+    }
   }
 }
 

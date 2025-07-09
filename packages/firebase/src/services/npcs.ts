@@ -105,7 +105,11 @@ export async function createNPC(npc: Omit<NPC, 'id' | 'createdAt' | 'updatedAt'>
   cache.delete('all_npcs');
   
   // Log the activity
-  await logNPCChange('create', npcId, npc.name);
+  try {
+    await logNPCChange('create', npcId, npc.name);
+  } catch (error) {
+    console.error('Failed to log NPC creation:', error);
+  }
   
   return npcId;
 }
@@ -135,7 +139,11 @@ export async function updateNPC(npcId: string, updates: Partial<NPC>): Promise<v
         newValue
       }));
     
-    await logNPCChange('update', npcId, currentNPC.name, changes);
+    try {
+      await logNPCChange('update', npcId, currentNPC.name, changes);
+    } catch (error) {
+      console.error('Failed to log NPC update:', error);
+    }
   }
 }
 
@@ -152,7 +160,11 @@ export async function deleteNPC(npcId: string): Promise<void> {
   
   // Log the deletion
   if (npc) {
-    await logNPCChange('delete', npcId, npc.name);
+    try {
+      await logNPCChange('delete', npcId, npc.name);
+    } catch (error) {
+      console.error('Failed to log NPC deletion:', error);
+    }
   }
 }
 

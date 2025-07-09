@@ -10,8 +10,7 @@ import {
   startAfter,
   DocumentSnapshot
 } from 'firebase/firestore';
-import { db } from '../config';
-import { getAuth } from 'firebase/auth';
+import { db, auth } from '../config';
 
 export interface ActivityLog {
   id?: string;
@@ -43,11 +42,18 @@ export async function logActivity(
   changes?: ActivityLog['changes']
 ): Promise<void> {
   try {
-    const auth = getAuth();
+    // Wait a bit to ensure auth is ready
+    await new Promise(resolve => setTimeout(resolve, 100));
+    
     const user = auth.currentUser;
     
     if (!user) {
-      console.warn('No authenticated user for activity logging');
+      console.warn('No authenticated user for activity logging', {
+        action,
+        entityType,
+        entityId,
+        entityName
+      });
       return;
     }
 
@@ -63,7 +69,9 @@ export async function logActivity(
       timestamp: Timestamp.now()
     };
 
-    await addDoc(collection(db, LOGS_COLLECTION), log);
+    console.log('Logging activity:', log);
+    const docRef = await addDoc(collection(db, LOGS_COLLECTION), log);
+    console.log('Activity logged successfully with ID:', docRef.id);
   } catch (error) {
     console.error('Error logging activity:', error);
     // Don't throw - logging failures shouldn't break the app
