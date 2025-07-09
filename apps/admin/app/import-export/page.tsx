@@ -1093,6 +1093,156 @@ export default function ImportExportPage() {
                   </div>
                 </div>
 
+                <details className="bg-blue-900/20 border border-blue-600/50 rounded-lg">
+                  <summary className="p-4 cursor-pointer hover:bg-blue-900/30 font-medium text-blue-400 flex items-center gap-2">
+                    <Code className="w-5 h-5" />
+                    Подробный промт для ИИ-генерации контента
+                  </summary>
+                  <div className="p-4 pt-0">
+                    <div className="bg-admin-bg rounded-lg p-4 space-y-4">
+                      <div>
+                        <h5 className="font-semibold text-gray-300 mb-2">Промт для генерации НПС:</h5>
+                        <pre className="text-sm text-gray-400 whitespace-pre-wrap overflow-x-auto">{`Создай НПС для фэнтезийной таверны в формате JSON. 
+
+Требования:
+- id: уникальный идентификатор в формате "класс_имя" (латиница, нижний регистр)
+- name: имя на русском языке в формате "Имя Прозвище/Профессия"
+- class: один из классов (см. справочник)
+- wealth: богатство от 0 до 5
+- reliability: надёжность от 0 до 100
+- description: описание персонажа на русском (1-2 предложения)
+- portraits: пути к изображениям (neutral, positive, negative)
+
+Пример:
+{
+  "id": "merchant_boris",
+  "name": "Борис Торговец",
+  "class": "merchant",
+  "wealth": 3,
+  "reliability": 85,
+  "description": "Хитрый торговец с обширными связями. Всегда знает, где достать редкие товары.",
+  "portraits": {
+    "neutral": "/images/npcs/merchant_neutral.png",
+    "positive": "/images/npcs/merchant_positive.png",
+    "negative": "/images/npcs/merchant_negative.png"
+  }
+}`}</pre>
+                      </div>
+
+                      <div>
+                        <h5 className="font-semibold text-gray-300 mb-2">Промт для генерации карт событий:</h5>
+                        <pre className="text-sm text-gray-400 whitespace-pre-wrap overflow-x-auto">{`Создай карту события для фэнтезийной таверны в формате JSON.
+
+Требования:
+- id: уникальный идентификатор события (латиница, нижний регистр)
+- type: тип карты (immediate, passive_income, debt, social, modifier)
+- category: категория события (см. справочник)
+- npcId: id связанного НПС
+- title: название события на русском
+- description: краткое описание (1 предложение)
+- situation: детальная ситуация на русском (2-3 предложения)
+- priority: приоритет от 1 до 3
+- options: ровно 4 варианта действий
+
+Каждый вариант должен содержать:
+- text: текст варианта на русском
+- consequences: последствия выбора
+- resultText: текст результата на русском
+- npcEmotion: эмоция НПС (neutral, positive, negative)
+
+Правила балансировки:
+1. Денежные награды/штрафы должны соответствовать wealth НПС:
+   - wealth 0-1: ±20-100 золота
+   - wealth 2-3: ±100-500 золота
+   - wealth 4-5: ±500-5000 золота
+
+2. Изменения репутации:
+   - Обычные: ±1-5
+   - Значительные: ±5-15
+   - Критические: ±15-30
+
+3. Варианты действий:
+   - 1 очевидно положительный (но может быть дорогой)
+   - 1 рискованный (большая награда/большой риск)
+   - 1 нейтральный/дипломатичный
+   - 1 отказ/избегание (минимальные последствия)
+
+Пример:
+{
+  "id": "merchant_deal",
+  "type": "immediate",
+  "category": "business",
+  "npcId": "merchant_boris",
+  "title": "Выгодная сделка",
+  "description": "Торговец предлагает партнёрство",
+  "situation": "Борис входит в таверну с деловым предложением. 'У меня есть контакт на поставку редкого эля. Разделим прибыль пополам?'",
+  "priority": 2,
+  "options": [
+    {
+      "text": "Согласиться на партнёрство",
+      "consequences": {
+        "money": -300,
+        "passiveIncome": {
+          "id": "merchant_ale_deal",
+          "amount": 50,
+          "description": "Доля от продажи эля",
+          "remainingTurns": 20
+        }
+      },
+      "resultText": "Борис пожимает вашу руку. 'Отличное решение! Поставки начнутся со следующей недели.'",
+      "npcEmotion": "positive"
+    },
+    {
+      "text": "Предложить другие условия - 70/30 в вашу пользу",
+      "consequences": {
+        "money": -300,
+        "reputation": -5,
+        "npcRelationship": { "merchant_boris": -20 }
+      },
+      "resultText": "Борис хмурится. 'Жадность вас погубит. Ищите эль сами!' Он уходит раздражённый.",
+      "npcEmotion": "negative"
+    },
+    {
+      "text": "Попросить время подумать",
+      "consequences": {
+        "reputation": 2
+      },
+      "resultText": "'Разумно. Я вернусь через пару дней за ответом', - кивает Борис.",
+      "npcEmotion": "neutral"
+    },
+    {
+      "text": "Вежливо отказаться",
+      "consequences": {
+        "money": 0
+      },
+      "resultText": "'Жаль. Если передумаете - дайте знать', - Борис уходит без обид.",
+      "npcEmotion": "neutral"
+    }
+  ],
+  "requirements": {
+    "minMoney": 300,
+    "minReputation": 0
+  }
+}`}</pre>
+                      </div>
+
+                      <div>
+                        <h5 className="font-semibold text-gray-300 mb-2">Дополнительные рекомендации:</h5>
+                        <ul className="text-sm text-gray-400 space-y-1 list-disc list-inside">
+                          <li>Используйте русский язык для всех текстовых полей</li>
+                          <li>Сохраняйте атмосферу средневековой фэнтезийной таверны</li>
+                          <li>Делайте диалоги живыми и характерными для каждого НПС</li>
+                          <li>Учитывайте класс и характер НПС при создании событий</li>
+                          <li>Балансируйте риск и награду в вариантах выбора</li>
+                          <li>Создавайте интересные моральные дилеммы</li>
+                          <li>Добавляйте юмор и неожиданные повороты</li>
+                          <li>Связывайте события с игровой механикой (долги, пассивный доход, эффекты)</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </details>
+
                 <div className="grid gap-4 md:grid-cols-2">
                   <div>
                     <h4 className="font-semibold text-admin-primary mb-2">Свойства НПС</h4>
