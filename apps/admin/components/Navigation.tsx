@@ -20,12 +20,12 @@ export default function Navigation() {
   }
   
   const navItems = [
-    { href: '/', label: 'Dashboard', icon: Home },
-    { href: '/cards', label: 'Cards', icon: CreditCard },
-    { href: '/npcs', label: 'NPCs', icon: UserCircle },
-    { href: '/config', label: 'Config', icon: Settings },
-    { href: '/analytics', label: 'Analytics', icon: BarChart3 },
-    { href: '/import-export', label: 'Import/Export', icon: FileJson },
+    { href: '/', label: 'Главная', icon: Home },
+    { href: '/cards', label: 'Карты', icon: CreditCard },
+    { href: '/npcs', label: 'НПС', icon: UserCircle },
+    { href: '/config', label: 'Настройки', icon: Settings },
+    { href: '/analytics', label: 'Аналитика', icon: BarChart3 },
+    { href: '/import-export', label: 'Импорт/Экспорт', icon: FileJson },
   ];
 
   return (
@@ -33,7 +33,7 @@ export default function Navigation() {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link href="/" className="text-xl font-bold text-admin-text">
-            Fantasy Tavern Admin
+            Администрирование Fantasy Tavern
           </Link>
           
           <div className="flex items-center gap-4">
@@ -58,7 +58,7 @@ export default function Navigation() {
               <Shield className="w-4 h-4 text-admin-primary" />
               <div className="flex flex-col">
                 <span className="text-sm text-gray-400 hidden md:inline">
-                  {user?.displayName || 'Admin'}
+                  {user?.displayName || 'Администратор'}
                 </span>
                 <span className="text-xs text-gray-500 hidden md:inline">
                   {user?.email}
@@ -67,10 +67,10 @@ export default function Navigation() {
               <button
                 onClick={logout}
                 className="flex items-center gap-2 px-3 py-2 rounded-md text-gray-400 hover:text-admin-text hover:bg-admin-bg transition-colors"
-                title="Logout"
+                title="Выйти"
               >
                 <LogOut className="w-4 h-4" />
-                <span className="hidden md:inline">Logout</span>
+                <span className="hidden md:inline">Выйти</span>
               </button>
             </div>
           </div>

@@ -62,7 +62,7 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
             {showNPCParameters && (
               <div className="flex items-center gap-1">
                 <span className="text-game-gold">{'⭐'.repeat(npc.wealth)}</span>
-                <span className="text-gray-400">Wealth</span>
+                <span className="text-gray-400">Богатство</span>
               </div>
             )}
             
@@ -73,7 +73,7 @@ export default function GameCard({ card, npc, onChoice }: GameCardProps) {
             
             {showNPCParameters && (
               <div className="flex items-center gap-1">
-                <span className="text-gray-400">Reliability:</span>
+                <span className="text-gray-400">Надёжность:</span>
                 <span className="text-game-text">{npc.reliability}%</span>
               </div>
             )}

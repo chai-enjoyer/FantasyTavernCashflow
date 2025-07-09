@@ -13,36 +13,36 @@ import {
 export default function AdminDashboard() {
   const menuItems = [
     {
-      title: 'Cards Management',
-      description: 'Create and manage game cards',
+      title: 'Управление картами',
+      description: 'Создавайте и управляйте игровыми картами',
       icon: CreditCard,
       href: '/cards',
       color: 'bg-blue-500',
     },
     {
-      title: 'NPCs Management',
-      description: 'Manage non-player characters',
+      title: 'Управление НПС',
+      description: 'Управляйте неигровыми персонажами',
       icon: UserCircle,
       href: '/npcs',
       color: 'bg-green-500',
     },
     {
-      title: 'Game Configuration',
-      description: 'Configure game settings',
+      title: 'Конфигурация игры',
+      description: 'Настройте параметры игры',
       icon: Settings,
       href: '/config',
       color: 'bg-purple-500',
     },
     {
-      title: 'Analytics',
-      description: 'View game statistics',
+      title: 'Аналитика',
+      description: 'Просмотр статистики игры',
       icon: BarChart3,
       href: '/analytics',
       color: 'bg-orange-500',
     },
     {
-      title: 'Import/Export',
-      description: 'Manage game content',
+      title: 'Импорт/Экспорт',
+      description: 'Управляйте игровым контентом',
       icon: FileJson,
       href: '/import-export',
       color: 'bg-pink-500',
@@ -52,8 +52,8 @@ export default function AdminDashboard() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Fantasy Tavern Admin</h1>
-        <p className="text-gray-400">Manage your game content and configuration</p>
+        <h1 className="text-3xl font-bold mb-2">Администрирование Fantasy Tavern</h1>
+        <p className="text-gray-400">Управляйте контентом и настройками игры</p>
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

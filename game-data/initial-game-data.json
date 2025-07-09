@@ -14,7 +14,7 @@
   "npcs": [
     {
       "id": "commoner_tom",
-      "name": "Tom the Farmer",
+      "name": "Том Фермер",
       "class": "commoner",
       "wealth": 1,
       "reliability": 90,
@@ -23,11 +23,11 @@
         "positive": "/images/npcs/commoner_positive.png",
         "negative": "/images/npcs/commoner_negative.png"
       },
-      "description": "A humble farmer looking for simple ale and a warm meal"
+      "description": "Скромный фермер в поисках простого эля и горячей еды"
     },
     {
       "id": "adventurer_lyra",
-      "name": "Lyra the Ranger",
+      "name": "Лира Следопыт",
       "class": "adventurer",
       "wealth": 2,
       "reliability": 70,
@@ -36,11 +36,11 @@
         "positive": "/images/npcs/adventurer_positive.png",
         "negative": "/images/npcs/adventurer_negative.png"
       },
-      "description": "A seasoned adventurer with tales to tell and coin to spend"
+      "description": "Опытная искательница приключений с историями и монетами"
     },
     {
       "id": "criminal_vex",
-      "name": "Vex the Shadow",
+      "name": "Векс Тень",
       "class": "criminal",
       "wealth": 3,
       "reliability": 40,
@@ -49,11 +49,11 @@
         "positive": "/images/npcs/criminal_positive.png",
         "negative": "/images/npcs/criminal_negative.png"
       },
-      "description": "A mysterious figure who deals in secrets and stolen goods"
+      "description": "Загадочная фигура, торгующая секретами и краденым"
     },
     {
       "id": "noble_aldric",
-      "name": "Lord Aldric",
+      "name": "Лорд Алдрик",
       "class": "noble",
       "wealth": 4,
       "reliability": 85,
@@ -62,11 +62,11 @@
         "positive": "/images/npcs/noble_positive.png",
         "negative": "/images/npcs/noble_negative.png"
       },
-      "description": "A wealthy noble with expensive tastes and high expectations"
+      "description": "Богатый дворянин с дорогими вкусами и высокими ожиданиями"
     },
     {
       "id": "cleric_elena",
-      "name": "Sister Elena",
+      "name": "Сестра Елена",
       "class": "cleric",
       "wealth": 2,
       "reliability": 95,
@@ -75,11 +75,11 @@
         "positive": "/images/npcs/cleric_positive.png",
         "negative": "/images/npcs/cleric_negative.png"
       },
-      "description": "A devoted cleric who values charity and honest dealings"
+      "description": "Преданная жрица, ценящая милосердие и честность"
     },
     {
       "id": "mage_zephyr",
-      "name": "Zephyr the Wise",
+      "name": "Зефир Мудрый",
       "class": "mage",
       "wealth": 3,
       "reliability": 75,
@@ -88,11 +88,11 @@
         "positive": "/images/npcs/mage_positive.png",
         "negative": "/images/npcs/mage_negative.png"
       },
-      "description": "An eccentric wizard with unusual requests and magical payments"
+      "description": "Эксцентричный волшебник с необычными просьбами и магической оплатой"
     },
     {
       "id": "royal_princess",
-      "name": "Princess Aria",
+      "name": "Принцесса Ария",
       "class": "royal",
       "wealth": 5,
       "reliability": 80,
@@ -101,11 +101,11 @@
         "positive": "/images/npcs/royal_positive.png",
         "negative": "/images/npcs/royal_negative.png"
       },
-      "description": "The kingdom's princess, traveling incognito"
+      "description": "Принцесса королевства, путешествующая инкогнито"
     },
     {
       "id": "crime_boss_grimm",
-      "name": "Grimm the Enforcer",
+      "name": "Гримм Палач",
       "class": "crime_boss",
       "wealth": 4,
       "reliability": 50,
@@ -114,11 +114,11 @@
         "positive": "/images/npcs/crime_boss_positive.png",
         "negative": "/images/npcs/crime_boss_negative.png"
       },
-      "description": "The local crime lord who controls the underground"
+      "description": "Местный криминальный босс, контролирующий подполье"
     },
     {
       "id": "dragon_smaug",
-      "name": "Smaug the Golden",
+      "name": "Смауг Золотой",
       "class": "dragon",
       "wealth": 5,
       "reliability": 50,
@@ -127,7 +127,7 @@
         "positive": "/images/npcs/dragon_positive.png",
         "negative": "/images/npcs/dragon_negative.png"
       },
-      "description": "An ancient dragon with a hoard of gold and a terrible temper"
+      "description": "Древний дракон с сокровищами и ужасным характером"
     }
   ],
   "cards": [
@@ -136,45 +136,45 @@
       "type": "immediate",
       "category": "service",
       "npcId": "commoner_tom",
-      "title": "Thirsty Farmer",
-      "description": "A simple request for refreshment",
-      "situation": "Tom enters your tavern, exhausted from a long day in the fields. His clothes are dusty and he looks parched. He approaches the bar with a weary smile.",
+      "title": "Жаждущий фермер",
+      "description": "Простая просьба о напитке",
+      "situation": "Том входит в вашу таверну, измученный долгим днём в полях. Его одежда пыльная, и он выглядит измождённым. Он подходит к бару с усталой улыбкой.",
       "priority": 1,
       "options": [
         {
-          "text": "Serve fresh ale (costs 20g)",
+          "text": "Подать свежий эль (стоит 20 золота)",
           "consequences": {
             "money": 50,
             "reputation": 1
           },
-          "resultText": "Tom's face lights up as he tastes the cold ale. 'Just what I needed!' he exclaims, telling other farmers about your hospitality.",
+          "resultText": "Лицо Тома светлеет, когда он пробует холодный эль. 'То, что нужно!' - восклицает он, рассказывая другим фермерам о вашем гостеприимстве.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Serve watered-down ale to save costs",
+          "text": "Подать разбавленный эль для экономии",
           "consequences": {
             "money": 40,
             "reputation": -2
           },
-          "resultText": "Tom frowns after the first sip. 'This tastes like dishwater,' he mutters, leaving quickly.",
+          "resultText": "Том хмурится после первого глотка. 'На вкус как помои', - бормочет он, быстро уходя.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Offer premium imported ale for more gold",
+          "text": "Предложить премиальный импортный эль за большую цену",
           "consequences": {
             "money": 80,
             "reputation": 2
           },
-          "resultText": "Tom is surprised but pleased. 'Fancy stuff! Worth every copper!' He'll definitely be back.",
+          "resultText": "Том удивлён, но доволен. 'Шикарная штука! Стоит каждой медяшки!' Он обязательно вернётся.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Apologize and say you're out of ale",
+          "text": "Извиниться, что эль закончился",
           "consequences": {
             "money": 0,
             "reputation": -1
           },
-          "resultText": "Tom sighs deeply. 'What kind of tavern runs out of ale?' He leaves disappointed.",
+          "resultText": "Том глубоко вздыхает. 'Что за таверна без эля?' Он уходит разочарованным.",
           "npcEmotion": "neutral"
         }
       ],
@@ -187,53 +187,53 @@
       "type": "passive_income",
       "category": "business",
       "npcId": "adventurer_lyra",
-      "title": "Adventurer's Proposal",
-      "description": "A business opportunity from a traveling adventurer",
-      "situation": "Lyra leans against your bar, her weathered map spread before her. 'I travel to many towns,' she says. 'I could spread word of your tavern in exchange for free meals when I'm here. What say you?'",
+      "title": "Предложение искательницы приключений",
+      "description": "Деловое предложение от странствующей авантюристки",
+      "situation": "Лира облокачивается на барную стойку, расстелив перед собой потрёпанную карту. 'Я путешествую по многим городам', - говорит она. 'Могу рассказывать о вашей таверне в обмен на бесплатную еду, когда буду здесь. Что скажете?'",
       "priority": 2,
       "options": [
         {
-          "text": "Accept her offer gladly",
+          "text": "С радостью принять её предложение",
           "consequences": {
             "passiveIncome": {
               "id": "adventurer_referrals",
               "amount": 50,
-              "description": "Adventurer referrals",
+              "description": "Рекомендации искателей приключений",
               "remainingTurns": 20
             }
           },
-          "resultText": "Lyra grins and shakes your hand. 'You won't regret this! I'll send every adventurer I meet your way.'",
+          "resultText": "Лира ухмыляется и пожимает вам руку. 'Вы не пожалеете! Я буду направлять к вам каждого встреченного искателя приключений.'",
           "npcEmotion": "positive"
         },
         {
-          "text": "Counter with half-price meals instead",
+          "text": "Предложить взамен еду за полцены",
           "consequences": {
             "money": 100,
             "passiveIncome": {
               "id": "adventurer_referrals_reduced",
               "amount": 30,
-              "description": "Adventurer referrals (reduced)",
+              "description": "Рекомендации искателей приключений (меньше)",
               "remainingTurns": 15
             }
           },
-          "resultText": "Lyra considers, then nods. 'Fair enough. Half price it is, and I'll still mention your place.'",
+          "resultText": "Лира обдумывает предложение, затем кивает. 'Справедливо. Полцены так полцены, и я всё равно буду упоминать ваше заведение.'",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Decline politely",
+          "text": "Вежливо отказаться",
           "consequences": {
             "money": 0
           },
-          "resultText": "Lyra shrugs. 'Your loss, innkeeper.' She orders a regular meal and pays full price.",
+          "resultText": "Лира пожимает плечами. 'Ваша потеря, трактирщик.' Она заказывает обычную еду и платит полную цену.",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Offer to pay her for referrals instead",
+          "text": "Предложить платить ей за рекомендации",
           "consequences": {
             "money": -200,
             "reputation": 5
           },
-          "resultText": "Lyra's eyes widen. 'Now that's business sense! I'll make sure everyone knows about your generosity.'",
+          "resultText": "Глаза Лиры расширяются. 'Вот это деловая хватка! Я позабочусь, чтобы все узнали о вашей щедрости.'",
           "npcEmotion": "positive"
         }
       ]
@@ -243,45 +243,45 @@
       "type": "immediate",
       "category": "event",
       "npcId": "noble_aldric",
-      "title": "Noble's Banquet Request",
-      "description": "A high-stakes catering opportunity",
-      "situation": "Lord Aldric sweeps into your tavern with his entourage. 'I require your establishment for a banquet tomorrow evening. Twenty nobles will attend. This could make your reputation... or destroy it.'",
+      "title": "Заказ банкета от дворянина",
+      "description": "Рискованная возможность организовать приём",
+      "situation": "Лорд Алдрик величественно входит в таверну со свитой. 'Мне нужно ваше заведение для банкета завтра вечером. Будут присутствовать двадцать дворян. Это может создать вашу репутацию... или уничтожить её.'",
       "priority": 3,
       "options": [
         {
-          "text": "Accept and prepare a lavish feast (costs 2000g)",
+          "text": "Согласиться и приготовить роскошный пир (стоит 2000 золота)",
           "consequences": {
             "money": 5000,
             "reputation": 20
           },
-          "resultText": "The banquet is a triumph! Nobles toast your name, and word of your excellence spreads throughout the kingdom.",
+          "resultText": "Банкет прошёл триумфально! Дворяне поднимают тосты в вашу честь, и слава о вашем мастерстве разносится по всему королевству.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Accept but cut corners to save money",
+          "text": "Согласиться, но сэкономить на всём",
           "consequences": {
             "money": 3000,
             "reputation": -30
           },
-          "resultText": "Disaster! The nobles are appalled by the subpar food. Lord Aldric storms out, vowing to ruin your reputation.",
+          "resultText": "Катастрофа! Дворяне возмущены некачественной едой. Лорд Алдрик в ярости покидает таверну, клянясь уничтожить вашу репутацию.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Politely decline due to short notice",
+          "text": "Вежливо отказаться из-за слишком короткого срока",
           "consequences": {
             "money": 0,
             "reputation": -5
           },
-          "resultText": "Lord Aldric frowns. 'How disappointing. I had heard good things about this place.' He leaves quietly.",
+          "resultText": "Лорд Алдрик хмурится. 'Как разочаровывает. Я слышал хорошие отзывы об этом месте.' Он тихо уходит.",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Recommend a competitor's establishment",
+          "text": "Порекомендовать заведение конкурента",
           "consequences": {
             "money": 200,
             "reputation": 10
           },
-          "resultText": "Lord Aldric is surprised by your honesty. 'Integrity! How refreshing. Here's something for your trouble.'",
+          "resultText": "Лорд Алдрик удивлён вашей честностью. 'Порядочность! Как освежает. Вот вам за беспокойство.'",
           "npcEmotion": "positive"
         }
       ],
@@ -295,13 +295,13 @@
       "type": "debt",
       "category": "threat",
       "npcId": "criminal_vex",
-      "title": "Protection Offer",
-      "description": "An offer you might not be able to refuse",
-      "situation": "Vex slides into a shadowy corner booth. 'Nice place you have here. Would be a shame if something... happened to it. My associates offer protection, for a reasonable fee.'",
+      "title": "Предложение защиты",
+      "description": "Предложение, от которого сложно отказаться",
+      "situation": "Векс скользит в тёмную угловую кабинку. 'Милое местечко у вас тут. Было бы жаль, если бы с ним что-то... случилось. Мои компаньоны предлагают защиту за разумную плату.'",
       "priority": 2,
       "options": [
         {
-          "text": "Accept the protection (100g per turn)",
+          "text": "Принять защиту (100 золота за ход)",
           "consequences": {
             "debt": {
               "id": "protection_money",
@@ -310,24 +310,24 @@
               "turnsRemaining": 10,
               "paymentPerTurn": 100,
               "creditorId": "criminal_vex",
-              "collateral": "Your tavern's safety"
+              "collateral": "Безопасность вашей таверны"
             }
           },
-          "resultText": "Vex smiles coldly. 'Smart choice. You won't have any... accidents. Payment due weekly.'",
+          "resultText": "Векс холодно улыбается. 'Умный выбор. У вас не будет никаких... несчастных случаев. Плата раз в неделю.'",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Refuse and stand your ground",
+          "text": "Отказаться и стоять на своём",
           "consequences": {
             "money": -500,
             "reputation": 10,
             "flags": ["refused_protection"]
           },
-          "resultText": "That night, your windows are smashed. But the townspeople admire your courage against the criminals.",
+          "resultText": "Той ночью ваши окна разбиты. Но горожане восхищаются вашей смелостью противостоять преступникам.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Report to the town guard immediately",
+          "text": "Немедленно сообщить городской страже",
           "consequences": {
             "reputation": 15,
             "flags": ["reported_criminals"],
@@ -336,11 +336,11 @@
               "change": -50
             }
           },
-          "resultText": "The guards thank you for the tip. Vex glares at you as they're arrested. You've made a powerful enemy.",
+          "resultText": "Стража благодарит вас за наводку. Векс злобно смотрит на вас, пока его арестовывают. Вы нажили могущественного врага.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Negotiate for a lower rate",
+          "text": "Поторговаться за меньшую ставку",
           "consequences": {
             "debt": {
               "id": "protection_money_reduced",
@@ -351,7 +351,7 @@
               "creditorId": "criminal_vex"
             }
           },
-          "resultText": "Vex considers. 'You've got guts. Fine, half rate. But don't push your luck.'",
+          "resultText": "Векс размышляет. 'У вас есть смелость. Хорошо, половинная ставка. Но не испытывайте судьбу.'",
           "npcEmotion": "positive"
         }
       ]
@@ -361,13 +361,13 @@
       "type": "immediate",
       "category": "moral",
       "npcId": "cleric_elena",
-      "title": "Plea for Charity",
-      "description": "A test of your generosity",
-      "situation": "Sister Elena enters with a group of orphans. 'The children haven't eaten in two days. I know times are hard, but could you spare some food? The gods remember kindness.'",
+      "title": "Мольба о милосердии",
+      "description": "Испытание вашей щедрости",
+      "situation": "Сестра Елена входит с группой сирот. 'Дети не ели два дня. Я знаю, времена тяжёлые, но не могли бы вы поделиться едой? Боги помнят доброту.'",
       "priority": 2,
       "options": [
         {
-          "text": "Feed them a full meal for free",
+          "text": "Накормить их досыта бесплатно",
           "consequences": {
             "money": -100,
             "reputation": 15,
@@ -376,32 +376,32 @@
               "type": "reputation_boost",
               "value": 1.2,
               "turnsRemaining": 10,
-              "description": "Blessed by the gods"
+              "description": "Благословение богов"
             }
           },
-          "resultText": "Sister Elena's eyes fill with tears. 'Bless you!' The children eat happily. You feel a divine warmth.",
+          "resultText": "Глаза сестры Елены наполняются слезами. 'Благослови вас небеса!' Дети счастливо едят. Вы чувствуете божественное тепло.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Offer leftover bread and water",
+          "text": "Предложить остатки хлеба и воду",
           "consequences": {
             "money": -20,
             "reputation": 5
           },
-          "resultText": "Sister Elena nods gratefully. 'Every bit helps. Thank you for your kindness.'",
+          "resultText": "Сестра Елена благодарно кивает. 'Каждая крошка важна. Спасибо за вашу доброту.'",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Charge half price for simple fare",
+          "text": "Взять полцены за простую еду",
           "consequences": {
             "money": 50,
             "reputation": -5
           },
-          "resultText": "Sister Elena sighs and counts her few coins. 'I suppose business is business...'",
+          "resultText": "Сестра Елена вздыхает и пересчитывает свои скудные монеты. 'Полагаю, бизнес есть бизнес...'",
           "npcEmotion": "negative"
         },
         {
-          "text": "Refuse - you can't afford charity",
+          "text": "Отказать - вы не можете позволить себе благотворительность",
           "consequences": {
             "reputation": -15,
             "temporaryEffect": {
@@ -409,10 +409,10 @@
               "type": "reputation_boost",
               "value": 0.8,
               "turnsRemaining": 5,
-              "description": "Cursed for greed"
+              "description": "Проклятие за жадность"
             }
           },
-          "resultText": "Sister Elena's face hardens. 'May you never know hunger.' She leaves, and you feel a chill.",
+          "resultText": "Лицо сестры Елены каменеет. 'Да не познаете вы голода.' Она уходит, и вы чувствуете холод.",
           "npcEmotion": "negative"
         }
       ]
@@ -422,13 +422,13 @@
       "type": "modifier",
       "category": "magical",
       "npcId": "mage_zephyr",
-      "title": "Magical Experiment",
-      "description": "An unusual magical proposition",
-      "situation": "Zephyr bursts in excitedly, robes singed. 'I need your strongest spirits for an experiment! In exchange, I'll enchant your tavern. What could go wrong?'",
+      "title": "Магический эксперимент",
+      "description": "Необычное магическое предложение",
+      "situation": "Зефир врывается в возбуждении, его мантия обожжена. 'Мне нужны ваши крепчайшие напитки для эксперимента! Взамен я зачарую вашу таверну. Что может пойти не так?'",
       "priority": 3,
       "options": [
         {
-          "text": "Provide your finest spirits for science!",
+          "text": "Предоставить лучшие напитки во имя науки!",
           "consequences": {
             "money": -200,
             "temporaryEffect": {
@@ -436,14 +436,14 @@
               "type": "money_multiplier",
               "value": 1.5,
               "turnsRemaining": 15,
-              "description": "Magical aura attracts customers"
+              "description": "Магическая аура привлекает клиентов"
             }
           },
-          "resultText": "The experiment succeeds! Your tavern now glows softly, attracting curious customers from afar.",
+          "resultText": "Эксперимент удался! Ваша таверна теперь мягко светится, привлекая любопытных посетителей издалека.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Offer regular spirits and hope for the best",
+          "text": "Предложить обычные напитки и надеяться на лучшее",
           "consequences": {
             "money": -50,
             "reputation": -10,
@@ -452,23 +452,23 @@
               "type": "risk_modifier",
               "value": 2,
               "turnsRemaining": 10,
-              "description": "Unpredictable magical effects"
+              "description": "Непредсказуемые магические эффекты"
             }
           },
-          "resultText": "The experiment backfires! Random magical effects now plague your tavern. Oops.",
+          "resultText": "Эксперимент пошёл не так! Случайные магические эффекты теперь преследуют вашу таверну. Упс.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Insist on payment upfront",
+          "text": "Настоять на предоплате",
           "consequences": {
             "money": 300,
             "reputation": 5
           },
-          "resultText": "Zephyr grumbles but pays. 'No sense of adventure these days...' The experiment fizzles out harmlessly.",
+          "resultText": "Зефир ворчит, но платит. 'Никакого духа приключений в наши дни...' Эксперимент безвредно сходит на нет.",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Refuse - too dangerous!",
+          "text": "Отказаться - слишком опасно!",
           "consequences": {
             "reputation": 3,
             "npcRelationship": {
@@ -476,7 +476,7 @@
               "change": -10
             }
           },
-          "resultText": "Zephyr huffs. 'Coward! I'll find someone with vision!' He storms out in a puff of smoke.",
+          "resultText": "Зефир фыркает. 'Трус! Я найду кого-то с воображением!' Он вылетает в клубах дыма.",
           "npcEmotion": "negative"
         }
       ]
@@ -486,13 +486,13 @@
       "type": "chain",
       "category": "royal",
       "npcId": "royal_princess",
-      "title": "Mysterious Noble Guest",
-      "description": "A secretive visitor with royal bearing",
-      "situation": "A cloaked figure enters and sits in the corner. As she lowers her hood, you recognize Princess Aria! She puts a finger to her lips. 'Please, I just want a normal evening.'",
+      "title": "Таинственная знатная гостья",
+      "description": "Скрытная посетительница с королевской осанкой",
+      "situation": "Фигура в плаще входит и садится в углу. Когда она опускает капюшон, вы узнаёте принцессу Арию! Она прикладывает палец к губам. 'Пожалуйста, я просто хочу провести обычный вечер.'",
       "priority": 4,
       "options": [
         {
-          "text": "Treat her like any other customer",
+          "text": "Обращаться как с обычной посетительницей",
           "consequences": {
             "money": 100,
             "reputation": 30,
@@ -502,11 +502,11 @@
               "turnsUntil": 5
             }
           },
-          "resultText": "The princess relaxes and enjoys a simple meal. 'Thank you for your discretion. I won't forget this.'",
+          "resultText": "Принцесса расслабляется и наслаждается простой едой. 'Спасибо за вашу деликатность. Я этого не забуду.'",
           "npcEmotion": "positive"
         },
         {
-          "text": "Give her special treatment discretely",
+          "text": "Незаметно оказать особое внимание",
           "consequences": {
             "money": -50,
             "reputation": 20,
@@ -515,11 +515,11 @@
               "change": 30
             }
           },
-          "resultText": "The princess notices your efforts. 'You're kind, but I came here to escape special treatment.'",
+          "resultText": "Принцесса замечает ваши старания. 'Вы добры, но я пришла сюда, чтобы избежать особого обращения.'",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Alert the royal guard for a reward",
+          "text": "Сообщить королевской страже за награду",
           "consequences": {
             "money": 500,
             "reputation": -50,
@@ -529,16 +529,16 @@
               "change": -100
             }
           },
-          "resultText": "Guards rush in. The princess glares at you with betrayal. 'I'll remember this treachery.'",
+          "resultText": "Стражники врываются. Принцесса смотрит на вас с чувством предательства. 'Я запомню это вероломство.'",
           "npcEmotion": "negative"
         },
         {
-          "text": "Offer her a private room for safety",
+          "text": "Предложить отдельную комнату для безопасности",
           "consequences": {
             "money": 200,
             "reputation": 10
           },
-          "resultText": "The princess smiles. 'Thoughtful, but I'd rather sit among the people. Still, I appreciate the concern.'",
+          "resultText": "Принцесса улыбается. 'Заботливо, но я предпочту сидеть среди людей. Всё же ценю вашу заботу.'",
           "npcEmotion": "positive"
         }
       ],
@@ -551,13 +551,13 @@
       "type": "immediate",
       "category": "underworld",
       "npcId": "crime_boss_grimm",
-      "title": "An Offer from the Underworld",
-      "description": "The crime boss wants to use your tavern",
-      "situation": "Grimm enters with two bodyguards. The tavern goes quiet. 'I need to use your back room for a... meeting tonight. You'll be well compensated. Or you can refuse, and we'll remember that.'",
+      "title": "Предложение из преступного мира",
+      "description": "Криминальный босс хочет использовать вашу таверну",
+      "situation": "Гримм входит с двумя телохранителями. В таверне воцаряется тишина. 'Мне нужна ваша задняя комната для... встречи сегодня вечером. Вам хорошо заплатят. Или можете отказаться, и мы это запомним.'",
       "priority": 3,
       "options": [
         {
-          "text": "Accept the deal and don't ask questions",
+          "text": "Принять сделку и не задавать вопросов",
           "consequences": {
             "money": 1000,
             "reputation": -20,
@@ -567,11 +567,11 @@
               "change": 50
             }
           },
-          "resultText": "Grimm nods approvingly. 'Smart. Here's your gold. You saw nothing tonight.'",
+          "resultText": "Гримм одобрительно кивает. 'Умно. Вот ваше золото. Вы ничего не видели сегодня вечером.'",
           "npcEmotion": "positive"
         },
         {
-          "text": "Refuse - you run an honest business",
+          "text": "Отказаться - вы ведёте честный бизнес",
           "consequences": {
             "reputation": 25,
             "temporaryEffect": {
@@ -579,14 +579,14 @@
               "type": "risk_modifier",
               "value": 1.5,
               "turnsRemaining": 20,
-              "description": "Under criminal threat"
+              "description": "Под угрозой преступников"
             }
           },
-          "resultText": "Grimm's eyes narrow. 'Honest? In this town? You've made a dangerous choice, tavernkeeper.'",
+          "resultText": "Глаза Гримма сужаются. 'Честный? В этом городе? Вы сделали опасный выбор, трактирщик.'",
           "npcEmotion": "negative"
         },
         {
-          "text": "Agree but secretly inform the guards",
+          "text": "Согласиться, но тайно сообщить страже",
           "consequences": {
             "money": 500,
             "reputation": 40,
@@ -596,11 +596,11 @@
               "change": -100
             }
           },
-          "resultText": "The guards raid the meeting! Grimm is arrested but swears vengeance as he's dragged away.",
+          "resultText": "Стража проводит рейд! Гримма арестовывают, но он клянётся отомстить, когда его уводят.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Negotiate for a bigger cut",
+          "text": "Поторговаться за большую долю",
           "consequences": {
             "money": 1500,
             "reputation": -10,
@@ -609,7 +609,7 @@
               "change": 20
             }
           },
-          "resultText": "Grimm chuckles. 'You've got spine. Fine, but this makes you a partner. No backing out now.'",
+          "resultText": "Гримм усмехается. 'У вас есть хребет. Хорошо, но это делает вас компаньоном. Пути назад нет.'",
           "npcEmotion": "neutral"
         }
       ]
@@ -619,13 +619,13 @@
       "type": "immediate",
       "category": "legendary",
       "npcId": "dragon_smaug",
-      "title": "Dragon's Thirst",
-      "description": "The ultimate test of your tavern",
-      "situation": "The ground shakes. Smaug the Golden lands outside, his massive head peering through your door. 'TAVERNKEEPER! I require your finest drink, or I shall reduce this place to ASH!'",
+      "title": "Жажда дракона",
+      "description": "Последнее испытание для вашей таверны",
+      "situation": "Земля дрожит. Смауг Золотой приземляется снаружи, его огромная голова заглядывает в дверь. 'ТРАКТИРЩИК! Мне нужен ваш лучший напиток, или я превращу это место в ПЕПЕЛ!'",
       "priority": 4,
       "options": [
         {
-          "text": "Serve your legendary reserve (costs 5000g)",
+          "text": "Подать легендарный резерв (стоит 5000 золота)",
           "consequences": {
             "money": 15000,
             "reputation": 50,
@@ -635,11 +635,11 @@
             },
             "flags": ["dragon_approved"]
           },
-          "resultText": "Smaug tastes the ancient wine and rumbles approval. 'EXCELLENT! Your tavern is under my protection!' He pays with ancient gold.",
+          "resultText": "Смауг пробует древнее вино и урчит одобрение. 'ПРЕВОСХОДНО! Ваша таверна под моей защитой!' Он платит древним золотом.",
           "npcEmotion": "positive"
         },
         {
-          "text": "Try to pass off regular wine as legendary",
+          "text": "Попытаться выдать обычное вино за легендарное",
           "consequences": {
             "money": -10000,
             "reputation": -50,
@@ -648,14 +648,14 @@
               "type": "cost_reduction",
               "value": 0.5,
               "turnsRemaining": 10,
-              "description": "Rebuilding from dragon fire"
+              "description": "Восстановление после драконьего огня"
             }
           },
-          "resultText": "Smaug roars in fury! 'YOU DARE DECEIVE ME?!' He torches half your tavern before flying away.",
+          "resultText": "Смауг рычит в ярости! 'ВЫ СМЕЕТЕ МЕНЯ ОБМАНЫВАТЬ?!' Он сжигает половину таверны, прежде чем улететь.",
           "npcEmotion": "negative"
         },
         {
-          "text": "Honestly admit you have nothing worthy",
+          "text": "Честно признаться, что нет ничего достойного",
           "consequences": {
             "reputation": 20,
             "npcRelationship": {
@@ -663,11 +663,11 @@
               "change": 10
             }
           },
-          "resultText": "Smaug considers. 'At least you're honest, worm. I shall spare you... this time.'",
+          "resultText": "Смауг размышляет. 'По крайней мере, ты честен, червь. Я пощажу тебя... на этот раз.'",
           "npcEmotion": "neutral"
         },
         {
-          "text": "Challenge him to a drinking contest!",
+          "text": "Вызвать его на состязание в выпивке!",
           "consequences": {
             "money": 20000,
             "reputation": 100,
@@ -677,7 +677,7 @@
               "change": 100
             }
           },
-          "resultText": "Smaug laughs, a sound like thunder. 'BOLD!' Hours later, you've somehow won! 'You've earned my respect, tiny friend!'",
+          "resultText": "Смауг смеётся звуком, подобным грому. 'СМЕЛО!' Часы спустя вы каким-то образом победили! 'Ты заслужил моё уважение, крошечный друг!'",
           "npcEmotion": "positive"
         }
       ],

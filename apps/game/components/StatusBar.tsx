@@ -120,7 +120,7 @@ export default function StatusBar({ gameState }: StatusBarProps) {
       </div>
 
       <div className="mt-1 text-xs text-gray-400 text-center">
-        Turn {gameState.turn}
+        Ход {gameState.turn}
       </div>
     </div>
   );

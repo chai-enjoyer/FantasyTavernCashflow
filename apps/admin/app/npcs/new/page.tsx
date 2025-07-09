@@ -69,15 +69,40 @@ export default function NewNPCPage() {
               <div>
                 <label className="block text-sm font-medium mb-2">Class</label>
                 <select {...register('class', { required: true })} className="admin-input">
-                  <option value="commoner">Commoner</option>
-                  <option value="adventurer">Adventurer</option>
-                  <option value="criminal">Criminal</option>
-                  <option value="noble">Noble</option>
-                  <option value="royal">Royal</option>
-                  <option value="cleric">Cleric</option>
-                  <option value="mage">Mage</option>
-                  <option value="crime_boss">Crime Boss</option>
-                  <option value="dragon">Dragon</option>
+                  <option value="commoner">Обыватель</option>
+                  <option value="merchant">Торговец</option>
+                  <option value="noble">Дворянин</option>
+                  <option value="adventurer">Авантюрист</option>
+                  <option value="criminal">Преступник</option>
+                  <option value="guard">Стражник</option>
+                  <option value="cleric">Жрец</option>
+                  <option value="mage">Маг</option>
+                  <option value="royal">Королевская особа</option>
+                  <option value="crime_boss">Главарь</option>
+                  <option value="dragon">Дракон</option>
+                  <option value="bard">Бард</option>
+                  <option value="alchemist">Алхимик</option>
+                  <option value="dwarf">Гном</option>
+                  <option value="elf">Эльф</option>
+                  <option value="halfling">Полурослик</option>
+                  <option value="orc">Орк</option>
+                  <option value="vampire">Вампир</option>
+                  <option value="pirate">Пират</option>
+                  <option value="monk">Монах</option>
+                  <option value="witch">Ведьма</option>
+                  <option value="knight">Рыцарь</option>
+                  <option value="necromancer">Некромант</option>
+                  <option value="barbarian">Варвар</option>
+                  <option value="artisan">Ремесленник</option>
+                  <option value="scholar">Учёный</option>
+                  <option value="blacksmith">Кузнец</option>
+                  <option value="hunter">Охотник</option>
+                  <option value="sailor">Моряк</option>
+                  <option value="healer">Лекарь</option>
+                  <option value="beggar">Нищий</option>
+                  <option value="artist">Художник</option>
+                  <option value="official">Чиновник</option>
+                  <option value="mystic">Мистик</option>
                 </select>
               </div>
 
@@ -169,7 +194,7 @@ export default function NewNPCPage() {
               {loading ? 'Creating...' : 'Create NPC'}
             </button>
             <Link href="/npcs" className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
-              Cancel
+              Отмена
             </Link>
           </div>
         </form>

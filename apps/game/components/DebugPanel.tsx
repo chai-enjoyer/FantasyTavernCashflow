@@ -67,8 +67,8 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
     };
 
     // Initial log
-    console.log('🧪 Debug Panel Initialized');
-    console.log('Running in:', window.Telegram?.WebApp ? 'Telegram' : 'Browser');
+    console.log('🧪 Панель отладки инициализирована');
+    console.log('Запущено в:', window.Telegram?.WebApp ? 'Telegram' : 'Браузере');
 
     return () => {
       console.log = originalLog;
@@ -141,7 +141,7 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
             <div className="flex items-center justify-between p-3 border-b border-gray-700">
               <h3 className="text-sm font-semibold text-white flex items-center gap-2">
                 <Bug className="w-4 h-4" />
-                Debug Panel {typeof window !== 'undefined' && !window.Telegram?.WebApp && '(Browser Mode)'}
+                Панель отладки {typeof window !== 'undefined' && !window.Telegram?.WebApp && '(Режим браузера)'}
               </h3>
               <div className="flex items-center gap-2">
                 <button
@@ -153,14 +153,14 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
                 <button
                   onClick={exportLogs}
                   className="p-1 hover:bg-gray-800 rounded transition-colors"
-                  title="Export logs"
+                  title="Экспортировать логи"
                 >
                   <Download className="w-4 h-4" />
                 </button>
                 <button
                   onClick={clearLogs}
                   className="p-1 hover:bg-gray-800 rounded transition-colors"
-                  title="Clear logs"
+                  title="Очистить логи"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -179,20 +179,20 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
                 <div className="p-3 border-b border-gray-700 text-xs">
                   <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <span className="text-gray-400">Turn:</span>{' '}
+                      <span className="text-gray-400">Ход:</span>{' '}
                       <span className="text-white">{gameState?.turn || 0}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">Money:</span>{' '}
+                      <span className="text-gray-400">Деньги:</span>{' '}
                       <span className="text-white">{gameState?.money || 0}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">Reputation:</span>{' '}
+                      <span className="text-gray-400">Репутация:</span>{' '}
                       <span className="text-white">{gameState?.reputation || 0}</span>
                     </div>
                     <div>
-                      <span className="text-gray-400">Card:</span>{' '}
-                      <span className="text-white">{currentCard?.id || 'None'}</span>
+                      <span className="text-gray-400">Карта:</span>{' '}
+                      <span className="text-white">{currentCard?.id || 'Нет'}</span>
                     </div>
                   </div>
                 </div>
@@ -200,7 +200,7 @@ export default function DebugPanel({ gameState, currentCard, isTestMode }: Debug
                 {/* Logs */}
                 <div className="flex-1 overflow-y-auto p-3 max-h-60">
                   {logs.length === 0 ? (
-                    <p className="text-gray-500 text-sm text-center">No logs yet...</p>
+                    <p className="text-gray-500 text-sm text-center">Логов пока нет...</p>
                   ) : (
                     <div className="space-y-1">
                       {logs.map((log, index) => (

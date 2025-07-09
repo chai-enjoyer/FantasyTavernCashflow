@@ -68,7 +68,7 @@ export default function ResultScreen({
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-lg">{EMOJI.MONEY}</span>
-                    <span className="text-game-text">Money</span>
+                    <span className="text-game-text">Деньги</span>
                   </span>
                   <span className={`font-bold ${
                     moneyChange > 0 ? 'text-game-success' : 'text-game-danger'
@@ -87,7 +87,7 @@ export default function ResultScreen({
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-lg">{EMOJI.REPUTATION}</span>
-                    <span className="text-game-text">Reputation</span>
+                    <span className="text-game-text">Репутация</span>
                   </span>
                   <span className={`font-bold ${
                     reputationChange > 0 ? 'text-game-success' : 'text-game-danger'
@@ -106,7 +106,7 @@ export default function ResultScreen({
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-lg">{EMOJI.FRIEND}</span>
-                    <span className="text-game-text">Relationship</span>
+                    <span className="text-game-text">Отношения</span>
                   </span>
                   <span className={`font-bold ${
                     consequences.npcRelationship.change > 0 ? 'text-game-success' : 'text-game-danger'
@@ -125,10 +125,10 @@ export default function ResultScreen({
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-lg">{EMOJI.INCOME}</span>
-                    <span className="text-game-text">New Income</span>
+                    <span className="text-game-text">Новый доход</span>
                   </span>
                   <span className="text-game-success font-bold">
-                    +{formatMoney(consequences.passiveIncome.amount)}/turn
+                    +{formatMoney(consequences.passiveIncome.amount)}/ход
                   </span>
                 </motion.div>
               )}
@@ -142,10 +142,10 @@ export default function ResultScreen({
                 >
                   <span className="flex items-center gap-2">
                     <span className="text-lg">{EMOJI.DEBT}</span>
-                    <span className="text-game-text">New Debt</span>
+                    <span className="text-game-text">Новый долг</span>
                   </span>
                   <span className="text-game-danger font-bold">
-                    -{formatMoney(consequences.debt.paymentPerTurn)}/turn
+                    -{formatMoney(consequences.debt.paymentPerTurn)}/ход
                   </span>
                 </motion.div>
               )}
@@ -158,7 +158,7 @@ export default function ResultScreen({
             onClick={onContinue}
             className="w-full py-3 bg-game-gold hover:bg-yellow-600 text-black font-bold rounded-md transition-colors"
           >
-            Continue
+            Продолжить
           </motion.button>
         </div>
       </div>

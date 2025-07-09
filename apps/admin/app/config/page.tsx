@@ -37,10 +37,10 @@ export default function ConfigPage() {
     setSaving(true);
     try {
       await updateGameConfig(data);
-      alert('Configuration saved successfully!');
+      alert('Конфигурация успешно сохранена!');
     } catch (error) {
       console.error('Error saving config:', error);
-      alert('Failed to save configuration');
+      alert('Не удалось сохранить конфигурацию');
     } finally {
       setSaving(false);
     }
@@ -49,7 +49,7 @@ export default function ConfigPage() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">Loading...</div>
+        <div className="text-center">Загрузка...</div>
       </div>
     );
   }
@@ -57,15 +57,15 @@ export default function ConfigPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-8">Game Configuration</h1>
+        <h1 className="text-3xl font-bold mb-8">Конфигурация игры</h1>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="admin-card">
-            <h2 className="text-xl font-semibold mb-4">Starting Values</h2>
+            <h2 className="text-xl font-semibold mb-4">Начальные значения</h2>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Starting Money</label>
+                <label className="block text-sm font-medium mb-2">Начальные деньги</label>
                 <input
                   type="number"
                   {...register('startingMoney', { required: true, valueAsNumber: true })}
@@ -74,7 +74,7 @@ export default function ConfigPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Starting Reputation</label>
+                <label className="block text-sm font-medium mb-2">Начальная репутация</label>
                 <input
                   type="number"
                   {...register('startingReputation', { required: true, valueAsNumber: true })}
@@ -83,7 +83,7 @@ export default function ConfigPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Base Income (per turn)</label>
+                <label className="block text-sm font-medium mb-2">Базовый доход (за ход)</label>
                 <input
                   type="number"
                   {...register('baseIncome', { required: true, valueAsNumber: true })}
@@ -92,7 +92,7 @@ export default function ConfigPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Base Costs (per turn)</label>
+                <label className="block text-sm font-medium mb-2">Базовые расходы (за ход)</label>
                 <input
                   type="number"
                   {...register('baseCosts', { required: true, valueAsNumber: true })}
@@ -103,23 +103,23 @@ export default function ConfigPage() {
           </div>
 
           <div className="admin-card">
-            <h2 className="text-xl font-semibold mb-4">Scaling Formulas</h2>
+            <h2 className="text-xl font-semibold mb-4">Формулы масштабирования</h2>
             
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Money Scaling Formula</label>
+                <label className="block text-sm font-medium mb-2">Формула масштабирования денег</label>
                 <textarea
                   {...register('scalingFormulas.moneyScaling', { required: true })}
                   className="admin-input font-mono text-sm"
                   rows={3}
                 />
                 <p className="text-xs text-gray-400 mt-1">
-                  JavaScript formula for scaling money amounts based on current balance
+                  JavaScript формула для масштабирования денежных сумм на основе текущего баланса
                 </p>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Reputation Impact Description</label>
+                <label className="block text-sm font-medium mb-2">Описание влияния репутации</label>
                 <textarea
                   {...register('scalingFormulas.reputationImpact', { required: true })}
                   className="admin-input"
@@ -128,7 +128,7 @@ export default function ConfigPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Risk Calculation Description</label>
+                <label className="block text-sm font-medium mb-2">Описание расчёта рисков</label>
                 <textarea
                   {...register('scalingFormulas.riskCalculation', { required: true })}
                   className="admin-input"
@@ -139,10 +139,10 @@ export default function ConfigPage() {
           </div>
 
           <div className="admin-card">
-            <h2 className="text-xl font-semibold mb-4">Version</h2>
+            <h2 className="text-xl font-semibold mb-4">Версия</h2>
             
             <div>
-              <label className="block text-sm font-medium mb-2">Game Version</label>
+              <label className="block text-sm font-medium mb-2">Версия игры</label>
               <input
                 {...register('version', { required: true })}
                 className="admin-input"
@@ -157,7 +157,7 @@ export default function ConfigPage() {
             className="admin-button w-full flex items-center justify-center gap-2"
           >
             <Save className="w-4 h-4" />
-            {saving ? 'Saving...' : 'Save Configuration'}
+            {saving ? 'Сохранение...' : 'Сохранить конфигурацию'}
           </button>
         </form>
       </div>

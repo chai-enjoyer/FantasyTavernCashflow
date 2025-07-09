@@ -7,8 +7,8 @@ import { AuthProvider } from '@/contexts/AuthContext'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Fantasy Tavern Admin',
-  description: 'Admin panel for Fantasy Tavern Cashflow game',
+  title: 'Администрирование Fantasy Tavern',
+  description: 'Панель администратора для игры Fantasy Tavern Cashflow',
 }
 
 export default function RootLayout({
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <body className={inter.className}>
         <AuthProvider>
           <Navigation />

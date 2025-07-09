@@ -22,7 +22,7 @@ export default function LoginPage() {
     try {
       await login(email, password);
     } catch (err: any) {
-      setError(err.message || 'Invalid email or password');
+      setError(err.message || 'Неверный email или пароль');
     } finally {
       setIsLoading(false);
     }
@@ -36,14 +36,14 @@ export default function LoginPage() {
 
     try {
       await resetPassword(resetEmail);
-      setSuccess('Password reset email sent! Check your inbox.');
+      setSuccess('Письмо для сброса пароля отправлено! Проверьте вашу почту.');
       setResetEmail('');
       setTimeout(() => {
         setShowResetPassword(false);
         setSuccess('');
       }, 3000);
     } catch (err: any) {
-      setError(err.message || 'Failed to send reset email');
+      setError(err.message || 'Не удалось отправить письмо для сброса');
     } finally {
       setIsLoading(false);
     }
@@ -57,10 +57,10 @@ export default function LoginPage() {
             <Shield className="h-8 w-8 text-admin-primary" />
           </div>
           <h2 className="mt-6 text-3xl font-bold text-admin-text">
-            Admin Dashboard
+            Панель администратора
           </h2>
           <p className="mt-2 text-sm text-gray-400">
-            Sign in to access the admin panel
+            Войдите для доступа к панели администрирования
           </p>
         </div>
 
@@ -69,7 +69,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-1">
-                  Email Address
+                  Адрес электронной почты
                 </label>
                 <div className="relative">
                   <input
@@ -88,7 +88,7 @@ export default function LoginPage() {
 
               <div>
                 <label htmlFor="password" className="block text-sm font-medium text-gray-300 mb-1">
-                  Password
+                  Пароль
                 </label>
                 <div className="relative">
                   <input
@@ -119,7 +119,7 @@ export default function LoginPage() {
                 onClick={() => setShowResetPassword(true)}
                 className="text-sm text-admin-primary hover:text-admin-primary/80"
               >
-                Forgot password?
+                Забыли пароль?
               </button>
             </div>
 
@@ -131,10 +131,10 @@ export default function LoginPage() {
               {isLoading ? (
                 <>
                   <Loader2 className="animate-spin h-4 w-4" />
-                  Signing in...
+                  Вход...
                 </>
               ) : (
-                'Sign In'
+                'Войти'
               )}
             </button>
           </form>
@@ -143,7 +143,7 @@ export default function LoginPage() {
             <div className="space-y-4">
               <div>
                 <label htmlFor="reset-email" className="block text-sm font-medium text-gray-300 mb-1">
-                  Email Address
+                  Адрес электронной почты
                 </label>
                 <div className="relative">
                   <input
@@ -184,7 +184,7 @@ export default function LoginPage() {
                 }}
                 className="flex-1 py-2 px-4 border border-gray-600 rounded-lg text-sm font-medium text-gray-300 bg-transparent hover:bg-gray-800 transition-colors"
               >
-                Back to Login
+                Назад к входу
               </button>
               <button
                 type="submit"
@@ -194,10 +194,10 @@ export default function LoginPage() {
                 {isLoading ? (
                   <>
                     <Loader2 className="animate-spin h-4 w-4" />
-                    Sending...
+                    Отправка...
                   </>
                 ) : (
-                  'Send Reset Email'
+                  'Отправить письмо'
                 )}
               </button>
             </div>
@@ -205,7 +205,7 @@ export default function LoginPage() {
         )}
 
         <div className="mt-6 text-center text-xs text-gray-500">
-          <p>Protected by Firebase Authentication</p>
+          <p>Защищено Firebase Authentication</p>
         </div>
       </div>
     </div>

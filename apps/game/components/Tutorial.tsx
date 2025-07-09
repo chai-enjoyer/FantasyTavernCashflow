@@ -14,28 +14,28 @@ interface TutorialStep {
 
 const tutorialSteps: TutorialStep[] = [
   {
-    title: 'Welcome to Fantasy Tavern!',
-    description: 'You are the owner of a magical tavern in a fantasy world. Your goal is to keep your business running by making strategic decisions.',
+    title: 'Добро пожаловать в Фэнтезийную Таверну!',
+    description: 'Вы - владелец волшебной таверны в фэнтезийном мире. Ваша цель - поддерживать работу бизнеса, принимая стратегические решения.',
     icon: <Sparkles className="w-8 h-8" />,
-    tip: 'Each decision affects your money and reputation!',
+    tip: 'Каждое решение влияет на ваши деньги и репутацию!',
   },
   {
-    title: 'Money Management',
-    description: 'Your money is your lifeblood. Running out means bankruptcy! Each visitor will present choices that can increase or decrease your funds.',
+    title: 'Управление деньгами',
+    description: 'Деньги - это ваша жизненная сила. Если они закончатся - вы банкрот! Каждый посетитель предложит выбор, который может увеличить или уменьшить ваши средства.',
     icon: <Coins className="w-8 h-8" />,
-    tip: 'Higher risk choices often yield better rewards.',
+    tip: 'Более рискованный выбор часто приносит лучшую награду.',
   },
   {
-    title: 'Reputation Matters',
-    description: 'Your reputation affects pricing and customer quality. Good reputation brings wealthy patrons, while bad reputation attracts trouble.',
+    title: 'Репутация важна',
+    description: 'Ваша репутация влияет на цены и качество клиентов. Хорошая репутация привлекает богатых посетителей, плохая - приносит неприятности.',
     icon: <Shield className="w-8 h-8" />,
-    tip: 'Reputation affects how much you can charge!',
+    tip: 'Репутация влияет на то, сколько вы можете брать за услуги!',
   },
   {
-    title: 'Know Your Visitors',
-    description: 'Different NPCs have different personalities. Nobles might pay well but are demanding, while adventurers bring risk but also opportunity.',
+    title: 'Изучайте посетителей',
+    description: 'У разных НПС разные характеры. Дворяне могут хорошо платить, но требовательны, а искатели приключений приносят риск, но и возможности.',
     icon: <Users className="w-8 h-8" />,
-    tip: 'Pay attention to visitor classes and moods.',
+    tip: 'Обращайте внимание на класс и настроение посетителей.',
   },
 ];
 
@@ -78,7 +78,7 @@ export default function Tutorial({ onComplete }: TutorialProps) {
           <button
             onClick={handleSkip}
             className="absolute top-4 right-4 text-gray-400 hover:text-white transition-colors"
-            aria-label="Skip tutorial"
+            aria-label="Пропустить обучение"
           >
             <X className="w-5 h-5" />
           </button>
@@ -98,7 +98,7 @@ export default function Tutorial({ onComplete }: TutorialProps) {
           {step.tip && (
             <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-3 mb-6">
               <p className="text-sm text-blue-300 text-center">
-                <span className="font-semibold">Tip:</span> {step.tip}
+                <span className="font-semibold">Совет:</span> {step.tip}
               </p>
             </div>
           )}
@@ -123,7 +123,7 @@ export default function Tutorial({ onComplete }: TutorialProps) {
               onClick={handleNext}
               className="flex items-center space-x-2 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-2 rounded-lg transition-colors"
             >
-              <span>{currentStep === tutorialSteps.length - 1 ? 'Start Playing' : 'Next'}</span>
+              <span>{currentStep === tutorialSteps.length - 1 ? 'Начать игру' : 'Далее'}</span>
               <ChevronRight className="w-4 h-4" />
             </button>
           </div>

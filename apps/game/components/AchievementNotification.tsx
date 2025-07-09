@@ -59,7 +59,7 @@ export default function AchievementNotification({ achievement, onDismiss }: Achi
                   <Trophy className={`w-8 h-8 ${tierTextColors[achievement.tier]}`} />
                 </div>
                 <div>
-                  <h3 className="text-white font-bold text-lg">Achievement Unlocked!</h3>
+                  <h3 className="text-white font-bold text-lg">Достижение разблокировано!</h3>
                   <p className={`${tierTextColors[achievement.tier]} font-semibold`}>
                     {achievement.name}
                   </p>
@@ -74,7 +74,7 @@ export default function AchievementNotification({ achievement, onDismiss }: Achi
               <button
                 onClick={onDismiss}
                 className="text-white/60 hover:text-white transition-colors"
-                aria-label="Dismiss notification"
+                aria-label="Закрыть уведомление"
               >
                 <X className="w-5 h-5" />
               </button>

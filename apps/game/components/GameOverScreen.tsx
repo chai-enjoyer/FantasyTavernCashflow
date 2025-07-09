@@ -18,25 +18,25 @@ export default function GameOverScreen({ gameState, onRestart }: GameOverScreenP
         className="max-w-md w-full"
       >
         <div className="bg-game-card rounded-lg border border-game-border p-8 text-center">
-          <h1 className="text-3xl font-bold text-game-danger mb-4">Bankruptcy!</h1>
+          <h1 className="text-3xl font-bold text-game-danger mb-4">Банкротство!</h1>
           
           <p className="text-game-text text-lg mb-8">
-            Your tavern has run out of money. The adventure ends here...
+            В вашей таверне закончились деньги. Приключение заканчивается...
           </p>
           
           <div className="space-y-4 mb-8">
             <div className="bg-game-bg rounded-lg p-4">
-              <p className="text-gray-400 text-sm mb-1">Final Turn</p>
+              <p className="text-gray-400 text-sm mb-1">Последний ход</p>
               <p className="text-2xl font-bold text-game-text">{gameState.turn}</p>
             </div>
             
             <div className="bg-game-bg rounded-lg p-4">
-              <p className="text-gray-400 text-sm mb-1">Final Reputation</p>
+              <p className="text-gray-400 text-sm mb-1">Итоговая репутация</p>
               <p className="text-2xl font-bold text-game-text">{gameState.reputation}</p>
             </div>
             
             <div className="bg-game-bg rounded-lg p-4">
-              <p className="text-gray-400 text-sm mb-1">Active Businesses</p>
+              <p className="text-gray-400 text-sm mb-1">Активных бизнесов</p>
               <p className="text-2xl font-bold text-game-text">{gameState.passiveIncome.length}</p>
             </div>
           </div>
@@ -47,7 +47,7 @@ export default function GameOverScreen({ gameState, onRestart }: GameOverScreenP
             onClick={onRestart}
             className="w-full py-3 bg-game-gold hover:bg-yellow-600 text-black font-bold rounded-md transition-colors"
           >
-            Start New Game
+            Начать новую игру
           </motion.button>
         </div>
       </motion.div>

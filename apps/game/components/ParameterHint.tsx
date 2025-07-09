@@ -19,7 +19,7 @@ export default function ParameterHint({ userId }: ParameterHintProps) {
         className="flex items-center gap-2 text-xs text-green-400 bg-green-900/20 px-3 py-1.5 rounded-full"
       >
         <Eye className="w-3 h-3" />
-        <span>Parameters Visible</span>
+        <span>Параметры видны</span>
       </motion.div>
     );
   }
@@ -29,10 +29,10 @@ export default function ParameterHint({ userId }: ParameterHintProps) {
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       className="flex items-center gap-2 text-xs text-gray-400 bg-gray-800/50 px-3 py-1.5 rounded-full"
-      title="Purchase a booster to see exact values"
+      title="Купите бустер, чтобы увидеть точные значения"
     >
       <EyeOff className="w-3 h-3" />
-      <span>Parameters Hidden</span>
+      <span>Параметры скрыты</span>
     </motion.div>
   );
 }
@@ -44,7 +44,7 @@ export function ParameterLockIcon() {
       animate={{ scale: 1 }}
       whileHover={{ scale: 1.1 }}
       className="inline-flex items-center justify-center w-4 h-4 text-gray-500"
-      title="Value hidden - booster required"
+      title="Значение скрыто - требуется бустер"
     >
       <Lock className="w-3 h-3" />
     </motion.span>

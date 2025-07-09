@@ -5,6 +5,7 @@ import { X, Trophy, Star, Award, BarChart3, Target, User as UserIcon } from 'luc
 import { User } from '@repo/shared';
 import { AchievementService } from '@/services/achievements';
 import { TelegramService } from '@/services/telegram';
+import Image from 'next/image';
 
 interface ProfileModalProps {
   isOpen: boolean;
@@ -45,7 +46,7 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
             className="fixed inset-4 bg-game-card border border-game-border rounded-xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
           >
             <div className="p-4 border-b border-game-border flex justify-between items-center">
-              <h2 className="text-xl font-bold text-game-text">My Profile</h2>
+              <h2 className="text-xl font-bold text-game-text">Мой профиль</h2>
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-game-bg rounded-lg transition-colors"
@@ -58,12 +59,14 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
               {/* Profile Header */}
               <div className="bg-game-bg rounded-lg p-4">
                 <div className="flex items-center gap-3 mb-3">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center flex-shrink-0 relative overflow-hidden">
                     {telegramUser?.photo_url ? (
-                      <img 
+                      <Image 
                         src={telegramUser.photo_url} 
                         alt="Profile" 
-                        className="w-full h-full rounded-full object-cover"
+                        fill
+                        className="rounded-full object-cover"
+                        sizes="64px"
                       />
                     ) : (
                       <UserIcon className="w-8 h-8 text-white" />
@@ -84,7 +87,7 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <Star className="w-4 h-4 text-yellow-400" />
-                      <span className="text-white font-semibold">Level {levelInfo.level}</span>
+                      <span className="text-white font-semibold">Уровень {levelInfo.level}</span>
                     </div>
                     <span className="text-gray-400 text-sm">
                       {levelInfo.currentExp}/{levelInfo.nextLevelExp} XP
@@ -104,41 +107,41 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
               <div className="bg-game-bg rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <BarChart3 className="w-4 h-4 text-blue-400" />
-                  <h4 className="font-semibold text-white">Statistics</h4>
+                  <h4 className="font-semibold text-white">Статистика</h4>
                 </div>
                 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <p className="text-gray-400 text-xs">Games Played</p>
+                    <p className="text-gray-400 text-xs">Игр сыграно</p>
                     <p className="text-white font-bold">{user.statistics.gamesPlayed}</p>
                   </div>
                   
                   <div>
-                    <p className="text-gray-400 text-xs">High Score</p>
+                    <p className="text-gray-400 text-xs">Рекорд</p>
                     <p className="text-yellow-400 font-bold">
                       {user.statistics.maxMoney.toLocaleString()}
                     </p>
                   </div>
                   
                   <div>
-                    <p className="text-gray-400 text-xs">Longest Game</p>
-                    <p className="text-white font-bold">{user.statistics.maxTurns} turns</p>
+                    <p className="text-gray-400 text-xs">Самая долгая игра</p>
+                    <p className="text-white font-bold">{user.statistics.maxTurns} ходов</p>
                   </div>
                   
                   <div>
-                    <p className="text-gray-400 text-xs">Total Decisions</p>
+                    <p className="text-gray-400 text-xs">Всего решений</p>
                     <p className="text-white font-bold">{user.statistics.totalDecisions}</p>
                   </div>
                   
                   <div>
-                    <p className="text-gray-400 text-xs">Bankruptcies</p>
+                    <p className="text-gray-400 text-xs">Банкротств</p>
                     <p className="text-red-400 font-bold">{user.statistics.bankruptcies}</p>
                   </div>
                   
                   <div>
-                    <p className="text-gray-400 text-xs">Play Time</p>
+                    <p className="text-gray-400 text-xs">Время игры</p>
                     <p className="text-white font-bold">
-                      {Math.floor(user.gameState.totalPlayTime / 60)}h {user.gameState.totalPlayTime % 60}m
+                      {Math.floor(user.gameState.totalPlayTime / 60)}ч {user.gameState.totalPlayTime % 60}м
                     </p>
                   </div>
                 </div>
@@ -149,7 +152,7 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <Trophy className="w-4 h-4 text-yellow-400" />
-                    <h4 className="font-semibold text-white">Achievements</h4>
+                    <h4 className="font-semibold text-white">Достижения</h4>
                   </div>
                   <div className="text-sm">
                     <span className="text-yellow-400 font-bold">
@@ -181,7 +184,7 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
                 {/* Recent Achievements */}
                 {user.achievements.filter(a => a.unlockedAt).length > 0 && (
                   <div className="space-y-2">
-                    <p className="text-xs text-gray-400 mb-1">Recent</p>
+                    <p className="text-xs text-gray-400 mb-1">Недавние</p>
                     {user.achievements
                       .filter(a => a.unlockedAt)
                       .sort((a, b) => new Date(b.unlockedAt!).getTime() - new Date(a.unlockedAt!).getTime())
@@ -208,12 +211,12 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
               <div className="bg-game-bg rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <Target className="w-4 h-4 text-purple-400" />
-                  <h4 className="font-semibold text-white">Account Info</h4>
+                  <h4 className="font-semibold text-white">Информация об аккаунте</h4>
                 </div>
                 
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Created</span>
+                    <span className="text-gray-400">Создан</span>
                     <span className="text-white">
                       {new Date(user.createdAt).toLocaleDateString()}
                     </span>
@@ -221,8 +224,8 @@ export default function ProfileModal({ isOpen, onClose, user }: ProfileModalProp
                   
                   {telegramUser?.is_premium && (
                     <div className="flex justify-between">
-                      <span className="text-gray-400">Status</span>
-                      <span className="text-purple-400 font-semibold">Premium</span>
+                      <span className="text-gray-400">Статус</span>
+                      <span className="text-purple-400 font-semibold">Премиум</span>
                     </div>
                   )}
                 </div>

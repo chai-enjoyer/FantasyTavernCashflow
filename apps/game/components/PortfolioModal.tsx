@@ -37,7 +37,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
             className="fixed inset-4 bg-game-card border border-game-border rounded-xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
           >
             <div className="p-4 border-b border-game-border flex justify-between items-center">
-              <h2 className="text-xl font-bold text-game-text">Portfolio Overview</h2>
+              <h2 className="text-xl font-bold text-game-text">Обзор портфолио</h2>
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-game-bg rounded-lg transition-colors"
@@ -51,25 +51,25 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Coins className="w-5 h-5 text-yellow-500" />
-                  Financial Status
+                  Финансовое состояние
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Current Gold</span>
+                    <span className="text-gray-400">Текущее золото</span>
                     <span className="font-bold text-game-text">{formatMoney(gameState.money)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Passive Income</span>
-                    <span className="font-bold text-green-400">+{formatMoney(totalIncome)}/turn</span>
+                    <span className="text-gray-400">Пассивный доход</span>
+                    <span className="font-bold text-green-400">+{formatMoney(totalIncome)}/ход</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Debt Payments</span>
-                    <span className="font-bold text-red-400">-{formatMoney(totalDebt)}/turn</span>
+                    <span className="text-gray-400">Выплаты по долгам</span>
+                    <span className="font-bold text-red-400">-{formatMoney(totalDebt)}/ход</span>
                   </div>
                   <div className="flex justify-between border-t border-game-border pt-2 mt-2">
-                    <span className="text-gray-400">Net Income</span>
+                    <span className="text-gray-400">Чистый доход</span>
                     <span className={`font-bold ${netIncome >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                      {netIncome >= 0 ? '+' : ''}{formatMoney(netIncome)}/turn
+                      {netIncome >= 0 ? '+' : ''}{formatMoney(netIncome)}/ход
                     </span>
                   </div>
                 </div>
@@ -79,11 +79,11 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Star className="w-5 h-5 text-blue-500" />
-                  Reputation & Risk
+                  Репутация и риск
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Reputation</span>
+                    <span className="text-gray-400">Репутация</span>
                     <span className={`font-bold ${
                       gameState.reputation > 0 ? 'text-blue-400' : 
                       gameState.reputation < 0 ? 'text-orange-400' : 
@@ -93,7 +93,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Risk Level</span>
+                    <span className="text-gray-400">Уровень риска</span>
                     <span className={`font-bold ${
                       riskPercentage > 50 ? 'text-red-400' :
                       riskPercentage > 30 ? 'text-yellow-400' :
@@ -109,15 +109,15 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Users className="w-5 h-5 text-purple-500" />
-                  Relationships
+                  Отношения
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Friends</span>
+                    <span className="text-gray-400">Друзья</span>
                     <span className="font-bold text-green-400">{friendCount}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Enemies</span>
+                    <span className="text-gray-400">Враги</span>
                     <span className="font-bold text-red-400">{enemyCount}</span>
                   </div>
                 </div>
@@ -128,13 +128,13 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                 <div className="bg-game-bg rounded-lg p-4">
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-green-500" />
-                    Active Effects
+                    Активные эффекты
                   </h3>
                   <div className="space-y-2">
                     {gameState.temporaryEffects.map((effect, idx) => (
                       <div key={idx} className="flex justify-between text-sm">
                         <span className="text-gray-400">{effect.description}</span>
-                        <span className="font-bold text-game-text">{effect.turnsRemaining} turns</span>
+                        <span className="font-bold text-game-text">{effect.turnsRemaining} ходов</span>
                       </div>
                     ))}
                   </div>
@@ -146,7 +146,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                 <div className="bg-game-bg rounded-lg p-4">
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                     <TrendingUp className="w-5 h-5 text-green-500" />
-                    Income Sources
+                    Источники дохода
                   </h3>
                   <div className="space-y-2">
                     {gameState.passiveIncome.map((income) => (
@@ -154,7 +154,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                         <span className="text-gray-400">{income.description}</span>
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-green-400">+{formatMoney(income.amount)}</span>
-                          <span className="text-xs text-gray-500">({income.remainingTurns || 'Permanent'} left)</span>
+                          <span className="text-xs text-gray-500">(осталось {income.remainingTurns || 'Постоянно'})</span>
                         </div>
                       </div>
                     ))}
@@ -167,7 +167,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                 <div className="bg-game-bg rounded-lg p-4">
                   <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                     <TrendingDown className="w-5 h-5 text-red-500" />
-                    Debts
+                    Долги
                   </h3>
                   <div className="space-y-2">
                     {gameState.debts.map((debt) => (
@@ -175,7 +175,7 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
                         <span className="text-gray-400">{debt.creditorId}</span>
                         <div className="flex items-center gap-2">
                           <span className="font-bold text-red-400">-{formatMoney(debt.paymentPerTurn)}</span>
-                          <span className="text-xs text-gray-500">({debt.turnsRemaining} left)</span>
+                          <span className="text-xs text-gray-500">(осталось {debt.turnsRemaining})</span>
                         </div>
                       </div>
                     ))}
@@ -187,19 +187,19 @@ export default function PortfolioModal({ isOpen, onClose, gameState }: Portfolio
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Award className="w-5 h-5 text-yellow-500" />
-                  Game Progress
+                  Прогресс игры
                 </h3>
                 <div className="space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Current Turn</span>
+                    <span className="text-gray-400">Текущий ход</span>
                     <span className="font-bold text-game-text">{gameState.turn}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Cards Played</span>
+                    <span className="text-gray-400">Карт сыграно</span>
                     <span className="font-bold text-game-text">{gameState.turn - 1}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Active Flags</span>
+                    <span className="text-gray-400">Активные флаги</span>
                     <span className="font-bold text-game-text">{gameState.flags.length}</span>
                   </div>
                 </div>

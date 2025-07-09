@@ -29,7 +29,7 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
             className="fixed inset-4 bg-game-card border border-game-border rounded-xl z-50 overflow-hidden flex flex-col max-h-[90vh]"
           >
             <div className="p-4 border-b border-game-border flex justify-between items-center">
-              <h2 className="text-xl font-bold text-game-text">How to Play</h2>
+              <h2 className="text-xl font-bold text-game-text">Как играть</h2>
               <button
                 onClick={onClose}
                 className="p-2 hover:bg-game-bg rounded-lg transition-colors"
@@ -43,11 +43,11 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Target className="w-5 h-5 text-yellow-500" />
-                  Objective
+                  Цель игры
                 </h3>
                 <p className="text-gray-300 text-sm">
-                  Manage your fantasy tavern by making strategic decisions. Balance profit with reputation
-                  to build a successful business while navigating the challenges of a fantasy world.
+                  Управляйте фэнтезийной таверной, принимая стратегические решения. Балансируйте прибыль с репутацией
+                  для создания успешного бизнеса в фэнтезийном мире.
                 </p>
               </div>
 
@@ -55,33 +55,33 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Info className="w-5 h-5 text-blue-500" />
-                  Key Resources
+                  Основные ресурсы
                 </h3>
                 <div className="space-y-3">
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{EMOJI.MONEY}</span>
                     <div>
-                      <p className="font-semibold text-game-text">Gold</p>
+                      <p className="font-semibold text-game-text">Золото</p>
                       <p className="text-sm text-gray-400">
-                        Your currency. Earn it through smart decisions, but don't run out!
+                        Ваша валюта. Зарабатывайте через умные решения, но не дайте ему закончиться!
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{EMOJI.REPUTATION}</span>
                     <div>
-                      <p className="font-semibold text-game-text">Reputation</p>
+                      <p className="font-semibold text-game-text">Репутация</p>
                       <p className="text-sm text-gray-400">
-                        How the community sees you. High reputation attracts better customers.
+                        Как вас видит сообщество. Высокая репутация привлекает лучших клиентов.
                       </p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <span className="text-2xl">{EMOJI.RISK}</span>
                     <div>
-                      <p className="font-semibold text-game-text">Risk</p>
+                      <p className="font-semibold text-game-text">Риск</p>
                       <p className="text-sm text-gray-400">
-                        Lower reputation increases risk. High risk means dangerous situations!
+                        Низкая репутация увеличивает риск. Высокий риск означает опасные ситуации!
                       </p>
                     </div>
                   </div>
@@ -92,24 +92,24 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <Users className="w-5 h-5 text-purple-500" />
-                  Character Types
+                  Типы персонажей
                 </h3>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Commoners</span>
-                    <span className="text-game-text">Low wealth, high reliability</span>
+                    <span className="text-gray-400">Простолюдины</span>
+                    <span className="text-game-text">Мало денег, высокая надёжность</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Adventurers</span>
-                    <span className="text-game-text">Medium wealth, variable reliability</span>
+                    <span className="text-gray-400">Искатели приключений</span>
+                    <span className="text-game-text">Средний достаток, переменчивая надёжность</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Nobles</span>
-                    <span className="text-game-text">High wealth, demanding</span>
+                    <span className="text-gray-400">Дворяне</span>
+                    <span className="text-game-text">Богаты, требовательны</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-400">Criminals</span>
-                    <span className="text-game-text">Good money, risky deals</span>
+                    <span className="text-gray-400">Преступники</span>
+                    <span className="text-game-text">Хорошие деньги, рискованные сделки</span>
                   </div>
                 </div>
               </div>
@@ -118,28 +118,28 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <AlertTriangle className="w-5 h-5 text-orange-500" />
-                  Decision Tips
+                  Советы по принятию решений
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-300">
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">•</span>
-                    <span>Each choice has consequences - think about long-term effects</span>
+                    <span>Каждый выбор имеет последствия - думайте о долгосрочных эффектах</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">•</span>
-                    <span>Building relationships with NPCs can lead to better opportunities</span>
+                    <span>Построение отношений с НПС может привести к лучшим возможностям</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">•</span>
-                    <span>Balance immediate profit with reputation for sustainable growth</span>
+                    <span>Балансируйте сиюминутную прибыль с репутацией для устойчивого роста</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">•</span>
-                    <span>Some choices unlock special events or passive income</span>
+                    <span>Некоторые выборы открывают особые события или пассивный доход</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-green-400">•</span>
-                    <span>Watch out for debt - it can quickly spiral out of control</span>
+                    <span>Остерегайтесь долгов - они могут быстро выйти из-под контроля</span>
                   </li>
                 </ul>
               </div>
@@ -148,31 +148,31 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-green-500" />
-                  Special Mechanics
+                  Особые механики
                 </h3>
                 <div className="space-y-3 text-sm">
                   <div>
-                    <p className="font-semibold text-game-text">Passive Income</p>
+                    <p className="font-semibold text-game-text">Пассивный доход</p>
                     <p className="text-gray-400">
-                      Some choices grant recurring income for multiple turns
+                      Некоторые выборы дают постоянный доход на несколько ходов
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold text-game-text">Temporary Effects</p>
+                    <p className="font-semibold text-game-text">Временные эффекты</p>
                     <p className="text-gray-400">
-                      Blessings, curses, and other effects that modify your resources
+                      Благословения, проклятия и другие эффекты, изменяющие ваши ресурсы
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold text-game-text">Chain Events</p>
+                    <p className="font-semibold text-game-text">Цепные события</p>
                     <p className="text-gray-400">
-                      Your choices can trigger follow-up events in later turns
+                      Ваши выборы могут вызвать последующие события в следующих ходах
                     </p>
                   </div>
                   <div>
-                    <p className="font-semibold text-game-text">NPC Relationships</p>
+                    <p className="font-semibold text-game-text">Отношения с НПС</p>
                     <p className="text-gray-400">
-                      Building friendships or making enemies affects future encounters
+                      Создание дружбы или вражды влияет на будущие встречи
                     </p>
                   </div>
                 </div>
@@ -182,20 +182,20 @@ export default function HelpModal({ isOpen, onClose }: HelpModalProps) {
               <div className="bg-game-bg rounded-lg p-4">
                 <h3 className="text-lg font-semibold mb-3 flex items-center gap-2">
                   <X className="w-5 h-5 text-red-500" />
-                  Game Over Conditions
+                  Условия поражения
                 </h3>
                 <ul className="space-y-2 text-sm text-gray-300">
                   <li className="flex items-start gap-2">
                     <span className="text-red-400">•</span>
-                    <span>Running out of gold (bankruptcy)</span>
+                    <span>Закончилось золото (банкротство)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-red-400">•</span>
-                    <span>Reputation drops too low (tavern closes)</span>
+                    <span>Репутация упала слишком низко (таверна закрывается)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-red-400">•</span>
-                    <span>Making too many enemies (forced out)</span>
+                    <span>Слишком много врагов (вынужденный уход)</span>
                   </li>
                 </ul>
               </div>

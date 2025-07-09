@@ -61,7 +61,7 @@ export default function NewCardPage() {
       router.push('/cards');
     } catch (error) {
       console.error('Error creating card:', error);
-      alert('Failed to create card');
+      alert('Не удалось создать карту');
     } finally {
       setLoading(false);
     }
@@ -74,41 +74,41 @@ export default function NewCardPage() {
           <Link href="/cards" className="p-2 hover:bg-admin-bg rounded transition-colors">
             <ArrowLeft className="w-5 h-5" />
           </Link>
-          <h1 className="text-3xl font-bold">Create New Card</h1>
+          <h1 className="text-3xl font-bold">Создать новую карту</h1>
         </div>
 
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="admin-card">
-            <h2 className="text-xl font-semibold mb-4">Basic Information</h2>
+            <h2 className="text-xl font-semibold mb-4">Основная информация</h2>
             
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium mb-2">Card Type</label>
+                <label className="block text-sm font-medium mb-2">Тип карты</label>
                 <select {...register('type', { required: true })} className="admin-input">
-                  <option value="immediate">Immediate</option>
-                  <option value="passive_income">Passive Income</option>
-                  <option value="debt">Debt</option>
-                  <option value="modifier">Modifier</option>
-                  <option value="delayed">Delayed</option>
-                  <option value="social">Social</option>
-                  <option value="chain">Chain</option>
+                  <option value="immediate">Немедленная</option>
+                  <option value="passive_income">Пассивный доход</option>
+                  <option value="debt">Долг</option>
+                  <option value="modifier">Модификатор</option>
+                  <option value="delayed">Отложенная</option>
+                  <option value="social">Социальная</option>
+                  <option value="chain">Цепочка</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Priority</label>
+                <label className="block text-sm font-medium mb-2">Приоритет</label>
                 <select {...register('priority', { required: true, valueAsNumber: true })} className="admin-input">
-                  <option value={1}>1 - Critical</option>
-                  <option value={2}>2 - Risk</option>
-                  <option value={3}>3 - Story</option>
-                  <option value={4}>4 - Normal</option>
+                  <option value={1}>1 - Критический</option>
+                  <option value={2}>2 - Рисковый</option>
+                  <option value={3}>3 - Сюжетный</option>
+                  <option value={4}>4 - Обычный</option>
                 </select>
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">NPC</label>
+                <label className="block text-sm font-medium mb-2">НПС</label>
                 <select {...register('npcId', { required: true })} className="admin-input">
-                  <option value="">Select NPC...</option>
+                  <option value="">Выберите НПС...</option>
                   {npcs.map(npc => (
                     <option key={npc.id} value={npc.id}>{npc.name}</option>
                   ))}
@@ -116,64 +116,64 @@ export default function NewCardPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium mb-2">Category</label>
+                <label className="block text-sm font-medium mb-2">Категория</label>
                 <input
                   {...register('category', { required: true })}
                   className="admin-input"
-                  placeholder="e.g., business, social, risk"
+                  placeholder="напр., бизнес, социальная, риск"
                 />
               </div>
             </div>
 
             <div className="mt-4">
-              <label className="block text-sm font-medium mb-2">Title</label>
+              <label className="block text-sm font-medium mb-2">Название</label>
               <input
                 {...register('title', { required: true })}
                 className="admin-input"
-                placeholder="Card title"
+                placeholder="Название карты"
               />
             </div>
 
             <div className="mt-4">
-              <label className="block text-sm font-medium mb-2">Description</label>
+              <label className="block text-sm font-medium mb-2">Описание</label>
               <input
                 {...register('description', { required: true })}
                 className="admin-input"
-                placeholder="Brief description"
+                placeholder="Краткое описание"
               />
             </div>
 
             <div className="mt-4">
-              <label className="block text-sm font-medium mb-2">Situation</label>
+              <label className="block text-sm font-medium mb-2">Ситуация</label>
               <textarea
                 {...register('situation', { required: true })}
                 className="admin-input"
                 rows={3}
-                placeholder="The scenario text shown to player"
+                placeholder="Текст сценария для игрока"
               />
             </div>
           </div>
 
           <div className="admin-card">
-            <h2 className="text-xl font-semibold mb-4">Options</h2>
+            <h2 className="text-xl font-semibold mb-4">Варианты выбора</h2>
             
             {[0, 1, 2, 3].map((idx) => (
               <div key={idx} className="mb-6 p-4 bg-admin-bg rounded-lg">
-                <h3 className="font-medium mb-3">Option {idx + 1}</h3>
+                <h3 className="font-medium mb-3">Вариант {idx + 1}</h3>
                 
                 <div className="space-y-3">
                   <div>
-                    <label className="block text-sm font-medium mb-1">Choice Text</label>
+                    <label className="block text-sm font-medium mb-1">Текст выбора</label>
                     <input
                       {...register(`options.${idx}.text` as const, { required: true })}
                       className="admin-input"
-                      placeholder="What the player sees"
+                      placeholder="Что видит игрок"
                     />
                   </div>
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <label className="block text-sm font-medium mb-1">Money Change</label>
+                      <label className="block text-sm font-medium mb-1">Изменение денег</label>
                       <input
                         type="number"
                         {...register(`options.${idx}.consequences.money` as const, { valueAsNumber: true })}
@@ -183,7 +183,7 @@ export default function NewCardPage() {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-medium mb-1">Reputation Change</label>
+                      <label className="block text-sm font-medium mb-1">Изменение репутации</label>
                       <input
                         type="number"
                         {...register(`options.${idx}.consequences.reputation` as const, { valueAsNumber: true })}
@@ -194,24 +194,24 @@ export default function NewCardPage() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">Result Text</label>
+                    <label className="block text-sm font-medium mb-1">Текст результата</label>
                     <textarea
                       {...register(`options.${idx}.resultText` as const, { required: true })}
                       className="admin-input"
                       rows={2}
-                      placeholder="NPC reaction after choice"
+                      placeholder="Реакция НПС после выбора"
                     />
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium mb-1">NPC Emotion</label>
+                    <label className="block text-sm font-medium mb-1">Эмоция НПС</label>
                     <select
                       {...register(`options.${idx}.npcEmotion` as const, { required: true })}
                       className="admin-input"
                     >
-                      <option value="neutral">Neutral</option>
-                      <option value="positive">Positive</option>
-                      <option value="negative">Negative</option>
+                      <option value="neutral">Нейтральная</option>
+                      <option value="positive">Позитивная</option>
+                      <option value="negative">Негативная</option>
                     </select>
                   </div>
                 </div>
@@ -225,10 +225,10 @@ export default function NewCardPage() {
               disabled={loading}
               className="admin-button flex-1"
             >
-              {loading ? 'Creating...' : 'Create Card'}
+              {loading ? 'Создание...' : 'Создать карту'}
             </button>
             <Link href="/cards" className="px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors">
-              Cancel
+              Отмена
             </Link>
           </div>
         </form>

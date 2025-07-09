@@ -1,0 +1,1070 @@
+{
+  "npcs": [
+    {
+      "id": "baker_marie",
+      "name": "Мари Пекарь",
+      "class": "artisan",
+      "wealth": 2,
+      "reliability": 90,
+      "portraits": {
+        "neutral": "/images/npcs/baker_neutral.png",
+        "positive": "/images/npcs/baker_positive.png",
+        "negative": "/images/npcs/baker_negative.png"
+      },
+      "description": "Жизнерадостная пекарь, снабжающая хлебом половину города"
+    },
+    {
+      "id": "scholar_edwin",
+      "name": "Эдвин Учёный",
+      "class": "scholar",
+      "wealth": 2,
+      "reliability": 85,
+      "portraits": {
+        "neutral": "/images/npcs/scholar_neutral.png",
+        "positive": "/images/npcs/scholar_positive.png",
+        "negative": "/images/npcs/scholar_negative.png"
+      },
+      "description": "Образованный человек, проводящий вечера за чтением древних текстов"
+    },
+    {
+      "id": "blacksmith_grunt",
+      "name": "Грант Кузнец",
+      "class": "blacksmith",
+      "wealth": 3,
+      "reliability": 95,
+      "portraits": {
+        "neutral": "/images/npcs/blacksmith_neutral.png",
+        "positive": "/images/npcs/blacksmith_positive.png",
+        "negative": "/images/npcs/blacksmith_negative.png"
+      },
+      "description": "Дюжий кузнец с руками толщиной с дерево"
+    },
+    {
+      "id": "hunter_diana",
+      "name": "Диана Охотница",
+      "class": "hunter",
+      "wealth": 2,
+      "reliability": 75,
+      "portraits": {
+        "neutral": "/images/npcs/hunter_neutral.png",
+        "positive": "/images/npcs/hunter_positive.png",
+        "negative": "/images/npcs/hunter_negative.png"
+      },
+      "description": "Искусная следопыт, приносящая свежую дичь на рынок"
+    },
+    {
+      "id": "sailor_jonas",
+      "name": "Йонас Моряк",
+      "class": "sailor",
+      "wealth": 2,
+      "reliability": 60,
+      "portraits": {
+        "neutral": "/images/npcs/sailor_neutral.png",
+        "positive": "/images/npcs/sailor_positive.png",
+        "negative": "/images/npcs/sailor_negative.png"
+      },
+      "description": "Закалённый моряк с историями из далёких берегов"
+    },
+    {
+      "id": "healer_sarah",
+      "name": "Сара Целительница",
+      "class": "healer",
+      "wealth": 2,
+      "reliability": 95,
+      "portraits": {
+        "neutral": "/images/npcs/healer_neutral.png",
+        "positive": "/images/npcs/healer_positive.png",
+        "negative": "/images/npcs/healer_negative.png"
+      },
+      "description": "Добрая женщина, ухаживающая за больными и ранеными"
+    },
+    {
+      "id": "beggar_finn",
+      "name": "Финн Нищий",
+      "class": "beggar",
+      "wealth": 0,
+      "reliability": 50,
+      "portraits": {
+        "neutral": "/images/npcs/beggar_neutral.png",
+        "positive": "/images/npcs/beggar_positive.png",
+        "negative": "/images/npcs/beggar_negative.png"
+      },
+      "description": "Загадочный нищий, знающий все городские секреты"
+    },
+    {
+      "id": "artist_raphael",
+      "name": "Рафаэль Художник",
+      "class": "artist",
+      "wealth": 1,
+      "reliability": 40,
+      "portraits": {
+        "neutral": "/images/npcs/artist_neutral.png",
+        "positive": "/images/npcs/artist_positive.png",
+        "negative": "/images/npcs/artist_negative.png"
+      },
+      "description": "Темпераментный художник, вечно ищущий вдохновение"
+    },
+    {
+      "id": "tax_collector_boris",
+      "name": "Борис Сборщик Податей",
+      "class": "official",
+      "wealth": 3,
+      "reliability": 100,
+      "portraits": {
+        "neutral": "/images/npcs/tax_collector_neutral.png",
+        "positive": "/images/npcs/tax_collector_positive.png",
+        "negative": "/images/npcs/tax_collector_negative.png"
+      },
+      "description": "Самый непопулярный человек в городе, но у него есть работа"
+    },
+    {
+      "id": "fortune_teller_zelda",
+      "name": "Мадам Зельда",
+      "class": "mystic",
+      "wealth": 2,
+      "reliability": 60,
+      "portraits": {
+        "neutral": "/images/npcs/fortune_teller_neutral.png",
+        "positive": "/images/npcs/fortune_teller_positive.png",
+        "negative": "/images/npcs/fortune_teller_negative.png"
+      },
+      "description": "Загадочная женщина, утверждающая, что видит будущее"
+    }
+  ],
+  "cards": [
+    {
+      "id": "baker_bread_deal",
+      "type": "passive_income",
+      "category": "business",
+      "npcId": "baker_marie",
+      "title": "Партнёрство по свежему хлебу",
+      "description": "Пекарь хочет поставлять свежий хлеб ежедневно",
+      "situation": "Мари предлагает: «Я могу доставлять свежий хлеб каждое утро. Ваши посетители обожают мои булочки с элем. Давайте оформим это официально!»",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Принять ежедневную доставку хлеба",
+          "consequences": {
+            "passiveIncome": {
+              "id": "bread_supply",
+              "amount": 40,
+              "description": "Продажа свежего хлеба",
+              "remainingTurns": 25
+            }
+          }
+        },
+        {
+          "text": "Договориться об эксклюзивной выпечке",
+          "consequences": {
+            "passiveIncome": {
+              "id": "bakery_exclusive",
+              "amount": 60,
+              "description": "Эксклюзивная сделка с пекарней",
+              "remainingTurns": 20
+            }
+          }
+        },
+        {
+          "text": "Отказаться - вы печёте сами",
+          "consequences": {
+            "reputation": -2
+          }
+        },
+        {
+          "text": "Только разовая покупка",
+          "consequences": {
+            "money": 100,
+            "reputation": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "scholar_lecture_series",
+      "type": "passive_income",
+      "category": "education",
+      "npcId": "scholar_edwin",
+      "title": "Вечерние лекции",
+      "description": "Учёный хочет проводить еженедельные лекции",
+      "situation": "Эдвин поправляет очки. «Ваш тихий угол идеален для моих вечерних лекций по истории. Образованные посетители пьют дорогое вино».",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Приветствовать серию лекций",
+          "consequences": {
+            "passiveIncome": {
+              "id": "scholar_lectures",
+              "amount": 50,
+              "description": "Напитки слушателей лекций",
+              "remainingTurns": 20
+            },
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Только если темы останутся нейтральными",
+          "consequences": {
+            "passiveIncome": {
+              "id": "safe_lectures",
+              "amount": 30,
+              "description": "Лекции на безопасные темы",
+              "remainingTurns": 25
+            },
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Предложить библиотеку вместо этого",
+          "consequences": {
+            "reputation": 2
+          }
+        },
+        {
+          "text": "Нет - слишком скучно для таверны",
+          "consequences": {
+            "reputation": -5,
+            "npcRelationship": {
+              "scholar_edwin": -40
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "blacksmith_weapon_storage",
+      "type": "immediate",
+      "category": "service",
+      "npcId": "blacksmith_grunt",
+      "title": "Услуга проверки оружия",
+      "description": "Кузнец предлагает систему хранения оружия",
+      "situation": "Грант поднимает большой сундук с замком. «Установите это. Посетители сдают оружие у входа. Я буду обслуживать. Меньше драк, больше выпивки».",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Установить систему проверки оружия",
+          "consequences": {
+            "money": -200,
+            "reputation": 15,
+            "temporaryEffect": {
+              "id": "weapon_check",
+              "type": "risk_modifier",
+              "value": -0.3,
+              "turnsRemaining": 30,
+              "description": "Система проверки оружия"
+            }
+          }
+        },
+        {
+          "text": "Только в оживлённые ночи",
+          "consequences": {
+            "money": -100,
+            "reputation": 8
+          }
+        },
+        {
+          "text": "Пусть посетители оставляют оружие при себе",
+          "consequences": {
+            "money": 100,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Установить, но брать плату за хранение",
+          "consequences": {
+            "money": 50,
+            "reputation": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "hunter_exotic_meat",
+      "type": "immediate",
+      "category": "goods",
+      "npcId": "hunter_diana",
+      "title": "Экзотическое мясо дичи",
+      "description": "Охотница предлагает редкие деликатесы",
+      "situation": "Диана разворачивает меховой свёрток, показывая экзотическое мясо. «Стейк грифона, хвост василиска, рёбра совомедведя. Ваши знатные посетители заплатят премиальную цену».",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Купить экзотическое мясо",
+          "consequences": {
+            "money": 400,
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Купить только легальное",
+          "consequences": {
+            "money": 200,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Сообщить о незаконной охоте",
+          "consequences": {
+            "reputation": 15,
+            "npcRelationship": {
+              "hunter_diana": -80
+            }
+          }
+        },
+        {
+          "text": "Отказаться - слишком рискованно",
+          "consequences": {
+            "reputation": 2
+          }
+        }
+      ],
+      "requirements": {
+        "minMoney": 300
+      }
+    },
+    {
+      "id": "sailor_smuggled_rum",
+      "type": "immediate",
+      "category": "goods",
+      "npcId": "sailor_jonas",
+      "title": "Редкий островной ром",
+      "description": "У моряка есть особый груз",
+      "situation": "Йонас нервно оглядывается. «Есть редкий ром с Закатных островов. Пошлина не уплачена, если вы понимаете, о чём я. Заинтересованы?»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Купить контрабандный ром",
+          "consequences": {
+            "money": 300,
+            "reputation": -10
+          }
+        },
+        {
+          "text": "Купить и заявить как легальный",
+          "consequences": {
+            "money": 100,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Отказаться от нелегального товара",
+          "consequences": {
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Сдать его за награду",
+          "consequences": {
+            "money": 200,
+            "reputation": 15,
+            "npcRelationship": {
+              "sailor_jonas": -100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "healer_plague_warning",
+      "type": "immediate",
+      "category": "crisis",
+      "npcId": "healer_sarah",
+      "title": "Предупреждение о вспышке болезни",
+      "description": "Целительница приносит срочные новости",
+      "situation": "Сара врывается, встревоженная. «Болезнь распространяется в бедном квартале. Вы должны всё продезинфицировать или временно закрыться. От этого зависят жизни!»",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Немедленно закрыться для глубокой очистки",
+          "consequences": {
+            "money": -400,
+            "reputation": 20
+          }
+        },
+        {
+          "text": "Остаться открытыми, но усилить уборку",
+          "consequences": {
+            "money": -200,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Продолжать как обычно",
+          "consequences": {
+            "money": 200,
+            "reputation": -30
+          }
+        },
+        {
+          "text": "Обеспечить бесплатным элем больных",
+          "consequences": {
+            "money": -300,
+            "reputation": 25,
+            "npcRelationship": {
+              "healer_sarah": 60
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "beggar_information",
+      "type": "immediate",
+      "category": "information",
+      "npcId": "beggar_finn",
+      "title": "Ценная информация",
+      "description": "Нищий предлагает продать секреты",
+      "situation": "Финн подкрадывается к вам. «Я слышу вещи, вижу вещи. Сборщик податей планирует внезапную проверку завтра. Эта информация может сэкономить вам золото...»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Заплатить за информацию",
+          "consequences": {
+            "money": 150,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Дать ему еду вместо денег",
+          "consequences": {
+            "money": 50,
+            "reputation": 10,
+            "npcRelationship": {
+              "beggar_finn": 40
+            }
+          }
+        },
+        {
+          "text": "Игнорировать его сплетни",
+          "consequences": {
+            "money": -200,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Пригрозить ему уйти",
+          "consequences": {
+            "reputation": -10,
+            "npcRelationship": {
+              "beggar_finn": -60
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "artist_mural_proposal",
+      "type": "modifier",
+      "category": "decoration",
+      "npcId": "artist_raphael",
+      "title": "Заказ росписи таверны",
+      "description": "Художник хочет расписать ваши стены",
+      "situation": "Рафаэль драматично жестикулирует. «Ваши пустые стены взывают об искусстве! Позвольте мне написать эпическую фреску. Она привлечёт культурную клиентуру!»",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Заказать полную роспись",
+          "consequences": {
+            "money": -300,
+            "temporaryEffect": {
+              "id": "beautiful_mural",
+              "type": "reputation_boost",
+              "value": 2,
+              "turnsRemaining": 40,
+              "description": "Потрясающая фреска-достопримечательность"
+            }
+          }
+        },
+        {
+          "text": "Разрешить бесплатно для рекламы",
+          "consequences": {
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Только небольшую картину",
+          "consequences": {
+            "money": -100,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Нет - стены и так хороши",
+          "consequences": {
+            "npcRelationship": {
+              "artist_raphael": -30
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax_collector_audit",
+      "type": "immediate",
+      "category": "legal",
+      "npcId": "tax_collector_boris",
+      "title": "Налоговая проверка",
+      "description": "Сборщик податей прибыл для инспекции",
+      "situation": "Борис входит со своими гроссбухами. «Время для вашей квартальной налоговой оценки. Надеюсь, ваши книги в порядке. Начнём?»",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Показать честные полные записи",
+          "consequences": {
+            "money": -300,
+            "reputation": 15
+          }
+        },
+        {
+          "text": "Представить подделанные книги",
+          "consequences": {
+            "money": -100,
+            "reputation": -20
+          }
+        },
+        {
+          "text": "Предложить взятку незаметно",
+          "consequences": {
+            "money": -400,
+            "reputation": -10,
+            "npcRelationship": {
+              "tax_collector_boris": 30
+            }
+          }
+        },
+        {
+          "text": "Заявить, что записи уничтожены",
+          "consequences": {
+            "money": -500,
+            "reputation": -5
+          }
+        }
+      ]
+    },
+    {
+      "id": "fortune_teller_prophecy",
+      "type": "modifier",
+      "category": "mystical",
+      "npcId": "fortune_teller_zelda",
+      "title": "Будущее таверны",
+      "description": "Гадалка читает судьбу вашей таверны",
+      "situation": "Мадам Зельда раскладывает карты таро. «Я вижу великую удачу или ужасную гибель для этого заведения. За определённую цену я могу обеспечить лучший путь...»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Заплатить за хорошую судьбу",
+          "consequences": {
+            "money": -200,
+            "temporaryEffect": {
+              "id": "good_fortune",
+              "type": "money_multiplier",
+              "value": 1.3,
+              "turnsRemaining": 15,
+              "description": "Мистическая удача"
+            }
+          }
+        },
+        {
+          "text": "Отказаться от суеверной чепухи",
+          "consequences": {
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Попросить бесплатное пробное гадание",
+          "consequences": {
+            "money": 50,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Выгнать её как шарлатанку",
+          "consequences": {
+            "reputation": -15,
+            "npcRelationship": {
+              "fortune_teller_zelda": -70
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "sailor_crew_shore_leave",
+      "type": "immediate",
+      "category": "event",
+      "npcId": "sailor_jonas",
+      "title": "Увольнительная корабельной команды",
+      "description": "Целая корабельная команда хочет праздновать",
+      "situation": "Йонас врывается с двадцатью моряками. «Нам только что заплатили после шести месяцев в море! Время праздновать! Надеюсь, у вас достаточно эля!»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Приветствовать жаждущую команду",
+          "consequences": {
+            "money": 700,
+            "reputation": -3
+          }
+        },
+        {
+          "text": "Ограничить их общим залом",
+          "consequences": {
+            "money": 500,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Обслужить их, но вызвать стражу в подкрепление",
+          "consequences": {
+            "money": 400,
+            "reputation": 8
+          }
+        },
+        {
+          "text": "Отвернуть их - слишком буйные",
+          "consequences": {
+            "reputation": 10,
+            "npcRelationship": {
+              "sailor_jonas": -50
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "healer_herb_garden",
+      "type": "passive_income",
+      "category": "business",
+      "npcId": "healer_sarah",
+      "title": "Сад лекарственных трав",
+      "description": "Целительница предлагает партнёрство по саду трав",
+      "situation": "Сара показывает вам семена. «Позвольте мне выращивать целебные травы в вашем дворе. Я буду ухаживать за ними, вы сможете продавать травяные чаи. Прибыльно и помогает больным».",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Стать партнёром по саду трав",
+          "consequences": {
+            "passiveIncome": {
+              "id": "herb_garden",
+              "amount": 45,
+              "description": "Продажа травяного чая",
+              "remainingTurns": 30
+            },
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Позволить ей использовать место бесплатно",
+          "consequences": {
+            "reputation": 20,
+            "npcRelationship": {
+              "healer_sarah": 70
+            }
+          }
+        },
+        {
+          "text": "Взимать с неё арендную плату",
+          "consequences": {
+            "passiveIncome": {
+              "id": "garden_rent",
+              "amount": 20,
+              "description": "Аренда места под сад",
+              "remainingTurns": 25
+            },
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Нет - нужно это место",
+          "consequences": {
+            "reputation": -3
+          }
+        }
+      ]
+    },
+    {
+      "id": "blacksmith_bar_fight_damage",
+      "type": "immediate",
+      "category": "incident",
+      "npcId": "blacksmith_grunt",
+      "title": "Кузнечная потасовка",
+      "description": "Кузнец ввязался в драку",
+      "situation": "Грант стоит среди сломанной мебели, костяшки в крови. «Он оскорбил моё ремесло. Должен был защитить честь. Я заплачу за ущерб... или всё починю сам».",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Принять его ремонтную работу",
+          "consequences": {
+            "money": 0,
+            "reputation": 10,
+            "npcRelationship": {
+              "blacksmith_grunt": 40
+            }
+          }
+        },
+        {
+          "text": "Требовать немедленную оплату",
+          "consequences": {
+            "money": 200,
+            "reputation": -5,
+            "npcRelationship": {
+              "blacksmith_grunt": -30
+            }
+          }
+        },
+        {
+          "text": "Запретить ему посещение на месяц",
+          "consequences": {
+            "reputation": 5,
+            "npcRelationship": {
+              "blacksmith_grunt": -50
+            }
+          }
+        },
+        {
+          "text": "Простить на этот раз",
+          "consequences": {
+            "money": -100,
+            "reputation": 15,
+            "npcRelationship": {
+              "blacksmith_grunt": 60
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "beggar_king_visit",
+      "type": "social",
+      "category": "unusual",
+      "npcId": "beggar_finn",
+      "title": "Король нищих",
+      "description": "Нищий раскрывает свою истинную личность",
+      "situation": "Финн сбрасывает свою скромную личину. «Я Король нищих, лидер городской бедноты. Помогите моему народу, и я обеспечу процветание вашей таверны. Откажетесь...»",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Пообещать помогать бедным",
+          "consequences": {
+            "money": -200,
+            "reputation": 25,
+            "passiveIncome": {
+              "id": "beggar_network",
+              "amount": 60,
+              "description": "Поддержка сети нищих",
+              "remainingTurns": 20
+            }
+          }
+        },
+        {
+          "text": "Предложить ограниченную помощь",
+          "consequences": {
+            "money": -100,
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Отказаться от его требований",
+          "consequences": {
+            "reputation": -15,
+            "npcRelationship": {
+              "beggar_finn": -80
+            }
+          }
+        },
+        {
+          "text": "Сообщить властям",
+          "consequences": {
+            "money": 300,
+            "reputation": -20,
+            "npcRelationship": {
+              "beggar_finn": -100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "artist_drinking_contest",
+      "type": "immediate",
+      "category": "entertainment",
+      "npcId": "artist_raphael",
+      "title": "Художественное вдохновение",
+      "description": "Художник ищет жидкое вдохновение",
+      "situation": "Рафаэль ударяет кулаком по столу. «Мне нужно вдохновение! Бесплатные напитки, пока я не создам шедевр, и я отдам вам картину!»",
+      "priority": 1,
+      "options": [
+        {
+          "text": "Обеспечить бесплатными напитками за искусство",
+          "consequences": {
+            "money": -150,
+            "reputation": 15
+          }
+        },
+        {
+          "text": "Ограничить его тремя напитками",
+          "consequences": {
+            "money": -30,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Предложить полцены как компромисс",
+          "consequences": {
+            "money": 50,
+            "reputation": 0
+          }
+        },
+        {
+          "text": "Никаких бесплатных напитков никому",
+          "consequences": {
+            "money": 100,
+            "reputation": -10,
+            "npcRelationship": {
+              "artist_raphael": -40
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "hunter_monster_trophy",
+      "type": "immediate",
+      "category": "decoration",
+      "npcId": "hunter_diana",
+      "title": "Трофей головы монстра",
+      "description": "Охотница предлагает впечатляющий трофей",
+      "situation": "Диана притаскивает массивную голову грифона. «Убила этого зверя сама. Повесьте на стену, и авантюристы будут стекаться сюда, чтобы увидеть!»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "Купить и повесить трофей",
+          "consequences": {
+            "money": -250,
+            "reputation": 15,
+            "passiveIncome": {
+              "id": "trophy_attraction",
+              "amount": 30,
+              "description": "Плата за просмотр трофея",
+              "remainingTurns": 40
+            }
+          }
+        },
+        {
+          "text": "Выставить за долю прибыли",
+          "consequences": {
+            "passiveIncome": {
+              "id": "trophy_partnership",
+              "amount": 20,
+              "description": "Доля прибыли от трофея",
+              "remainingTurns": 30
+            }
+          }
+        },
+        {
+          "text": "Отказаться - слишком жутко",
+          "consequences": {
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Сообщить о незаконной охоте на монстров",
+          "consequences": {
+            "money": 150,
+            "reputation": 10,
+            "npcRelationship": {
+              "hunter_diana": -70
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "scholar_banned_books",
+      "type": "immediate",
+      "category": "illegal",
+      "npcId": "scholar_edwin",
+      "title": "Запретное знание",
+      "description": "У учёного есть запрещённые книги для сокрытия",
+      "situation": "Эдвин шепчет срочно: «Церковь хочет сжечь эти тексты. Спрячьте их в вашем подвале? Я хорошо заплачу, но если их найдут здесь...»",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Спрятать запрещённые книги",
+          "consequences": {
+            "money": 400,
+            "reputation": -15
+          }
+        },
+        {
+          "text": "Сначала прочитать, потом решить",
+          "consequences": {
+            "money": 200,
+            "reputation": -5
+          }
+        },
+        {
+          "text": "Отказаться от опасной просьбы",
+          "consequences": {
+            "reputation": 10,
+            "npcRelationship": {
+              "scholar_edwin": -40
+            }
+          }
+        },
+        {
+          "text": "Сообщить церковным властям",
+          "consequences": {
+            "money": 300,
+            "reputation": 20,
+            "npcRelationship": {
+              "scholar_edwin": -100
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "baker_wedding_catering",
+      "type": "immediate",
+      "category": "event",
+      "npcId": "baker_marie",
+      "title": "Свадебное торжество",
+      "description": "Пекарь нуждается в месте для свадьбы дочери",
+      "situation": "Мари сияет от радости. «Моя дочь выходит замуж! Можем ли мы провести приём здесь? Пятьдесят гостей, и я обеспечу всей едой!»",
+      "priority": 2,
+      "options": [
+        {
+          "text": "С радостью принять свадьбу",
+          "consequences": {
+            "money": 600,
+            "reputation": 20
+          }
+        },
+        {
+          "text": "Предложить скидку",
+          "consequences": {
+            "money": 300,
+            "reputation": 15,
+            "npcRelationship": {
+              "baker_marie": 50
+            }
+          }
+        },
+        {
+          "text": "Только если будет тихое мероприятие",
+          "consequences": {
+            "money": 400,
+            "reputation": 5
+          }
+        },
+        {
+          "text": "Отказаться - слишком беспокойно",
+          "consequences": {
+            "reputation": -10,
+            "npcRelationship": {
+              "baker_marie": -60
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "tax_collector_bribe",
+      "type": "debt",
+      "category": "corruption",
+      "npcId": "tax_collector_boris",
+      "title": "Налоговое соглашение",
+      "description": "Сборщик податей предлагает сделку",
+      "situation": "Борис наклоняется заговорщически. «Я мог бы... скорректировать вашу налоговую оценку. За ежемесячное вознаграждение, разумеется. Строго между нами».",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Принять коррупционную сделку",
+          "consequences": {
+            "debt": {
+              "id": "tax_bribe",
+              "principal": 0,
+              "totalAmount": 1500,
+              "turnsRemaining": 30,
+              "paymentPerTurn": 50,
+              "creditorId": "tax_collector_boris",
+              "collateral": "reputation"
+            },
+            "reputation": -10
+          }
+        },
+        {
+          "text": "Отказаться и платить честные налоги",
+          "consequences": {
+            "money": -400,
+            "reputation": 20
+          }
+        },
+        {
+          "text": "Сообщить о коррупции властям",
+          "consequences": {
+            "reputation": 30,
+            "npcRelationship": {
+              "tax_collector_boris": -100
+            }
+          }
+        },
+        {
+          "text": "Договориться о меньшей сумме",
+          "consequences": {
+            "money": -200,
+            "reputation": -5,
+            "npcRelationship": {
+              "tax_collector_boris": 30
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "fortune_teller_curse",
+      "type": "modifier",
+      "category": "mystical",
+      "npcId": "fortune_teller_zelda",
+      "title": "Проклятые монеты",
+      "description": "Гадалка предупреждает о проклятых деньгах",
+      "situation": "Глаза Зельды расширяются в ужасе. «То золото, что вы взяли вчера - оно проклято! Каждый, кто прикоснётся к нему, будет иметь несчастье. Я могу очистить его... за цену».",
+      "priority": 3,
+      "options": [
+        {
+          "text": "Заплатить за снятие проклятия",
+          "consequences": {
+            "money": -300,
+            "reputation": 10
+          }
+        },
+        {
+          "text": "Игнорировать суеверную чепуху",
+          "consequences": {
+            "temporaryEffect": {
+              "id": "cursed_gold",
+              "type": "money_multiplier",
+              "value": 0.7,
+              "turnsRemaining": 10,
+              "description": "Эффекты проклятого золота"
+            },
+            "reputation": -10
+          }
+        },
+        {
+          "text": "Отдать проклятое золото на благотворительность",
+          "consequences": {
+            "money": -200,
+            "reputation": 25
+          }
+        },
+        {
+          "text": "Вернуть предыдущему владельцу",
+          "consequences": {
+            "money": -400,
+            "reputation": 15
+          }
+        }
+      ]
+    }
+  ]
+}

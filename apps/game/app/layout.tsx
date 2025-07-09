@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Fantasy Tavern Cashflow',
-  description: 'Manage your fantasy tavern through strategic decisions',
+  title: 'Фэнтезийная Таверна',
+  description: 'Управляйте фэнтезийной таверной через стратегические решения',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent'
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <meta name="theme-color" content="#0a0a0a" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

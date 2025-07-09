@@ -17,6 +17,7 @@ import { GameEngine } from '@repo/game-logic';
 import { StorageService } from '@/services/storage';
 import { TelegramService } from '@/services/telegram';
 import { BarChart3, HelpCircle, User } from 'lucide-react';
+import { useImagePreloader } from '@/hooks/useImagePreloader';
 
 export default function GameScreen() {
   const {
@@ -41,6 +42,9 @@ export default function GameScreen() {
   const gameEngine = new GameEngine();
   const storage = StorageService.getInstance();
   const telegram = TelegramService.getInstance();
+  
+  // Preload images in the background
+  useImagePreloader();
 
   useEffect(() => {
     // Check if tutorial has been completed
@@ -134,21 +138,21 @@ export default function GameScreen() {
               className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
             >
               <BarChart3 className="w-4 h-4" />
-              <span className="font-semibold text-sm">Portfolio</span>
+              <span className="font-semibold text-sm">Портфолио</span>
             </button>
             <button
               onClick={() => setShowProfile(true)}
               className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
             >
               <User className="w-4 h-4" />
-              <span className="font-semibold text-sm">Profile</span>
+              <span className="font-semibold text-sm">Профиль</span>
             </button>
             <button
               onClick={() => setShowHelp(true)}
               className="flex-1 flex items-center justify-center gap-1.5 px-3 py-2.5 bg-game-bg hover:bg-gray-800 border border-game-border rounded-lg transition-colors"
             >
               <HelpCircle className="w-4 h-4" />
-              <span className="font-semibold text-sm">Help</span>
+              <span className="font-semibold text-sm">Помощь</span>
             </button>
           </div>
         </div>

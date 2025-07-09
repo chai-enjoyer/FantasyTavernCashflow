@@ -43,11 +43,11 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
     <div className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4">
       <div className="bg-gray-900 rounded-lg max-w-md w-full p-6">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-bold text-white">Settings</h2>
+          <h2 className="text-xl font-bold text-white">Настройки</h2>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
-            aria-label="Close settings"
+            aria-label="Закрыть настройки"
           >
             <X className="w-5 h-5" />
           </button>
@@ -62,8 +62,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <VolumeX className="w-5 h-5 text-gray-500" />
               )}
               <div>
-                <p className="text-white font-medium">Sound Effects</p>
-                <p className="text-gray-400 text-sm">In-game sound effects</p>
+                <p className="text-white font-medium">Звуковые эффекты</p>
+                <p className="text-gray-400 text-sm">Игровые звуковые эффекты</p>
               </div>
             </div>
             <button
@@ -84,8 +84,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             <div className="flex items-center space-x-3">
               <Music className={`w-5 h-5 ${musicEnabled ? 'text-green-400' : 'text-gray-500'}`} />
               <div>
-                <p className="text-white font-medium">Background Music</p>
-                <p className="text-gray-400 text-sm">Ambient tavern music</p>
+                <p className="text-white font-medium">Фоновая музыка</p>
+                <p className="text-gray-400 text-sm">Атмосферная музыка таверны</p>
               </div>
             </div>
             <button
@@ -106,8 +106,8 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
             <div className="flex items-center space-x-3">
               <Vibrate className={`w-5 h-5 ${hapticEnabled ? 'text-green-400' : 'text-gray-500'}`} />
               <div>
-                <p className="text-white font-medium">Haptic Feedback</p>
-                <p className="text-gray-400 text-sm">Vibration feedback</p>
+                <p className="text-white font-medium">Тактильная отдача</p>
+                <p className="text-gray-400 text-sm">Вибрационная отдача</p>
               </div>
             </div>
             <button
@@ -127,7 +127,7 @@ export default function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
         <div className="mt-6 pt-6 border-t border-gray-700">
           <p className="text-gray-400 text-sm text-center">
-            Settings are saved automatically
+            Настройки сохраняются автоматически
           </p>
         </div>
       </div>

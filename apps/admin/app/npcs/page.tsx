@@ -26,7 +26,7 @@ export default function NPCsPage() {
   };
 
   const handleDelete = async (npcId: string) => {
-    if (!confirm('Are you sure you want to delete this NPC?')) return;
+    if (!confirm('Вы уверены, что хотите удалить этого НПС?')) return;
     
     try {
       await deleteNPC(npcId);
@@ -37,16 +37,41 @@ export default function NPCsPage() {
   };
 
   const getClassColor = (npcClass: NPC['class']) => {
-    const colors = {
+    const colors: Record<NPC['class'], string> = {
       commoner: 'text-gray-400',
+      merchant: 'text-emerald-500',
+      noble: 'text-purple-500',
       adventurer: 'text-blue-500',
       criminal: 'text-red-500',
-      noble: 'text-purple-500',
-      royal: 'text-yellow-500',
+      guard: 'text-slate-500',
       cleric: 'text-green-500',
       mage: 'text-indigo-500',
+      royal: 'text-yellow-500',
       crime_boss: 'text-orange-500',
       dragon: 'text-pink-500',
+      bard: 'text-cyan-500',
+      alchemist: 'text-teal-500',
+      dwarf: 'text-amber-600',
+      elf: 'text-green-400',
+      halfling: 'text-lime-500',
+      orc: 'text-red-700',
+      vampire: 'text-red-800',
+      pirate: 'text-blue-600',
+      monk: 'text-orange-400',
+      witch: 'text-purple-600',
+      knight: 'text-blue-700',
+      necromancer: 'text-gray-800',
+      barbarian: 'text-red-600',
+      artisan: 'text-yellow-600',
+      scholar: 'text-blue-400',
+      blacksmith: 'text-gray-600',
+      hunter: 'text-green-600',
+      sailor: 'text-blue-500',
+      healer: 'text-green-400',
+      beggar: 'text-gray-500',
+      artist: 'text-pink-400',
+      official: 'text-slate-600',
+      mystic: 'text-purple-400',
     };
     return colors[npcClass] || 'text-gray-400';
   };
@@ -54,7 +79,7 @@ export default function NPCsPage() {
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">Loading...</div>
+        <div className="text-center">Загрузка...</div>
       </div>
     );
   }
@@ -62,10 +87,10 @@ export default function NPCsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">NPCs Management</h1>
+        <h1 className="text-3xl font-bold">Управление НПС</h1>
         <Link href="/npcs/new" className="admin-button flex items-center gap-2">
           <Plus className="w-4 h-4" />
-          New NPC
+          Новый НПС
         </Link>
       </div>
 
@@ -83,11 +108,11 @@ export default function NPCsPage() {
                 
                 <div className="flex items-center gap-6 text-sm">
                   <div>
-                    <span className="text-gray-400">Wealth:</span>{' '}
+                    <span className="text-gray-400">Богатство:</span>{' '}
                     <span className="text-game-gold">{'⭐'.repeat(npc.wealth)}</span>
                   </div>
                   <div>
-                    <span className="text-gray-400">Reliability:</span>{' '}
+                    <span className="text-gray-400">Надёжность:</span>{' '}
                     <span className="text-admin-text">{npc.reliability}%</span>
                   </div>
                 </div>
@@ -98,15 +123,15 @@ export default function NPCsPage() {
 
                 <div className="grid grid-cols-3 gap-2 mt-4">
                   <div className="bg-admin-bg p-2 rounded text-center">
-                    <span className="text-xs text-gray-400">Neutral</span>
+                    <span className="text-xs text-gray-400">Нейтральный</span>
                     {npc.portraits.neutral ? '✓' : '✗'}
                   </div>
                   <div className="bg-admin-bg p-2 rounded text-center">
-                    <span className="text-xs text-gray-400">Positive</span>
+                    <span className="text-xs text-gray-400">Позитивный</span>
                     {npc.portraits.positive ? '✓' : '✗'}
                   </div>
                   <div className="bg-admin-bg p-2 rounded text-center">
-                    <span className="text-xs text-gray-400">Negative</span>
+                    <span className="text-xs text-gray-400">Негативный</span>
                     {npc.portraits.negative ? '✓' : '✗'}
                   </div>
                 </div>
@@ -133,7 +158,7 @@ export default function NPCsPage() {
 
       {npcs.length === 0 && (
         <div className="text-center py-12 text-gray-400">
-          No NPCs created yet.
+          НПС ещё не созданы.
         </div>
       )}
     </div>

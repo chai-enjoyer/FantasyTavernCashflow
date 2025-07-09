@@ -17,8 +17,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'money_master',
     type: 'money_earned',
-    name: 'Money Master',
-    description: 'Accumulate a total of {target} gold',
+    name: 'Мастер Денег',
+    description: 'Накопить всего {target} золота',
     tiers: {
       bronze: { target: 50000, experience: 100 },
       silver: { target: 200000, experience: 250 },
@@ -29,8 +29,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'survivor',
     type: 'turns_survived',
-    name: 'Survivor',
-    description: 'Survive {target} turns in a single game',
+    name: 'Выживший',
+    description: 'Продержаться {target} ходов в одной игре',
     tiers: {
       bronze: { target: 20, experience: 100 },
       silver: { target: 50, experience: 250 },
@@ -41,8 +41,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'reputation_legend',
     type: 'reputation_max',
-    name: 'Reputation Legend',
-    description: 'Reach {target} reputation',
+    name: 'Легенда Репутации',
+    description: 'Достичь {target} репутации',
     tiers: {
       bronze: { target: 50, experience: 100 },
       silver: { target: 100, experience: 250 },
@@ -53,8 +53,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'decision_maker',
     type: 'decisions_made',
-    name: 'Decision Maker',
-    description: 'Make {target} decisions',
+    name: 'Принимающий Решения',
+    description: 'Принять {target} решений',
     tiers: {
       bronze: { target: 50, experience: 50 },
       silver: { target: 200, experience: 150 },
@@ -65,8 +65,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'veteran_tavernkeeper',
     type: 'games_played',
-    name: 'Veteran Tavernkeeper',
-    description: 'Play {target} games',
+    name: 'Ветеран Таверны',
+    description: 'Сыграть {target} игр',
     tiers: {
       bronze: { target: 5, experience: 50 },
       silver: { target: 25, experience: 150 },
@@ -77,8 +77,8 @@ const ACHIEVEMENTS: AchievementDefinition[] = [
   {
     id: 'dragon_whisperer',
     type: 'dragon_friend',
-    name: 'Dragon Whisperer',
-    description: 'Max out relationship with a dragon',
+    name: 'Укротитель Драконов',
+    description: 'Максимальные отношения с драконом',
     tiers: {
       bronze: { target: 1, experience: 500 },
       silver: { target: 1, experience: 500 },
@@ -98,6 +98,16 @@ export class AchievementService {
       AchievementService.instance = new AchievementService();
     }
     return AchievementService.instance;
+  }
+
+  private getTierName(tier: 'bronze' | 'silver' | 'gold' | 'platinum'): string {
+    const tierNames = {
+      bronze: 'Бронза',
+      silver: 'Серебро',
+      gold: 'Золото',
+      platinum: 'Платина'
+    };
+    return tierNames[tier];
   }
 
   public checkAchievements(
@@ -123,7 +133,7 @@ export class AchievementService {
             id: achievementId,
             type: definition.type,
             tier,
-            name: `${definition.name} ${tier.charAt(0).toUpperCase() + tier.slice(1)}`,
+            name: `${definition.name} ${this.getTierName(tier)}`,
             description: definition.description.replace('{target}', tierData.target.toString()),
             unlockedAt: new Date(),
             progress: progress,

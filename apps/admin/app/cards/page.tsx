@@ -44,7 +44,7 @@ export default function CardsPage() {
   };
 
   const handleDelete = async (cardId: string) => {
-    if (!confirm('Are you sure you want to delete this card?')) return;
+    if (!confirm('Вы уверены, что хотите удалить эту карту?')) return;
     
     try {
       await deleteCard(cardId);
@@ -65,7 +65,7 @@ export default function CardsPage() {
 
   const getNPCName = (npcId: string) => {
     const npc = npcs.find(n => n.id === npcId);
-    return npc?.name || 'Unknown NPC';
+    return npc?.name || 'Неизвестный НПС';
   };
 
   const getPriorityColor = (priority: number) => {
@@ -80,18 +80,18 @@ export default function CardsPage() {
 
   const getPriorityLabel = (priority: number) => {
     switch (priority) {
-      case 1: return 'Critical';
-      case 2: return 'Risk';
-      case 3: return 'Story';
-      case 4: return 'Normal';
-      default: return 'Unknown';
+      case 1: return 'Критический';
+      case 2: return 'Рисковый';
+      case 3: return 'Сюжетный';
+      case 4: return 'Обычный';
+      default: return 'Неизвестный';
     }
   };
 
   if (loading) {
     return (
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center">Loading...</div>
+        <div className="text-center">Загрузка...</div>
       </div>
     );
   }
@@ -99,10 +99,10 @@ export default function CardsPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold">Cards Management</h1>
+        <h1 className="text-3xl font-bold">Управление картами</h1>
         <Link href="/cards/new" className="admin-button flex items-center gap-2">
           <Plus className="w-4 h-4" />
-          New Card
+          Новая карта
         </Link>
       </div>
 
@@ -111,7 +111,7 @@ export default function CardsPage() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <input
             type="text"
-            placeholder="Search cards..."
+            placeholder="Поиск карт..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="admin-input pl-10"
@@ -125,22 +125,22 @@ export default function CardsPage() {
             <div className="flex justify-between items-start">
               <div className="flex-1">
                 <div className="flex items-center gap-4 mb-2">
-                  <h3 className="text-xl font-semibold">{card.title || 'Untitled Card'}</h3>
+                  <h3 className="text-xl font-semibold">{card.title || 'Без названия'}</h3>
                   <span className={`text-sm font-medium ${getPriorityColor(card.priority || 4)}`}>
                     {getPriorityLabel(card.priority || 4)}
                   </span>
                   <span className="text-sm text-gray-400">
-                    {card.type || 'unknown'}
+                    {card.type || 'неизвестный'}
                   </span>
                 </div>
                 <p className="text-gray-400 mb-2">{getNPCName(card.npcId || '')}</p>
-                <p className="text-admin-text mb-4">{card.situation || 'No description'}</p>
+                <p className="text-admin-text mb-4">{card.situation || 'Описание отсутствует'}</p>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   {card.options && Array.isArray(card.options) ? card.options.map((option, idx) => (
                     <div key={idx} className="bg-admin-bg p-2 rounded">
-                      <span className="text-gray-400">Option {idx + 1}:</span> {option?.text || 'No text'}
+                      <span className="text-gray-400">Вариант {idx + 1}:</span> {option?.text || 'Нет текста'}
                     </div>
-                  )) : <div className="text-gray-400">No options available</div>}
+                  )) : <div className="text-gray-400">Нет доступных вариантов</div>}
                 </div>
               </div>
               <div className="flex gap-2 ml-4">
@@ -164,7 +164,7 @@ export default function CardsPage() {
 
       {filteredCards.length === 0 && (
         <div className="text-center py-12 text-gray-400">
-          {searchTerm ? 'No cards found matching your search.' : 'No cards created yet.'}
+          {searchTerm ? 'Не найдено карт, соответствующих запросу.' : 'Карты ещё не созданы.'}
         </div>
       )}
     </div>
