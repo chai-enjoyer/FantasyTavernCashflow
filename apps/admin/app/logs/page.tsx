@@ -38,7 +38,7 @@ export default function LogsPage() {
       
       const result = await getActivityLogs(
         filters,
-        append ? lastDoc : undefined
+        append && lastDoc ? lastDoc : undefined
       );
       
       if (append) {
