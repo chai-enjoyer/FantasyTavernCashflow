@@ -4,10 +4,9 @@ This directory contains game data files for Fantasy Tavern Cashflow.
 
 ## Files
 
-- `initial-game-data-import.json` - Complete initial game data ready for admin panel import
-- `import-template-correct.json` - Template for creating new import files (correct format)
-- `initial-game-data.json` - Raw game data (not for direct import)
-- `import-template.json` - Old template format (deprecated)
+- `initial-game-data.json` - Core game data with Russian translations
+- `initial-game-data-import.json` - Same data formatted for admin panel import (includes version and timestamp)
+- `import-template-correct.json` - Template for creating new import files
 
 ## Import Format
 
